@@ -7,7 +7,7 @@
         1,2,3,4,5
     */
 
-    $string = "1,2,3,2,4,1,5";
+    $string = readline("Introduce elementos separados por comas: ");
     $string_array = explode(",", $string);
     $array_unique = array_unique($string_array);
 
