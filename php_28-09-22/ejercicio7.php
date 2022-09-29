@@ -9,7 +9,7 @@
     for ($i = 0; $i <= 100; $i ++) {
         if ($i % 2 == 0){
             $even_array[$pointer] = $i;
-            $array_string .= $i . ",";
+            $array_string .= $even_array[$pointer] . ",";
         }
         $pointer++;
     }
