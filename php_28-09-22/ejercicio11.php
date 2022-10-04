@@ -12,7 +12,7 @@
 
     */
 
-    $array = [16, 17, 4, 3, 5, 2];
+    $array = [1, 2, 3, 4, 0];
     $res = [];
     define("size",count($array));
 
@@ -20,7 +20,7 @@
         $subarray = array_slice($array, $i + 1);
         $value_sum = array_sum($subarray);
 
-        if ($array[$i] > $value_sum) {
+        if ($array[$i] > $value_sum || $i == size - 1) {
             array_push($res, $array[$i]);
         }
     }
