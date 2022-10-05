@@ -13,17 +13,27 @@
     $player1 = "X";
     $player2 = "O";
     $gameBoard = [["-", "-", "-"],["-", "-", "-"],["-", "-", "-"]];
-    $stopGame = false;
-    $count = 0;
+    define("finishGame", ["Empate","Gana el jugador 1","Gana el jugador 2"]);
+    $status = 0;
 
-    while($count != 1) {
+    while(true) {
         $player1Pos = movePlayer($gameBoard, $player1);
         $gameBoard[$player1Pos[0]][$player1Pos[1]] = $player1;
+        printGame($gameBoard);
+        $status = comprobeFinish($gameBoard);
+        if($status !== 3) {
+            break;
+        }
 
         $player2Pos = movePlayer($gameBoard, $player2);
         $gameBoard[$player2Pos[0]][$player2Pos[1]] = $player2;
         printGame($gameBoard);
-        $count++;
+        $status = comprobeFinish($gameBoard);
+        if($status !== 3) {
+            break;
+        }
     }  
+
+    echo finishGame[$status]
     
 ?>

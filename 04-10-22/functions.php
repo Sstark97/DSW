@@ -33,5 +33,21 @@ function movePlayer($gameBoard, $player)
 
 function comprobeFinish($gameBoard)
 {
-    $finish = false;
+    $finish = 3;
+
+    for($row = 0; $row < 3; $row++) {
+        if(count(array_keys($gameBoard[$row],"X")) === 3) {
+            $finish = 1;
+            break;
+        } else if(count(array_keys($gameBoard[$row],"O")) === 3) {
+            $finish = 2;
+            break;
+        }
+
+        for($column = 0; $column < 3; $column++) {
+            
+        }
+    }
+
+    return $finish;
 }
