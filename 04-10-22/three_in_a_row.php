@@ -8,40 +8,22 @@
     poner el valor (X o O dependiendo del jugador), ver si ya tiene el tres en raya y comprobar que no
     haya un valor en esa posición.
 */
-    function comprobePos ($gameBoard,$xPos, $yPos) {
-        return in_array([0,1,2], $xPos) && in_array([0,1,2], $yPos) && $gameBoard[$xPos][$yPos] === "-";
-    }
-
-    function comprobeFinish ($gameBoard) {
-        $finish = false;
-    }
+    include "functions.php";
 
     $player1 = "X";
     $player2 = "O";
     $gameBoard = [["-", "-", "-"],["-", "-", "-"],["-", "-", "-"]];
     $stopGame = false;
+    $count = 0;
 
-    // while(!stop) {
-    //     $player1Mov1 = readline("Dime la primera posición en la quiere colocar su ficha (X)");
-    //     $player1Mov2 = readline("Dime la segunda posición en la quiere colocar su ficha (X)");
+    while($count != 1) {
+        $player1Pos = movePlayer($gameBoard, $player1);
+        $gameBoard[$player1Pos[0]][$player1Pos[1]] = $player1;
 
-    //     if(comprobePos($gameBoard,$player1Mov1, $player1Mov2)) {
-    //         $gameBoard[$player1Mov1][$player1Mov2] = $player1;
-    //         $player2Mov = readline("En que posición quiere colocar su ficha (0)");
-    //         $player2Mov2 = readline("Dime la segunda posición en la quiere colocar su ficha (0)");
-
-    //         if(comprobePos($gameBoard,$player2Mov1, $player2Mov2)) {
-    //             $gameBoard[$player2Mov1][$player2Mov2] = $player2;
-    //         } else {
-    //             echo "Jugador 2 esa posición no es valida";
-    //         }
-
-    //     } else {
-    //         echo "Jugador 1 esa posición no es valida";
-    //     }
-    // }
-
-    echo strtr(json_encode($gameBoard),"],","]\n");
+        $player2Pos = movePlayer($gameBoard, $player2);
+        $gameBoard[$player2Pos[0]][$player2Pos[1]] = $player2;
+        printGame($gameBoard);
+        $count++;
+    }  
     
-
 ?>
