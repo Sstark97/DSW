@@ -34,6 +34,7 @@ function movePlayer($gameBoard, $player)
 function comprobeFinish($gameBoard)
 {
     $finish = 3;
+    $stop = false;
 
     for($row = 0; $row < 3; $row++) {
         if(count(array_keys($gameBoard[$row],"X")) === 3) {
@@ -44,10 +45,53 @@ function comprobeFinish($gameBoard)
             break;
         }
 
+        if($stop) {
+            break;
+        }
+
         for($column = 0; $column < 3; $column++) {
-            
+            if(isset($gameBoard[$row + 1][$column]) && isset($gameBoard[$row + 2][$column])) {
+                if($gameBoard[$row][$column] === "X" && $gameBoard[$row + 1][$column] === "X" && $gameBoard[$row + 2][$column] === "X"){
+                    $finish = 1;
+                    $stop = true;
+                    break;
+                } else if ($gameBoard[$row][$column] === "O" && $gameBoard[$row + 1][$column] === "O" && $gameBoard[$row + 2][$column] === "O"){
+                    $finish = 2;
+                    $stop = true;
+                    break;
+                }
+            }
+
+            if(isset($gameBoard[$row + 1][$column + 1]) && isset($gameBoard[$row + 2][$column + 2])) {
+
+                if($gameBoard[$row][$column] === "X" && $gameBoard[$row + 1][$column + 1] === "X" && $gameBoard[$row + 2][$column + 2] === "X"){
+                    $finish = 1;
+                    $stop = true;
+                    break;
+                } else if ($gameBoard[$row][$column] === "O" && $gameBoard[$row + 1][$column + 1] === "O" && $gameBoard[$row + 2][$column + 2] === "O"){
+                    $finish = 2;
+                    $stop = true;
+                    break;
+                }
+            }
+
+            if($column === 2 && isset($gameBoard[$row + 1 ][1]) && isset($gameBoard[$row + 2][0])) {
+
+                if($gameBoard[$row][$column] === "X" && $gameBoard[$row + 1][$column - 1] === "X" && $gameBoard[$row + 2][$column - 2] === "X"){
+                    $finish = 1;
+                    $stop = true;
+                    break;
+                } else if ($gameBoard[$row][$column] === "O" && $gameBoard[$row + 1][$column - 1] === "O" && $gameBoard[$row + 2][$column - 2] === "O"){
+                    $finish = 2;
+                    $stop = true;
+                    break;
+                }
+            }
+
         }
     }
+
+    $finish = $finish !== 0 ? $finish : 0;
 
     return $finish;
 }
