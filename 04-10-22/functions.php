@@ -40,10 +40,6 @@ function comprobeFinish($gameBoard)
     $finish = 3;
     $stop = false;
 
-    if(isTie($gameBoard)) {
-        return 0;
-    }
-
     for($row = 0; $row < 3; $row++) {
         if(count(array_keys($gameBoard[$row],"X")) === 3) {
             $finish = 1;

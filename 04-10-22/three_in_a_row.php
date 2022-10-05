@@ -15,25 +15,39 @@
     $gameBoard = [["-", "-", "-"],["-", "-", "-"],["-", "-", "-"]];
     define("finishGame", ["Empate","Gana el jugador 1","Gana el jugador 2"]);
     $status = 0;
+    $mov = 0;
 
-    while(true) {
+    while($mov < 9) {
         $player1Pos = movePlayer($gameBoard, $player1);
         $gameBoard[$player1Pos[0]][$player1Pos[1]] = $player1;
+        $mov ++;
         printGame($gameBoard);
         $status = comprobeFinish($gameBoard);
-        if($status !== 3) {
+        if($status !== 3 || $mov === 9) {
             break;
         }
 
         $player2Pos = movePlayer($gameBoard, $player2);
         $gameBoard[$player2Pos[0]][$player2Pos[1]] = $player2;
+        $mov ++;
         printGame($gameBoard);
         $status = comprobeFinish($gameBoard);
-        if($status !== 3) {
+        if($status !== 3 || $mov === 9) {
             break;
         }
     }  
+    echo $mov;
 
-    echo finishGame[$status]
+    if(isTie($gameBoard)) {
+        echo finishGame[0];
+    } else {
+        finishGame[$status];
+    }
+
+    /*
+        [X X O]
+        [O X X]
+        [X O O]
+    */
     
 ?>
