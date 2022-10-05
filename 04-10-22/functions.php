@@ -31,10 +31,18 @@ function movePlayer($gameBoard, $player)
     return [$playerMov1, $playerMov2];
 }
 
+function isTie($gameBoard) {
+    return count(array_keys($gameBoard[0],"-")) === 3 && count(array_keys($gameBoard[1],"-")) === 3 && count(array_keys($gameBoard[2],"-")) === 3;
+}
+
 function comprobeFinish($gameBoard)
 {
     $finish = 3;
     $stop = false;
+
+    if(isTie($gameBoard)) {
+        return 0;
+    }
 
     for($row = 0; $row < 3; $row++) {
         if(count(array_keys($gameBoard[$row],"X")) === 3) {
@@ -90,8 +98,6 @@ function comprobeFinish($gameBoard)
 
         }
     }
-
-    $finish = $finish !== 0 ? $finish : 0;
 
     return $finish;
 }
