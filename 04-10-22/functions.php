@@ -13,9 +13,10 @@ function comprobePos($gameBoard, $xPos, $yPos)
     return isset($gameBoard[$xPos][$yPos]) && $gameBoard[$xPos][$yPos] === "-";
 }
 
-function movePlayer($gameBoard, $player)
+function movePlayer($gameBoard, $mov)
 {
     $stop = false;
+    $player = $mov % 2 === 0 ? "X" : "O";
     $numberPlayer = $player === "X" ? 1 : 2;
 
     while (!$stop) {
@@ -28,11 +29,7 @@ function movePlayer($gameBoard, $player)
             $stop = true;
         }
     }
-    return [$playerMov1, $playerMov2];
-}
-
-function isTie($gameBoard) {
-    return count(array_keys($gameBoard[0],"-")) === 3 && count(array_keys($gameBoard[1],"-")) === 3 && count(array_keys($gameBoard[2],"-")) === 3;
+    return [$playerMov1, $playerMov2, $player];
 }
 
 function comprobeFinish($gameBoard, $mov)
@@ -43,22 +40,20 @@ function comprobeFinish($gameBoard, $mov)
         return 0;
     }
 
-    for($row = 0; $row < 3; $row++) {
-        if(count(array_keys($gameBoard[$row],"X")) === 3) {
+    for($pos = 0; $pos < 3; $pos++) {
+
+        if(count(array_keys($gameBoard[$pos],"X")) === 3) {
             $finish = 1;
             return $finish;
-        } else if(count(array_keys($gameBoard[$row],"O")) === 3) {
+        } else if(count(array_keys($gameBoard[$pos],"O")) === 3) {
             $finish = 2;
             return $finish;
         }
-    }
-
-    for($column = 0; $column < 3; $column++) {
             
-        if($gameBoard[0][$column] === "X" && $gameBoard[1][$column] === "X" && $gameBoard[2][$column] === "X"){
+        if($gameBoard[0][$pos] === "X" && $gameBoard[1][$pos] === "X" && $gameBoard[2][$pos] === "X"){
             $finish = 1;
             return $finish;
-        } else if ($gameBoard[0][$column] === "O" && $gameBoard[1][$column] === "O" && $gameBoard[2][$column] === "O"){
+        } else if ($gameBoard[0][$pos] === "O" && $gameBoard[1][$pos] === "O" && $gameBoard[2][$pos] === "O"){
             $finish = 2;
             return $finish;
         }

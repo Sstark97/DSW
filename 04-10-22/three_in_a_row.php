@@ -10,29 +10,19 @@
 */
     include "functions.php";
 
-    $player1 = "X";
-    $player2 = "O";
     $gameBoard = [["-", "-", "-"],["-", "-", "-"],["-", "-", "-"]];
     define("finishGame", ["Empate","Gana el jugador 1","Gana el jugador 2"]);
     $status = 0;
     $mov = 0;
 
     while($mov < 9) {
-        $player1Pos = movePlayer($gameBoard, $player1);
-        $gameBoard[$player1Pos[0]][$player1Pos[1]] = $player1;
-        $mov ++;
-        printGame($gameBoard);
-        $status = comprobeFinish($gameBoard, $mov);
-        if($status !== 3 || $mov === 9) {
-            break;
-        }
+        $moveResult = movePlayer($gameBoard, $mov);
 
-        $player2Pos = movePlayer($gameBoard, $player2);
-        $gameBoard[$player2Pos[0]][$player2Pos[1]] = $player2;
+        $gameBoard[$moveResult[0]][$moveResult[1]] = $moveResult[2];
         $mov ++;
         printGame($gameBoard);
         $status = comprobeFinish($gameBoard, $mov);
-        if($status !== 3 || $mov === 9) {
+        if($status !== 3) {
             break;
         }
     }  
