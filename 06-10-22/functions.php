@@ -70,20 +70,19 @@
     }
 
     function matrixProduct ($matrix1, $matrix2) {
-        $size1 = count($matrix1);
-        $size2 = count($matrix2);
-        if($size1 !== $size2) {
-            return "Las matrices no tienen la misma longitud";
-        }
+        $size = count($matrix1);
 
         $matrix = [];
         $result = [];
-        $minus = 0;
+        $sum = 0;
 
-        for($i = 0; $i < $size1; $i++) {
-            for($j = 0; $j < $size1; $j++) {
-                $minus += $matrix1[$i][$j] - $matrix2[$i][$j];
-                array_push($result, $minus);
+        for($i = 0; $i < $size; $i++) {
+            for($j = 0; $j < $size; $j++) {
+                $col = array_column($matrix2,$j);
+                $multiply = array_map (function ($x, $y) { return $y * $x;},$matrix1[$i], $col);
+                $sum = array_sum($multiply);
+
+                array_push($result, $sum);
             }
             array_push($matrix, $result);
             $result = [];

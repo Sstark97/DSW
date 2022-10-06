@@ -7,9 +7,14 @@
 
     include "functions.php";
 
-    $mockM1 = [[1,2,4],[1,2,6], [1,2,6]];
-    $mockM2 = [[2,3,1],[4,2,6], [1,2,6]];
-    $mockSum = matrixMinus($mockM1, $mockM2);
+    $mockM1 = [[2,0,1],[3,0,0], [5,1,1]];
+    $mockM2 = [[1,0,1],[1,2,1], [1,1,0]];
+    $mockSum = matrixProduct($mockM1, $mockM2);
+    $col = array_column($mockM1,1);
+
+    $multiply = array_map (function ($x, $y) {
+        return $y * $x;
+    },$mockM1[0], $col);
 
     showMatrix($mockSum);
 
