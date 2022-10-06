@@ -78,3 +78,5 @@ function comprobeFinish($gameBoard, $mov)
 
     return $finish;
 }
+
+?>
