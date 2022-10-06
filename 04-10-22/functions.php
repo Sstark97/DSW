@@ -35,64 +35,50 @@ function isTie($gameBoard) {
     return count(array_keys($gameBoard[0],"-")) === 3 && count(array_keys($gameBoard[1],"-")) === 3 && count(array_keys($gameBoard[2],"-")) === 3;
 }
 
-function comprobeFinish($gameBoard)
+function comprobeFinish($gameBoard, $mov)
 {
     $finish = 3;
-    $stop = false;
+
+    if($mov === 9) {
+        return 0;
+    }
 
     for($row = 0; $row < 3; $row++) {
         if(count(array_keys($gameBoard[$row],"X")) === 3) {
             $finish = 1;
-            break;
+            return $finish;
         } else if(count(array_keys($gameBoard[$row],"O")) === 3) {
             $finish = 2;
-            break;
+            return $finish;
+        }
+    }
+
+    for($column = 0; $column < 3; $column++) {
+            
+        if($gameBoard[0][$column] === "X" && $gameBoard[1][$column] === "X" && $gameBoard[2][$column] === "X"){
+            $finish = 1;
+            return $finish;
+        } else if ($gameBoard[0][$column] === "O" && $gameBoard[1][$column] === "O" && $gameBoard[2][$column] === "O"){
+            $finish = 2;
+            return $finish;
         }
 
-        if($stop) {
-            break;
-        }
+    }
 
-        for($column = 0; $column < 3; $column++) {
-            if(isset($gameBoard[$row + 1][$column]) && isset($gameBoard[$row + 2][$column])) {
-                if($gameBoard[$row][$column] === "X" && $gameBoard[$row + 1][$column] === "X" && $gameBoard[$row + 2][$column] === "X"){
-                    $finish = 1;
-                    $stop = true;
-                    break;
-                } else if ($gameBoard[$row][$column] === "O" && $gameBoard[$row + 1][$column] === "O" && $gameBoard[$row + 2][$column] === "O"){
-                    $finish = 2;
-                    $stop = true;
-                    break;
-                }
-            }
+    if($gameBoard[0][0] === "X" && $gameBoard[1][1] === "X" && $gameBoard[2][2] === "X"){
+        $finish = 1;
+        $stop = true;
+    } else if ($gameBoard[0][0] === "O" && $gameBoard[1][1] === "O" && $gameBoard[2][2] === "O"){
+        $finish = 2;
+        $stop = true;
+    }
 
-            if(isset($gameBoard[$row + 1][$column + 1]) && isset($gameBoard[$row + 2][$column + 2])) {
-
-                if($gameBoard[$row][$column] === "X" && $gameBoard[$row + 1][$column + 1] === "X" && $gameBoard[$row + 2][$column + 2] === "X"){
-                    $finish = 1;
-                    $stop = true;
-                    break;
-                } else if ($gameBoard[$row][$column] === "O" && $gameBoard[$row + 1][$column + 1] === "O" && $gameBoard[$row + 2][$column + 2] === "O"){
-                    $finish = 2;
-                    $stop = true;
-                    break;
-                }
-            }
-
-            if($column === 2 && isset($gameBoard[$row + 1 ][1]) && isset($gameBoard[$row + 2][0])) {
-
-                if($gameBoard[$row][$column] === "X" && $gameBoard[$row + 1][$column - 1] === "X" && $gameBoard[$row + 2][$column - 2] === "X"){
-                    $finish = 1;
-                    $stop = true;
-                    break;
-                } else if ($gameBoard[$row][$column] === "O" && $gameBoard[$row + 1][$column - 1] === "O" && $gameBoard[$row + 2][$column - 2] === "O"){
-                    $finish = 2;
-                    $stop = true;
-                    break;
-                }
-            }
-
-        }
+    if($gameBoard[0][2] === "X" && $gameBoard[1][1] === "X" && $gameBoard[2][0] === "X"){
+            $finish = 1;
+            $stop = true;
+    } else if ($gameBoard[0][2] === "O" && $gameBoard[1][1] === "O" && $gameBoard[2][0] === "O"){
+            $finish = 2;
+            $stop = true;
     }
 
     return $finish;

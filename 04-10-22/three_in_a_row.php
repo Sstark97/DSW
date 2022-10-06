@@ -22,7 +22,7 @@
         $gameBoard[$player1Pos[0]][$player1Pos[1]] = $player1;
         $mov ++;
         printGame($gameBoard);
-        $status = comprobeFinish($gameBoard);
+        $status = comprobeFinish($gameBoard, $mov);
         if($status !== 3 || $mov === 9) {
             break;
         }
@@ -31,23 +31,11 @@
         $gameBoard[$player2Pos[0]][$player2Pos[1]] = $player2;
         $mov ++;
         printGame($gameBoard);
-        $status = comprobeFinish($gameBoard);
+        $status = comprobeFinish($gameBoard, $mov);
         if($status !== 3 || $mov === 9) {
             break;
         }
     }  
-    echo $mov;
 
-    if(isTie($gameBoard)) {
-        echo finishGame[0];
-    } else {
-        finishGame[$status];
-    }
-
-    /*
-        [X X O]
-        [O X X]
-        [X O O]
-    */
-    
+    echo finishGame[$status];
 ?>
