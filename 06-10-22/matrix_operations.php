@@ -6,26 +6,40 @@
     */
 
     include "functions.php";
+    $stop = false;
 
-    $mockM1 = [[2,0,1],[3,0,0], [5,1,1]];
-    $mockM2 = [[1,0,1],[1,2,1], [1,1,0]];
-    $mockSum = matrixProduct($mockM1, $mockM2);
-    $col = array_column($mockM1,1);
+    while(!$stop) {
+        echo "Operaciones con matrices: \n1) Suma\n2) Resta\n3) Producto\n4) Salir\n";
+        $option = readline("");
 
-    $multiply = array_map (function ($x, $y) {
-        return $y * $x;
-    },$mockM1[0], $col);
-
-    showMatrix($mockSum);
-
-    // $menu = [
-    //     1 => matrixSum(), 
-    //     2 => matrixMinus(), 
-    //     3 => matrixProduct()
-    // ];
-
-    // $matrix = createMatrix();
-    
-    // showMatrix($matrix);
+        switch ($option) {
+            case 1: 
+                $matrix1 = createMatrix(false);
+                $matrix2 = createMatrix(false);
+                
+                $resultSum = matrixSum($matrix1, $matrix2);
+                echo !is_string($resultSum) ? "El resultado es: \n" . showMatrix($resultSum) : $resultSum;
+                break;
+            case 2: 
+                $matrix1 = createMatrix(false);
+                $matrix2 = createMatrix(false);
+                
+                $resultMinus = matrixMinus($matrix1, $matrix2);
+                echo !is_string($resultMinus) ? "El resultado es: \n" . showMatrix($resultMinus) : $resultMinus;
+                break;
+            case 3: 
+                $matrix1 = createMatrix(false);
+                $matrix2 = createMatrix(true);
+                
+                $resultProduct = matrixProduct($matrix1, $matrix2);
+                echo !is_string($resultProduct) ? "El resultado es: \n" . showMatrix($resultProduct) : $resultProduct;
+                break;
+            case 4:
+                $stop = true;
+                break;
+            default: 
+                echo "La opción no es válida";
+        }
+    }
 
 ?>
