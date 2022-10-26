@@ -23,7 +23,7 @@
         echo "<h1 class='text-center mt-4'>El Resultado es $sum</h1>"
     ?>
     <div class="d-flex justify-content-center w-100 mt-5">
-        <button class="btn btn-primary text-center"><a class="text-light text-decoration-none" href="index.php">Introduce otro valor</a></button>
+        <button class="btn btn-primary text-center"><a class="text-light text-decoration-none" href="ejer1.php">Introduce otro valor</a></button>
     </div>
 
     
