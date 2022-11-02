@@ -38,7 +38,8 @@
     // 1. Mediante el uso de la función “range”, crea una matriz de números enteros comprendidos entre 7 y 11, 
     // almacena la misma en una variable denominada $r y muestra el valor tanto de la clave como del elemento almacenado.
 
-    $r = [range(7,11)];
+    $r = range(7,11);
+    echo "<pre>";
     // print_r($r);
 
     /**
@@ -46,6 +47,7 @@
      */
     shuffle($r);
     // print_r($r);
+    // Muestra los elementos de forma aleatoria
 
     /**
      * 3. Mediante el uso de la función “array_flip” intercambia los valores y las claves. 
@@ -56,6 +58,8 @@
     $q = array_flip($c);
     // print_r($p);
     // print_r($q);
+
+    // Invierte las claves y valores, además de eliminar los repetidos
 
     /*
         4. Mediante el uso de la función “array_unshift” inserta los siguientes elementos 97, 
@@ -153,7 +157,7 @@
     // print_r($a);
     // print_r($zz2);
 
-    // Hace lo mmismo en sentido inverso
+    // Hace lo mismo en sentido inverso
 
     /*
         13. Utilizando la misma función del punto 11, ahora pasas como parámetro $b, como segundo parámetro 3 
@@ -180,7 +184,7 @@
     */
 
     $zz5 = array_slice($b,-5,-2);
-    print_r($zz5);
+    // print_r($zz5);
 
     // Devuelde los dos primeros elementos
 
@@ -189,7 +193,9 @@
     */
 
     $inv = array_reverse($c);
-    // print_r($inv);
+    print_r($c);
+    print_r($inv);
+    echo "</pre>";
 
     // Invierte el array
 ?>
