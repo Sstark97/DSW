@@ -2,7 +2,6 @@
     require_once "./parts/parts.php";
     require_once "./agenda/add_contact.php";
     $contacts = []
-    // dni, nombre, apellidos, teléfono, fecha de nacimiento, correo electrónico.
 ?>
 <?= createHeader() ?>
 <div class="w-100">

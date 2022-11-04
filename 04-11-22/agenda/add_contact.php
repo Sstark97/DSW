@@ -43,6 +43,7 @@ function createAddUserForm(string $action) {
     END;
 }
 
-function validateAddUserForm (string $name) {
+// dni, nombre, apellidos, teléfono, fecha de nacimiento, correo electrónico.
+function validateAddUserForm (string $dni, string $name, string $surname, string $phone, string $birth_day, string $email) {
 
 }
