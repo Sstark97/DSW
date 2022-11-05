@@ -1,7 +1,9 @@
 <?php
     require_once "./parts/parts.php";
     require_once "./agenda/add_contact.php";
-    $contacts = []
+    $contacts = [];
+
+    date_default_timezone_set("Atlantic/Canary");
 ?>
 <?= createHeader() ?>
 <div class="w-100">
@@ -24,13 +26,26 @@
 
             <?php if (strcmp($_POST["action"][0],"Subir datos Extra") === 0): ?>
                 <div class="w-100">Subir datos Extra</div>
-            <?php endif; ?>   
+            <?php endif; ?>
+            
     <?php endif; ?>
 
     <?php if(isset($_POST["add_form"])): ?>
-        <pre>
-            <?= print_r($_POST["contact"]) ?>
-        </pre>
+
+        <?php if(comprobeFields($_POST["contact"])) : ?>
+            <p>Hay campos de más o hay campos vacíos</p>
+        <?php else : ?>
+            <?php $message = validateAddUserForm(...array_values($_POST["contact"])) ?>
+        <?php endif; ?>
+
+        <?php if(isset($message) && $message !== ""): ?>
+            <?= $message ?>
+        <?php else: ?>
+            <?php
+                $contact = createContact(...array_values($_POST["contact"]));
+                array_push($contacts, $contact);
+            ?>
+        <?php endif; ?>
     <?php endif; ?>
 </div>
 
