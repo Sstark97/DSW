@@ -1,4 +1,4 @@
-# Vas a crear tu propia AGENDA. 
+# Vas a crear tu propia Agenda. 
 ## Deberás crear un proyecto web en PHP que contendrá:
 
 - Una página principal que me permita indicar al programa que acción quiero realizar. Las acciones que se pueden realizar (cuando se pinche en cada uno se deberá abrir una página nueva) son:
@@ -9,7 +9,7 @@
   5. Subir datos extras: el programa deberá permitir la subida de ficheros e indicar qué fichero pertenece a qué usuario, almacenando la ruta del mismo en un array. Si el fichero ocupa más de 1MB el fichero no se podrá subir al servidor. Los tipos de ficheros permitidos son pdf y odt. Realizar control de errores.
 - El pie de la página deberá tener licencia Creative Commons "Reconocimiento" con tu nombre y apellidos, curso, módulo y ciclo.
 
-## Notas a tener en cuenta**
+## Notas a tener en cuenta
 
 - Crea una nueva carpeta dentro del servidor web denominada agenda que contendrá tu proyecto.
 - La cabecera y el pie de todo el aplicativo deben ser las mismas y estarán ubicadas en el servidor en una carpeta denominada parts.
