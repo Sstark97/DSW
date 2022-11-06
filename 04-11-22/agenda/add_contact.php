@@ -80,11 +80,11 @@ function createContact(string $dni = "", string $name = "", string $surname = ""
         $sanitize_email 
     ]= sanitizeAddContactFields($dni, $name, $surname, $birth_day, $phone, $email);
 
-    $birthday_date = date_create($birth_day);
+    $birthday_date = date_create_from_format('Y-m-d',$birth_day);
     $timestamp_insert = date_timestamp_get($birthday_date);
 
     $contact = [
-        $sanitize_dni => [
+        "$sanitize_dni" => [
             "name" => $sanitize_name,
             "surname" => $sanitize_surname, 
             "birth_day" => $sanitize_birth_day, 

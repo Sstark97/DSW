@@ -1,9 +1,10 @@
 <?php
     require_once "./parts/parts.php";
-    require_once "./agenda/add_contact.php";
     require_once "./agenda/general_functions.php";
-    $contacts = isset($_POST["contacts"]) ? json_decode($_POST["contacts"]) : [];
+    require_once "./agenda/add_contact.php";
+    require_once "./agenda/show_contacts.php";
 
+    $contacts = isset($_POST["contacts"]) ? (array) json_decode($_POST["contacts"], true) : [];
     date_default_timezone_set("Atlantic/Canary");
 ?>
 <?= createHeader($contacts) ?>
@@ -22,7 +23,7 @@
             <?php endif; ?>   
 
             <?php if (strcmp($_POST["action"][0],"Mostrar todos los contactos") === 0): ?>
-                <div class="w-100">Mostrar todos los contactos</div>
+                <?= createContactsTable($contacts) ?>
             <?php endif; ?>   
 
             <?php if (strcmp($_POST["action"][0],"Subir datos Extra") === 0): ?>
@@ -44,7 +45,9 @@
         <?php else: ?>
             <?php
                 $contact = createContact(...array_values($_POST["contact"]));
-                array_push($contacts, $contact);
+                $dni = array_keys($contact)[0];
+                $contact_values = array_values($contact);
+                $contacts[$dni] = json_encode(...$contact_values);
             ?>
             <?= sendContactDataForm("Datos enviados", $contacts, $contact, $_SERVER["PHP_SELF"]) ?>
         <?php endif; ?>

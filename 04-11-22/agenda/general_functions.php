@@ -68,3 +68,16 @@ function contactForm(string $message, string $btn_name, string $action, array $c
         </form>
     END;
 }
+
+function formatTimeStamp (int $time_stamp) {
+    $time = strtolower(strftime("%p",$time_stamp));
+
+    setlocale(LC_ALL,"es", "ES", "es_ES.UTF-8");
+    
+    $day = ucwords(strftime("%A, %d",$time_stamp));
+    $month = ucwords(strftime("%B",$time_stamp));
+    $year = strftime("%G",$time_stamp);
+    $hour = strftime("%I:%M:%S",$time_stamp);
+    
+    return "$day de $month de $year, $hour $time";
+}
