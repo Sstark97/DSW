@@ -1,40 +1,16 @@
 <?php
     require_once "./parts/parts.php";
     require_once "./agenda/add_contact.php";
-    $contacts = [
-        "45398037Q" => [
-            "name" => "Aitor",
-            "surname" => "Santana Cabrera",
-            "birthday" => "1997-07-31",
-            "phone" => "603765431",
-            "email" => "aitorscinfo@gmail.com",
-            "timestamp_insert" => "11:42:35.173"
-        ],
-        "28398036T" => [
-            "name" => "Pepe",
-            "surname" => "Santana Dominguez",
-            "birthday" => "2002-03-30",
-            "phone" => "603765423",
-            "email" => "pepe@gmail.com",
-            "timestamp_insert" => "11:42:35.173"
-        ],
-        "34398045Z" => [
-            "name" => "Paco",
-            "surname" => "Dominguez Santana",
-            "birthday" => "1999-03-30",
-            "phone" => "603765756",
-            "email" => "paco@gmail.com",
-            "timestamp_insert" => "11:42:35.173"
-        ],
-    ];
+    require_once "./agenda/general_functions.php";
+    $contacts = isset($_POST["contacts"]) ? json_decode($_POST["contacts"]) : [];
 
     date_default_timezone_set("Atlantic/Canary");
 ?>
-<?= createHeader() ?>
+<?= createHeader($contacts) ?>
 <div class="w-100">
     <?php if (isset($_POST["action"])) :?>
             <?php if (strcmp($_POST["action"][0],"Añadir contacto") === 0): ?>
-                <?= createAddUserForm($_SERVER["PHP_SELF"]) ?>
+                <?= contactForm("Añadir Contacto","add_form",$_SERVER["PHP_SELF"], $contacts) ?>
             <?php endif; ?>   
 
             <?php if (strcmp($_POST["action"][0],"Actualizar datos") === 0): ?>
@@ -70,6 +46,7 @@
                 $contact = createContact(...array_values($_POST["contact"]));
                 array_push($contacts, $contact);
             ?>
+            <?= sendContactDataForm("Datos enviados", $contacts, $contact, $_SERVER["PHP_SELF"]) ?>
         <?php endif; ?>
     <?php endif; ?>
 </div>

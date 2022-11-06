@@ -1,6 +1,7 @@
 <?php
 
-function createHeader() {
+function createHeader($contacts) {
+    $json_contacts = json_encode($contacts);
     return <<< END
         <!DOCTYPE html>
         <html lang="es">
@@ -39,6 +40,7 @@ function createHeader() {
                                 <div class="nav-item">
                                     <input class="nav-link me-3" type="submit" name="action[]" value="Subir datos Extra" />
                                 </div>
+                                <input type="hidden" name="contacts" value='$json_contacts'>
                             </form>
                         </div>
                     </div>
