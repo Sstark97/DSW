@@ -1,7 +1,32 @@
 <?php
     require_once "./parts/parts.php";
     require_once "./agenda/add_contact.php";
-    $contacts = [];
+    $contacts = [
+        "45398037Q" => [
+            "name" => "Aitor",
+            "surname" => "Santana Cabrera",
+            "birthday" => "1997-07-31",
+            "phone" => "603765431",
+            "email" => "aitorscinfo@gmail.com",
+            "timestamp_insert" => "11:42:35.173"
+        ],
+        "28398036T" => [
+            "name" => "Pepe",
+            "surname" => "Santana Dominguez",
+            "birthday" => "2002-03-30",
+            "phone" => "603765423",
+            "email" => "pepe@gmail.com",
+            "timestamp_insert" => "11:42:35.173"
+        ],
+        "34398045Z" => [
+            "name" => "Paco",
+            "surname" => "Dominguez Santana",
+            "birthday" => "1999-03-30",
+            "phone" => "603765756",
+            "email" => "paco@gmail.com",
+            "timestamp_insert" => "11:42:35.173"
+        ],
+    ];
 
     date_default_timezone_set("Atlantic/Canary");
 ?>
