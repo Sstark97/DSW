@@ -46,6 +46,17 @@ function createContactsTable (array $contacts, string $action) {
             $field = $field_key === "timestamp_insert" ? formatTimeStamp($field) : $field;
             $tbody .= "<td>$field</td>";
         }
+        
+        $tbody .= <<< END
+            <td>
+                <form action="$action" method="post">
+                    <button type="submit" class="btn btn-warning" name="action[update]">
+                        <i class='bx bxs-edit'></i>
+                        <input type="hidden" name="contact_dni" value=$key>
+                    </button>
+                </form>
+            </td>
+        END;
         $tbody .= "</tr>";
     }
 
@@ -64,6 +75,7 @@ function createContactsTable (array $contacts, string $action) {
                     <td>Telefono</td>
                     <td>Email</td>
                     <td>Fecha de Inserción</td>
+                    <td>Acciones</td>
                 </tr>
             </thead>
             <thbody>
