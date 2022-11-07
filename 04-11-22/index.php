@@ -10,7 +10,7 @@
 <?= createHeader($contacts) ?>
 <div class="w-100">
 
-    <?php if(!isset($_POST["not_show"])): ?>
+    <?php if(!isset($_POST["not_show"]) && !isset($_POST["order_action"])): ?>
         <?= createContactsTable($contacts, $_SERVER["PHP_SELF"]) ?>
     <?php endif; ?>
 
