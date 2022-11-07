@@ -1,5 +1,5 @@
 <?php
-function contactForm(string $message, string $btn_name, string $action, array $contacts, array $contact = [], bool $is_read = false) {
+function contactForm(string $message, string $btn_name, string $action, array $contacts, array $contact = [], bool $is_read = false, bool $show = false) {
     $json_contacts = json_encode($contacts);
     $dni = ""; 
     $name = ""; 
@@ -20,6 +20,8 @@ function contactForm(string $message, string $btn_name, string $action, array $c
     }
 
     $read = $is_read ? "readonly" : "";
+    $is_show = !$show ? '<input type="hidden" name="not_show">' : "";
+
     return <<< END
         <h1 class="text-center mt-2">$message</h1>
         <form class="w-50 container mx-auto" action="$action" method="post">
@@ -65,6 +67,7 @@ function contactForm(string $message, string $btn_name, string $action, array $c
                 </div>
             </div>
             <input type="hidden" name="contacts" value='$json_contacts'>
+            $is_show
         </form>
     END;
 }

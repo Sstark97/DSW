@@ -9,27 +9,19 @@
 ?>
 <?= createHeader($contacts) ?>
 <div class="w-100">
+
+    <?php if(!isset($_POST["not_show"])): ?>
+        <?= createContactsTable($contacts, $_SERVER["PHP_SELF"]) ?>
+    <?php endif; ?>
+
     <?php if (isset($_POST["action"])) :?>
-            <?php if (strcmp($_POST["action"][0],"Añadir contacto") === 0): ?>
+            <?php if (isset($_POST["action"]["add"])): ?>
                 <?= contactForm("Añadir Contacto","add_form",$_SERVER["PHP_SELF"], $contacts) ?>
             <?php endif; ?>   
 
-            <?php if (strcmp($_POST["action"][0],"Actualizar datos") === 0): ?>
-                <div class="w-100">Actualizar Datos</div>
-            <?php endif; ?>   
-
-            <?php if (strcmp($_POST["action"][0],"Bloquear un Contacto") === 0): ?>
+            <?php if (isset($_POST["action"]["block"])): ?>
                 <div class="w-100">Bloquear un Contacto</div>
-            <?php endif; ?>   
-
-            <?php if (strcmp($_POST["action"][0],"Mostrar todos los contactos") === 0): ?>
-                <?= createContactsTable($contacts, $_SERVER["PHP_SELF"]) ?>
-            <?php endif; ?>   
-
-            <?php if (strcmp($_POST["action"][0],"Subir datos Extra") === 0): ?>
-                <div class="w-100">Subir datos Extra</div>
-            <?php endif; ?>
-            
+            <?php endif; ?>     
     <?php endif; ?>
 
     <?php if(isset($_POST["add_form"])): ?>

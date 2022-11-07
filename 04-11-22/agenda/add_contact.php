@@ -9,7 +9,7 @@ function sendContactDataForm (string $message, array $contacts, array $contact, 
         $previous = $_SERVER['HTTP_REFERER'];
     }
 
-    $form = contactForm($message, "send_data", $action, $contacts, $contact, true);
+    $form = contactForm($message, "send_data", $action, $contacts, $contact, true, true);
 
     return $form;
 }

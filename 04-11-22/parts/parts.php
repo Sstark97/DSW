@@ -27,21 +27,17 @@ function createHeader($contacts) {
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <form class="navbar-nav me-auto mb-2 mb-lg-0" action="./index.php" method="post">
                                 <div class="nav-item">
-                                        <input class="nav-link me-3" type="submit" name="action[]" value="Añadir contacto" />
+                                        <button class="nav-link me-3" type="submit" name="action[add]">
+                                            Añadir Contacto
+                                        </button>
                                 </div>
                                 <div class="nav-item">
-                                        <input class="nav-link me-3" type="submit" name="action[]" value="Actualizar datos" />
-                                </div>
-                                <div class="nav-item">
-                                    <input class="nav-link me-3" type="submit" name="action[]" value="Bloquear un Contacto" />
-                                </div>
-                                <div class="nav-item">
-                                    <input class="nav-link me-3" type="submit" name="action[]" value="Mostrar todos los contactos" />
-                                </div>
-                                <div class="nav-item">
-                                    <input class="nav-link me-3" type="submit" name="action[]" value="Subir datos Extra" />
+                                    <button class="nav-link me-3" type="submit" name="action[block]">
+                                        Bloquear Contacto
+                                    </button>
                                 </div>
                                 <input type="hidden" name="contacts" value='$json_contacts'>
+                                <input type="hidden" name="not_show">
                             </form>
                         </div>
                     </div>
