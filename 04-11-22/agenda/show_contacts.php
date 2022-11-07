@@ -1,7 +1,38 @@
 <?php
 require_once "general_functions.php";
 
-function createContactsTable (array $contacts) {
+function orderContacts (array &$contacts, bool $by_key = true, string $value = "name") {
+    
+    if($by_key) {
+        ksort($contacts);
+        return;
+    }
+
+    uasort($contacts, function ($a, $b) use ($value) {
+        $a = json_decode($a, true);
+        $b = json_decode($b, true);
+        return $a[$value] <=> $b[$value];
+    });
+
+}
+
+function orderForm (string $action, array $contacts) {
+    $json_contacts = json_encode($contacts);
+
+    return <<< END
+        <form class="d-flex justify-content-end w-75 mx-auto mt-4" action="$action" method="post">
+            <select name="order" class="form-select w-25">
+                <option value="dni">Dni</option>
+                <option value="name">Nombre</option>
+                <option value="surname">Apellidos</option>
+            </select>
+            <input type="hidden" name="contacts" value='$json_contacts'>
+            <button name="order_action" class="btn btn-primary ms-1">Ordenar</button>
+        </form>
+    END;
+}
+
+function createContactsTable (array $contacts, string $action) {
     $tbody = "";
 
     if(count($contacts) === 0) {
@@ -18,8 +49,11 @@ function createContactsTable (array $contacts) {
         $tbody .= "</tr>";
     }
 
+    $orderForm = orderForm($action, $contacts);
+
     return <<< END
-        <h1 class="text-center mt-2">Contactos</h1>
+        <h1 class="text-center mt-3">Contactos</h1>
+        $orderForm
         <table class="table table-bordered table-dark w-75 mx-auto mt-2">
             <thead>
                 <tr>

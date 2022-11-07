@@ -23,7 +23,7 @@
             <?php endif; ?>   
 
             <?php if (strcmp($_POST["action"][0],"Mostrar todos los contactos") === 0): ?>
-                <?= createContactsTable($contacts) ?>
+                <?= createContactsTable($contacts, $_SERVER["PHP_SELF"]) ?>
             <?php endif; ?>   
 
             <?php if (strcmp($_POST["action"][0],"Subir datos Extra") === 0): ?>
@@ -51,6 +51,15 @@
             ?>
             <?= sendContactDataForm("Datos enviados", $contacts, $contact, $_SERVER["PHP_SELF"]) ?>
         <?php endif; ?>
+    <?php endif; ?>
+
+    <?php if(isset($_POST["order_action"])): ?>
+        <?php
+            $order = $_POST["order"];
+            orderContacts($contacts, $order === "dni", $order);
+        ?>
+        
+        <?= createContactsTable($contacts, $_SERVER["PHP_SELF"]) ?>
     <?php endif; ?>
 </div>
 
