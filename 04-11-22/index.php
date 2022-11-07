@@ -4,7 +4,7 @@
     require_once "./agenda/add_contact.php";
     require_once "./agenda/show_contacts.php";
 
-    $contacts = isset($_POST["contacts"]) ? (array) json_decode($_POST["contacts"], true) : [];
+    $contacts = isset($_POST["contacts"]) ? json_decode($_POST["contacts"], true) : [];
     date_default_timezone_set("Atlantic/Canary");
 ?>
 <?= createHeader($contacts) ?>

@@ -2,6 +2,7 @@
 
 function createHeader($contacts) {
     $json_contacts = json_encode($contacts);
+    
     return <<< END
         <!DOCTYPE html>
         <html lang="es">
