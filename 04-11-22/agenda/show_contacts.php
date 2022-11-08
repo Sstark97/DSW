@@ -34,6 +34,7 @@ function orderForm (string $action, array $contacts) {
 
 function createContactsTable (array $contacts, string $action) {
     $tbody = "";
+    $json_contacts = json_encode($contacts);
 
     if(count($contacts) === 0) {
         return "<h1 class='text-center mt-2'>No hay contactos</h1>";
@@ -54,6 +55,7 @@ function createContactsTable (array $contacts, string $action) {
                         <i class='bx bxs-edit'></i>
                         <input type="hidden" name="contact_dni" value=$key>
                     </button>
+                    <input type="hidden" name="contacts" value='$json_contacts'>
                 </form>
             </td>
         END;

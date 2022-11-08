@@ -8,6 +8,7 @@ function contactForm(string $message, string $btn_name, string $action, array $c
     $phone = ""; 
     $email = "";
 
+
     if(count($contact) > 0) {
         $dni = array_keys($contact)[0];
         [
@@ -16,11 +17,13 @@ function contactForm(string $message, string $btn_name, string $action, array $c
             "birth_day" => $birth_day, 
             "phone" => $phone, 
             "email" => $email,
+            "timestamp_insert" => $timestamp_insert
         ]= $contact[$dni];
     }
 
     $read = $is_read ? "readonly" : "";
     $is_show = !$show ? '<input type="hidden" name="not_show">' : "";
+    $is_edit = $btn_name === "action[edit]" ? "<input type='hidden' name='timestamp_insert' value='$timestamp_insert'>" : "";
 
     return <<< END
         <h1 class="text-center mt-2">$message</h1>
@@ -67,9 +70,21 @@ function contactForm(string $message, string $btn_name, string $action, array $c
                 </div>
             </div>
             <input type="hidden" name="contacts" value='$json_contacts'>
+            $is_edit
             $is_show
         </form>
     END;
+}
+
+function sanitizeFields (string $dni = "", string $name = "", string $surname = "", string $birth_day = "", string $phone = "", string $email = "") {
+    $dni = trim(strip_tags($dni));
+    $name = trim(strip_tags($name));
+    $surname = trim(strip_tags($surname));
+    $birth_day = trim(strip_tags($birth_day));
+    $phone = trim(strip_tags($phone));
+    $email = trim(strip_tags(filter_var($email, FILTER_SANITIZE_EMAIL)));
+
+    return [$dni, $name, $surname, $birth_day, $phone, $email];
 }
 
 function formatTimeStamp (int $time_stamp) {

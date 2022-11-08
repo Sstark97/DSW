@@ -58,17 +58,6 @@ function validateAddUserForm (string $dni = "", string $name = "", string $surna
     return $message;
 }
 
-function sanitizeAddContactFields (string $dni = "", string $name = "", string $surname = "", string $birth_day = "", string $phone = "", string $email = "") {
-    $dni = trim(strip_tags($dni));
-    $name = trim(strip_tags($name));
-    $surname = trim(strip_tags($surname));
-    $birth_day = trim(strip_tags($birth_day));
-    $phone = trim(strip_tags($phone));
-    $email = trim(strip_tags(filter_var($email, FILTER_SANITIZE_EMAIL)));
-
-    return [$dni, $name, $surname, $birth_day, $phone, $email];
-}
-
 function createContact(string $dni = "", string $name = "", string $surname = "", string $birth_day = "", string $phone = "", string $email = "") {
 
     [
@@ -78,7 +67,7 @@ function createContact(string $dni = "", string $name = "", string $surname = ""
         $sanitize_birth_day, 
         $sanitize_phone, 
         $sanitize_email 
-    ]= sanitizeAddContactFields($dni, $name, $surname, $birth_day, $phone, $email);
+    ]= sanitizeFields($dni, $name, $surname, $birth_day, $phone, $email);
 
     $birthday_date = date_create_from_format('Y-m-d',$birth_day);
     $timestamp_insert = date_timestamp_get($birthday_date);
