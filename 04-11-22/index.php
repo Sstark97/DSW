@@ -5,6 +5,7 @@
     require_once "./agenda/edit_contact.php";
     require_once "./agenda/block_contact.php";
     require_once "./agenda/show_contacts.php";
+    require_once "./agenda/files_contact.php";
 
     $contacts = isset($_POST["contacts"]) ? json_decode($_POST["contacts"], true) : [];
     date_default_timezone_set("Atlantic/Canary");
@@ -12,7 +13,7 @@
 <?= createHeader($contacts) ?>
 <div class="w-100">
 
-    <?php if(!isset($_POST["not_show"]) && !isset($_POST["order_action"]) && !isset($_POST["action"]) && !isset($_POST["block_action"])): ?>
+    <?php if(!isset($_POST["not_show"]) && !isset($_POST["order_action"]) && !isset($_POST["action"]) && !isset($_POST["block_action"]) && !isset($_POST["upload_action"])): ?>
         <?= createContactsTable($contacts, $_SERVER["PHP_SELF"]) ?>
     <?php endif; ?>
 
@@ -26,7 +27,11 @@
 
             <?php if (isset($_POST["action"]["block"])): ?>
                 <?= blockContactForm($_SERVER["PHP_SELF"], $contacts) ?>
-            <?php endif; ?>     
+            <?php endif; ?>
+
+            <?php if (isset($_POST["action"]["upload"])): ?>
+                <?= uploadForm($_SERVER["PHP_SELF"],$_POST["contact_dni"] ,$contacts) ?>
+            <?php endif; ?>    
     <?php endif; ?>
 
     <?php if(isset($_POST["add_form"]) || isset($_POST["action"]["edit"])): ?> 
@@ -62,6 +67,13 @@
         ?>
         
         <?= createContactsTable($contacts, $_SERVER["PHP_SELF"]) ?>
+    <?php endif; ?>
+
+    <?php if(isset($_POST["upload_action"])): ?>
+        
+        <pre>
+            <?= print_r($_FILES)?>
+        </pre>
     <?php endif; ?>
 </div>
 
