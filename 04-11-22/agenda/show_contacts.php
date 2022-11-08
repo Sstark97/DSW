@@ -56,9 +56,13 @@ function createContactsTable (array $contacts, string $action) {
         
         $tbody .= <<< END
             <td>
-                <form action="$action" method="post">
+                <form class="text-center" action="$action" method="post">
                     <button type="submit" class="btn btn-warning" name="action[update]">
                         <i class='bx bxs-edit'></i>
+                        <input type="hidden" name="contact_dni" value=$key>
+                    </button>
+                    <button type="submit" class="btn btn-primary" name="action[upload]">
+                        <i class='bx bxs-file-import'></i>
                         <input type="hidden" name="contact_dni" value=$key>
                     </button>
                     <input type="hidden" name="contacts" value='$json_contacts'>
