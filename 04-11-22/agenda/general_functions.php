@@ -1,4 +1,7 @@
 <?php
+require_once "./agenda/add_contact.php";
+require_once "./agenda/edit_contact.php";
+
 function contactForm(string $message, string $btn_name, string $action, array $contacts, array $contact = [], bool $is_read = false, bool $show = false) {
     $json_contacts = json_encode($contacts);
     $dni = ""; 
@@ -74,6 +77,15 @@ function contactForm(string $message, string $btn_name, string $action, array $c
             $is_show
         </form>
     END;
+}
+
+function modifyAction(bool $is_edit, int $time_stamp, array &$contacts, array $post_values) {
+    $contact = $is_edit ? createContact(...$post_values) : editContact($time_stamp, $contacts, ...$post_values);
+    $dni = array_keys($contact)[0];
+    $contact_values = array_values($contact);
+    $contacts[$dni] = json_encode(...$contact_values);
+
+    return $contact;
 }
 
 function sanitizeFields (string $dni = "", string $name = "", string $surname = "", string $birth_day = "", string $phone = "", string $email = "") {

@@ -40,11 +40,8 @@
         <?php if(empty($message) && !$is_ok ): ?>
             <?php
                 $post_values = array_values($_POST["contact"]);
-                $time_stamp = $_POST["timestamp_insert"] ?? "";
-                $contact = !isset($_POST["action"]["edit"]) ? createContact(...$post_values) : editContact($time_stamp, $contacts, ...$post_values);
-                $dni = array_keys($contact)[0];
-                $contact_values = array_values($contact);
-                $contacts[$dni] = json_encode(...$contact_values);
+                $time_stamp = $_POST["timestamp_insert"] ?? 0;
+                $contact = modifyAction(!isset($_POST["action"]["edit"]), $time_stamp, $contacts, $post_values);
             ?>
             <?= sendContactDataForm("Datos enviados", $contacts, $contact, $_SERVER["PHP_SELF"]) ?>
         <?php endif; ?>
