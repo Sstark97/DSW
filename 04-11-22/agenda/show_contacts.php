@@ -34,11 +34,16 @@ function createContactsTable (array $contacts, string $action) {
     $tbody = "";
     $json_contacts = json_encode($contacts);
 
-    // $contacts = array_filter($contacts, function (array $contact){
-    //     return !$contact["block"];
-    // });
+    $contacts = array_filter($contacts, function (array $contact){
+        return !$contact["block"];
+    });
+
     if(count($contacts) === 0) {
-        return "<h1 class='text-center mt-2'>No hay contactos</h1>";
+        return "
+        <form>
+            <h1 class='text-center mt-2'>No hay contactos</h1>
+            <input type='hidden' name='contacts' value='$json_contacts'>
+        </form>";
     }
 
     $time_format = "%A, %d de %B, %h:%m:%s %a";

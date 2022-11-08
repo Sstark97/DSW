@@ -15,7 +15,7 @@ function blockContactForm (string $action, array $contacts) {
 
 function comprobeBlockContact (string $block_dni, array $contacts) {
     $message = "";
-    $contact = isset($contacts[$block_dni]) ? json_decode($contacts[$block_dni], true) : [];
+    $contact = isset($contacts[$block_dni]) ? $contacts[$block_dni] : [];
 
     if(count($contact) === 0) {
         $message .= "<p>No tienes ese contacto</p>";
@@ -26,25 +26,25 @@ function comprobeBlockContact (string $block_dni, array $contacts) {
     return $message;
 }
 
-function blockContact (string $block_dni, array $contacts) {
+function blockContact (string $block_dni, array &$contacts) {
     $message = comprobeBlockContact($block_dni, $contacts);
 
     if(!empty($message)) {
         return [ false, $message ];
     }
-    $contact = json_decode($contacts[$block_dni], true);
+    $contact = $contacts[$block_dni];
     unset($contacts[$block_dni]);
 
     $contact["block"] = true;
     [ "name" => $name ] = $contact;
-    $contacts[$block_dni] = json_encode($contact);
+    $contacts[$block_dni] = $contact;
 
     return [ true, "<p>El contacto $name($block_dni) ha sido bloqueado con éxito</p>" ];
 }
 
 function sendBlockContact (string $action, string $block_dni, array &$contacts) {
-    $json_contacts = json_encode($contacts);
     [ $is_ok, $message ] = blockContact($block_dni, $contacts);
+    $json_contacts = json_encode($contacts);
 
     $submit = $is_ok ? '<button name="send_data" class="btn btn-primary ms-1">Bloquear</button>' : '';
 
