@@ -4,10 +4,6 @@ require_once "general_functions.php";
 function sendContactDataForm (string $message, array $contacts, array $contact, string $action) {
     $json_contacts = json_encode($contacts);
 
-    $previous = "";
-    if(isset($_SERVER['HTTP_REFERER'])) {
-        $previous = $_SERVER['HTTP_REFERER'];
-    }
 
     $form = contactForm($message, "send_data", $action, $contacts, $contact, true, true);
 
@@ -73,7 +69,6 @@ function createContact(string $dni = "", string $name = "", string $surname = ""
     $timestamp_insert = date_timestamp_get($birthday_date);
 
     $contact = [
-        "$sanitize_dni" => [
             "name" => $sanitize_name,
             "surname" => $sanitize_surname, 
             "birth_day" => $sanitize_birth_day, 
@@ -81,8 +76,7 @@ function createContact(string $dni = "", string $name = "", string $surname = ""
             "email" => $sanitize_email,
             "block" => false,
             "timestamp_insert" => $timestamp_insert
-        ]
     ];
 
-    return $contact;
+    return [ $sanitize_dni, $contact ];
 }

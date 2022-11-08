@@ -11,7 +11,6 @@ function contactForm(string $message, string $btn_name, string $action, array $c
     $phone = ""; 
     $email = "";
 
-
     if(count($contact) > 0) {
         $dni = array_keys($contact)[0];
         [
@@ -80,12 +79,11 @@ function contactForm(string $message, string $btn_name, string $action, array $c
 }
 
 function modifyAction(bool $is_edit, int $time_stamp, array &$contacts, array $post_values) {
-    $contact = $is_edit ? createContact(...$post_values) : editContact($time_stamp, $contacts, ...$post_values);
-    $dni = array_keys($contact)[0];
-    $contact_values = array_values($contact);
-    $contacts[$dni] = json_encode(...$contact_values);
+    $data = $is_edit ? createContact(...$post_values) : editContact($time_stamp, $contacts, ...$post_values);
+    [ $dni, $contact ] = $data; 
+    $contacts[$dni] = $contact;
 
-    return $contact;
+    return [ $dni, $contact ];
 }
 
 function sanitizeFields (string $dni = "", string $name = "", string $surname = "", string $birth_day = "", string $phone = "", string $email = "") {

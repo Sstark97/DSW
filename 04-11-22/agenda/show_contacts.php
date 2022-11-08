@@ -9,8 +9,6 @@ function orderContacts (array &$contacts, bool $by_key = true, string $value = "
     }
 
     uasort($contacts, function ($a, $b) use ($value) {
-        $a = json_decode($a, true);
-        $b = json_decode($b, true);
         return $a[$value] <=> $b[$value];
     });
 
@@ -36,6 +34,9 @@ function createContactsTable (array $contacts, string $action) {
     $tbody = "";
     $json_contacts = json_encode($contacts);
 
+    // $contacts = array_filter($contacts, function (array $contact){
+    //     return !$contact["block"];
+    // });
     if(count($contacts) === 0) {
         return "<h1 class='text-center mt-2'>No hay contactos</h1>";
     }
@@ -43,7 +44,7 @@ function createContactsTable (array $contacts, string $action) {
     $time_format = "%A, %d de %B, %h:%m:%s %a";
     foreach ($contacts as $key => $contact) {
         $tbody .= "<tr><td>$key</td>";
-        foreach (json_decode($contact, true) as $field_key => $field) {
+        foreach ($contact as $field_key => $field) {
             $field = $field_key === "timestamp_insert" ? formatTimeStamp($field) : $field;
             $tbody .= $field_key !== "block" ? "<td>$field</td>" : "";
         }
