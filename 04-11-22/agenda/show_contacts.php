@@ -45,7 +45,7 @@ function createContactsTable (array $contacts, string $action) {
         $tbody .= "<tr><td>$key</td>";
         foreach (json_decode($contact, true) as $field_key => $field) {
             $field = $field_key === "timestamp_insert" ? formatTimeStamp($field) : $field;
-            $tbody .= "<td>$field</td>";
+            $tbody .= $field_key !== "block" ? "<td>$field</td>" : "";
         }
         
         $tbody .= <<< END
