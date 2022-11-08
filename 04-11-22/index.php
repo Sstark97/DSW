@@ -3,6 +3,7 @@
     require_once "./agenda/general_functions.php";
     require_once "./agenda/add_contact.php";
     require_once "./agenda/edit_contact.php";
+    require_once "./agenda/block_contact.php";
     require_once "./agenda/show_contacts.php";
 
     $contacts = isset($_POST["contacts"]) ? json_decode($_POST["contacts"], true) : [];
@@ -11,7 +12,7 @@
 <?= createHeader($contacts) ?>
 <div class="w-100">
 
-    <?php if(!isset($_POST["not_show"]) && !isset($_POST["order_action"]) && !isset($_POST["action"])): ?>
+    <?php if(!isset($_POST["not_show"]) && !isset($_POST["order_action"]) && !isset($_POST["action"]) && !isset($_POST["block_action"])): ?>
         <?= createContactsTable($contacts, $_SERVER["PHP_SELF"]) ?>
     <?php endif; ?>
 
@@ -24,7 +25,7 @@
             <?php endif; ?>    
 
             <?php if (isset($_POST["action"]["block"])): ?>
-                <div class="w-100">Bloquear un Contacto</div>
+                <?= blockContactForm($_SERVER["PHP_SELF"], $contacts) ?>
             <?php endif; ?>     
     <?php endif; ?>
 
@@ -48,6 +49,10 @@
         <?php if(!empty($message)): ?>
             <?= $message ?>
         <?php endif; ?>
+    <?php endif; ?>
+
+    <?php if(isset($_POST["block_action"])): ?>
+        <?= sendblockContact($_SERVER["PHP_SELF"], $_POST["block_dni"], $contacts) ?>
     <?php endif; ?>
 
     <?php if(isset($_POST["order_action"])): ?>
