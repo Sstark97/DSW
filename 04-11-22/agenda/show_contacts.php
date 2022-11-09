@@ -41,11 +41,12 @@ function createContactsTable (array $contacts, string $action) {
     });
 
     if(count($contacts) === 0) {
-        return "
-        <form>
-            <h1 class='text-center mt-2'>No hay contactos</h1>
-            <input type='hidden' name='contacts' value='$json_contacts'>
-        </form>";
+        return <<< END
+            <form>
+                <h1 class='text-center mt-2'>No hay contactos</h1>
+                <input type='hidden' name='contacts' value='$json_contacts'>
+            </form>
+        END;
     }
 
     $time_format = "%A, %d de %B, %h:%m:%s %a";

@@ -17,7 +17,7 @@ function createHeader($contacts) {
             <title>Agenda</title>
         </head>
         <body>
-            <main class="d-flex flex-column h-100 min-vw-100 min-vh-100 position-relative">
+            <main class="d-flex flex-column h-100 min-vw-100 min-vh-100">
                 <header>
                     <nav class="navbar navbar-expand-lg bg-primary py-3">
                         <div class="container-fluid">
@@ -49,10 +49,12 @@ function createHeader($contacts) {
 
 function createFooter() {
     return <<< END
-            <footer class="bg-primary text-light w-100 text-center py-5 position-absolute bottom-0">
+            <footer class="bg-primary text-light w-100 text-center py-5 mt-auto">
                 Desarrollado por Aitor Santana Cabrera 2º de DAW de la Asignatura DSW
             </footer>
         </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     </body>
     </html>
     END;
