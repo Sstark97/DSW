@@ -29,7 +29,7 @@ function contactForm(string $message, string $btn_name, string $action, array $c
 
     return <<< END
         <h1 class="text-center mt-2">$message</h1>
-        <form class="w-50 container mx-auto" action="$action" method="post">
+        <form class="w-50 container mx-auto pt-3" action="$action" method="post">
             <div class="row">
                 <div class="col">
                     <label for="contact[dni]" class="form-label">DNI</label>
@@ -66,7 +66,7 @@ function contactForm(string $message, string $btn_name, string $action, array $c
                     <input type="email" class="form-control" name="contact[email]" value="$email" $read>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col">
                     <button name="$btn_name" class="btn btn-primary" type="submit">Enviar</button>
                 </div>

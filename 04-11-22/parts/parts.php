@@ -49,7 +49,7 @@ function createHeader($contacts) {
 
 function createFooter() {
     return <<< END
-            <footer class="bg-primary text-light w-100 text-center py-5 mt-auto">
+            <footer class="bg-primary text-light w-100 text-center mt-auto footer">
                 Desarrollado por Aitor Santana Cabrera 2º de DAW de la Asignatura DSW
             </footer>
         </main>
