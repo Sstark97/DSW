@@ -31,7 +31,7 @@ function blockContact (string $block_dni, array &$contacts) {
     $message = comprobeBlockContact($block_dni, $contacts);
 
     if(!empty($message)) {
-        return createErrors($message);
+        return [false, createErrors($message)];
     }
     $contact = $contacts[$block_dni];
     unset($contacts[$block_dni]);

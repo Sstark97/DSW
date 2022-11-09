@@ -14,7 +14,7 @@
 <?= createHeader($contacts) ?>
 <div class="w-100">
 
-    <?php if(!isset($_POST["not_show"]) && !isset($_POST["order_action"]) && !isset($_POST["action"]) && !isset($_POST["block_action"]) && !isset($_POST["upload_action"])): ?>
+    <?php if(showTable()): ?>
         <?= createContactsTable($contacts, $action) ?>
     <?php endif; ?>
 
@@ -35,13 +35,13 @@
             <?php endif; ?>    
     <?php endif; ?>
 
-    <?php if(isset($_POST["add_form"]) || isset($_POST["action"]["edit"])): ?> 
+    <?php if(isModify()): ?> 
 
         <?php $is_ok = comprobeFields()?>
         <?php if($is_ok) : ?>
             <?= createErrors("Existen campos vacíos o campos de más", true) ?>
         <?php else : ?>
-            <?php $message = validateAddUserForm(...array_values($_POST["contact"])) ?>
+            <?php $message = validateAddUserForm() ?>
         <?php endif; ?>
 
         <?php if(empty($message) && !$is_ok ): ?>

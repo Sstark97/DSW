@@ -2,6 +2,10 @@
 require_once "./agenda/add_contact.php";
 require_once "./agenda/edit_contact.php";
 
+function showTable() {
+    return !isset($_POST["not_show"]) && !isset($_POST["order_action"]) && !isset($_POST["action"]) && !isset($_POST["block_action"]) && !isset($_POST["upload_action"]);
+}
+
 function contactForm(string $message, string $btn_name, string $action, array $contacts, array $contact = [], bool $is_read = false, bool $show = false) {
     $json_contacts = json_encode($contacts);
     $dni = ""; 
@@ -88,6 +92,10 @@ function createErrors (string $message, bool $empty = false) {
             $message
         </div>
     END;
+}
+
+function isModify() {
+    return isset($_POST["add_form"]) || isset($_POST["action"]["edit"]);
 }
 
 function modifyAction(bool $is_edit, int $time_stamp, array &$contacts) {
