@@ -43,7 +43,8 @@ function blockContact (string $block_dni, array &$contacts) {
     return [ true, "<p>El contacto $name($block_dni) ha sido bloqueado con éxito</p>" ];
 }
 
-function sendBlockContact (string $action, string $block_dni, array &$contacts) {
+function sendBlockContact (string $action, array &$contacts) {
+    $block_dni = $_POST["block_dni"];
     [ $is_ok, $message ] = blockContact($block_dni, $contacts);
     $json_contacts = json_encode($contacts);
 

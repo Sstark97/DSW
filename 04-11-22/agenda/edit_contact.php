@@ -1,7 +1,8 @@
 <?php
 require_once "general_functions.php";
 
-function editContactForm (string $action, string $dni, array $contacts) {
+function editContactForm (string $action, array $contacts) {
+    $dni = $_POST["contact_dni"];
     $contact = $contacts[$dni];
     [ "name" => $name ] = $contact;
 

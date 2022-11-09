@@ -8,35 +8,36 @@
     require_once "./agenda/files_contact.php";
 
     $contacts = isset($_POST["contacts"]) ? json_decode($_POST["contacts"], true) : [];
+    $action = $_SERVER["PHP_SELF"];
     date_default_timezone_set("Atlantic/Canary");
 ?>
 <?= createHeader($contacts) ?>
 <div class="w-100">
 
     <?php if(!isset($_POST["not_show"]) && !isset($_POST["order_action"]) && !isset($_POST["action"]) && !isset($_POST["block_action"]) && !isset($_POST["upload_action"])): ?>
-        <?= createContactsTable($contacts, $_SERVER["PHP_SELF"]) ?>
+        <?= createContactsTable($contacts, $action) ?>
     <?php endif; ?>
 
     <?php if (isset($_POST["action"])) :?>
             <?php if (isset($_POST["action"]["add"])): ?>
-                <?= contactForm("Añadir Contacto","add_form",$_SERVER["PHP_SELF"], $contacts) ?>
+                <?= contactForm("Añadir Contacto","add_form",$action, $contacts) ?>
             <?php endif; ?>   
             <?php if (isset($_POST["action"]["update"])): ?>
-                <?= editContactForm($_SERVER["PHP_SELF"], $_POST["contact_dni"], $contacts) ?>
-            <?php endif; ?>    
+                <?= editContactForm($action, $contacts) ?>
+            <?php endif; ?>
 
             <?php if (isset($_POST["action"]["block"])): ?>
-                <?= blockContactForm($_SERVER["PHP_SELF"], $contacts) ?>
+                <?= blockContactForm($action, $contacts) ?>
             <?php endif; ?>
 
             <?php if (isset($_POST["action"]["upload"])): ?>
-                <?= uploadForm($_SERVER["PHP_SELF"],$_POST["contact_dni"] ,$contacts) ?>
+                <?= uploadForm($action ,$contacts) ?>
             <?php endif; ?>    
     <?php endif; ?>
 
     <?php if(isset($_POST["add_form"]) || isset($_POST["action"]["edit"])): ?> 
 
-        <?php $is_ok = comprobeFields($_POST["contact"])?>
+        <?php $is_ok = comprobeFields()?>
         <?php if($is_ok) : ?>
             <?= createErrors("Existen campos vacíos o campos de más", true) ?>
         <?php else : ?>
@@ -49,7 +50,7 @@
                 $time_stamp = $_POST["timestamp_insert"] ?? 0;
                 [ $dni, $contact ] = modifyAction(!isset($_POST["action"]["edit"]), $time_stamp, $contacts, $post_values);
             ?>
-            <?= sendContactDataForm("Datos enviados", $contacts, [$dni => $contact], $_SERVER["PHP_SELF"]) ?>
+            <?= sendContactDataForm("Datos enviados", $contacts, [$dni => $contact], $action) ?>
         <?php endif; ?>
         <?php if(!empty($message)): ?>
             <?= createErrors($message) ?>
@@ -57,7 +58,7 @@
     <?php endif; ?>
 
     <?php if(isset($_POST["block_action"])): ?>
-        <?= sendblockContact($_SERVER["PHP_SELF"], $_POST["block_dni"], $contacts) ?>
+        <?= sendblockContact($action, $contacts) ?>
     <?php endif; ?>
 
     <?php if(isset($_POST["order_action"])): ?>
@@ -66,18 +67,18 @@
             orderContacts($contacts, $order === "dni", $order);
         ?>
         
-        <?= createContactsTable($contacts, $_SERVER["PHP_SELF"]) ?>
+        <?= createContactsTable($contacts, $action) ?>
     <?php endif; ?>
 
     <?php if(isset($_POST["upload_action"])): ?>
         <?php 
-            $message = uploadFile($_POST["contact_dni"], $_FILES["file_dni"], $contacts);
+            $message = uploadFile($contacts);
         ?>
         
         <?php if (!empty($message)) : ?>
             <?= $message ?>
         <?php else: ?>
-            <?= createContactsTable($contacts, $_SERVER["PHP_SELF"]) ?>
+            <?= createContactsTable($contacts, $action) ?>
         <?php endif; ?>
 
     <?php endif; ?>

@@ -3,8 +3,9 @@ require_once "./agenda/general_functions.php";
 
 define("file_types", ["application/pdf", "application/vnd.oasis.opendocument.text"]);
 
-function uploadForm(string $action, string $dni, array $contacts) {
+function uploadForm(string $action, array $contacts) {
     $json_contacts = json_encode($contacts);
+    $dni = $_POST["contact_dni"];
 
     return <<< END
     <h1 class="text-center mt-2">Bloquear Contacto</h1>
@@ -33,7 +34,10 @@ function comprobeFile(array $file) {
     return $message;
 }
 
-function uploadFile(string $dni, array $file, array &$contacts) {
+function uploadFile(array &$contacts) {
+    $dni = $_POST["contact_dni"];
+    $file = $_FILES["file_dni"];
+    
     $message = comprobeFile($file);
 
     if(!empty($message)) {

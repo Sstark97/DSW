@@ -10,7 +10,8 @@ function sendContactDataForm (string $message, array $contacts, array $contact, 
     return $form;
 }
 
-function comprobeFields (array $contact) {
+function comprobeFields () {
+    $contact = $_POST["contact"];
     $keys = ["dni","name","surname", "phone", "birthday", "email"];
     $size_keys = count($keys);
     $diff = count(array_diff(array_keys($contact), $keys));
