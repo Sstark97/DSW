@@ -36,7 +36,7 @@ function validateAddUserForm (string $dni = "", string $name = "", string $surna
     $message = "";
 
     if(!preg_match("/\d{8}[A-Z]{1}/", $dni) || strlen($dni) !== 9) {
-        $message .= "<span>El dni no cumple con el formato 123456789[A-Z]</span>";
+        $message .= "<span>El dni no cumple con el formato 12345678[A-Z] (8 números y 1 letra)</span>";
     }
 
     if(!preg_match("/\d{9}/",$phone) || strlen($phone) !== 9) {

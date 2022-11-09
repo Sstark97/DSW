@@ -1,4 +1,5 @@
 <?php
+require_once "./agenda/general_functions.php";
 
 function blockContactForm (string $action, array $contacts) {
     $json_contacts = json_encode($contacts);
@@ -18,9 +19,9 @@ function comprobeBlockContact (string $block_dni, array $contacts) {
     $contact = isset($contacts[$block_dni]) ? $contacts[$block_dni] : [];
 
     if(count($contact) === 0) {
-        $message .= "<p>No tienes ese contacto</p>";
+        $message .= "<span>No tienes ese contacto</span>";
     } else if($contact["block"]) {
-        $message .= "<p>El contacto ya está bloqueado</p>";
+        $message .= "<span>El contacto ya está bloqueado</span>";
     }
 
     return $message;
@@ -30,7 +31,7 @@ function blockContact (string $block_dni, array &$contacts) {
     $message = comprobeBlockContact($block_dni, $contacts);
 
     if(!empty($message)) {
-        return [ false, $message ];
+        return [ false, createErrors($message) ];
     }
     $contact = $contacts[$block_dni];
     unset($contacts[$block_dni]);
@@ -46,12 +47,13 @@ function sendBlockContact (string $action, string $block_dni, array &$contacts) 
     [ $is_ok, $message ] = blockContact($block_dni, $contacts);
     $json_contacts = json_encode($contacts);
 
-    $submit = $is_ok ? '<button name="send_data" class="btn btn-primary ms-1">Bloquear</button>' : '';
+    $submit = $is_ok 
+    ? '<button name="send_data" class="btn btn-primary ms-1">Bloquear</button><h1 class="text-center mt-2">Bloquear Contacto</h1>' 
+    : '';
 
     return <<< END
-        <h1 class="text-center mt-2">Bloquear Contacto</h1>
         <form class="d-flex flex-column align-items-start w-50 mx-auto mt-4" action="$action" method="post">
-            <p>$message</p>
+            $message
             <input type="hidden" name="contacts" value='$json_contacts'>
             $submit
         </form>

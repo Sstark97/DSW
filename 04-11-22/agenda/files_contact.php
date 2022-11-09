@@ -1,4 +1,6 @@
 <?php
+require_once "./agenda/general_functions.php";
+
 define("file_types", ["application/pdf", "application/vnd.oasis.opendocument.text"]);
 
 function uploadForm(string $action, string $dni, array $contacts) {
@@ -21,11 +23,11 @@ function comprobeFile(array $file) {
     $message = "";
 
     if($error === 2) {
-        $message .= "<p>El tamaño máximo de subida es 1000 MB</p>";
+        $message .= "<span>El tamaño máximo de subida es 1000 MB</span>";
     } 
     
     if(!in_array($type, file_types)){
-        $message .= "<p>La agenta solo soporta ficheros en formato odt y pdf</p>";
+        $message .= "<span>La agenta solo soporta ficheros en formato odt y pdf</span>";
     } 
 
     return $message;
@@ -35,7 +37,7 @@ function uploadFile(string $dni, array $file, array &$contacts) {
     $message = comprobeFile($file);
 
     if(!empty($message)) {
-        return $message;
+        return createErrors($message);
     }
 
     [ "name" => $name , "tmp_name" => $tmp_dir ] = $file;
