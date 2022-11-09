@@ -35,11 +35,11 @@ function comprobeFields (array $contact) {
 function validateAddUserForm (string $dni = "", string $name = "", string $surname = "", string $birth_day = "", string $phone = "", string $email = "") {
     $message = "";
 
-    if(!preg_match("/\d{8}[A-Z]{1}/", $dni)) {
+    if(!preg_match("/\d{8}[A-Z]{1}/", $dni) || strlen($dni) !== 9) {
         $message .= "<p>El dni no cumple con el formato 123456789[A-Z]</p>";
     }
 
-    if(!preg_match("/\d{9}/",$phone)) {
+    if(!preg_match("/\d{9}/",$phone) || strlen($phone) !== 9) {
         $message .= "<p>El Telefono no tiene 9 dígitos</p>";
     }
 

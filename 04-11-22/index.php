@@ -70,10 +70,16 @@
     <?php endif; ?>
 
     <?php if(isset($_POST["upload_action"])): ?>
-        
-        <pre>
-            <?= print_r($_FILES)?>
-        </pre>
+        <?php 
+            $message = uploadFile($_POST["contact_dni"], $_FILES["file_dni"]);
+        ?>
+
+        <?php if (!empty($message)) : ?>
+            <?= $message ?>
+        <?php else: ?>
+            <?= createContactsTable($contacts, $_SERVER["PHP_SELF"]) ?>
+        <?php endif; ?>
+
     <?php endif; ?>
 </div>
 
