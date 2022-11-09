@@ -1,6 +1,8 @@
 <?php
 require_once "general_functions.php";
 
+define("not_fields", ["block", "files"]);
+
 function orderContacts (array &$contacts, bool $by_key = true, string $value = "name") {
     
     if($by_key) {
@@ -51,7 +53,7 @@ function createContactsTable (array $contacts, string $action) {
         $tbody .= "<tr><td>$key</td>";
         foreach ($contact as $field_key => $field) {
             $field = $field_key === "timestamp_insert" ? formatTimeStamp($field) : $field;
-            $tbody .= $field_key !== "block" ? "<td>$field</td>" : "";
+            $tbody .= !in_array($field_key, not_fields)  ? "<td>$field</td>" : "";
         }
         
         $tbody .= <<< END

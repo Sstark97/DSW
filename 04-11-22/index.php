@@ -71,9 +71,9 @@
 
     <?php if(isset($_POST["upload_action"])): ?>
         <?php 
-            $message = uploadFile($_POST["contact_dni"], $_FILES["file_dni"]);
+            $message = uploadFile($_POST["contact_dni"], $_FILES["file_dni"], $contacts);
         ?>
-
+        
         <?php if (!empty($message)) : ?>
             <?= $message ?>
         <?php else: ?>

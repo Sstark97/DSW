@@ -75,6 +75,7 @@ function createContact(string $dni = "", string $name = "", string $surname = ""
             "phone" => $sanitize_phone, 
             "email" => $sanitize_email,
             "block" => false,
+            "files" => [],
             "timestamp_insert" => $timestamp_insert
     ];
 

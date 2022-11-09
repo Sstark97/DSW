@@ -20,11 +20,13 @@ function editContact(int $timestamp_insert, array &$contacts, string $dni = "", 
     ]= sanitizeFields($dni, $name, $surname, $birth_day, $phone, $email);
 
     $blocked = false;
+    $files = [];
 
     foreach ($contacts as $dni => $contact) {
         
         if(($dni !== $sanitize_dni || $dni === $sanitize_dni) && $contact["timestamp_insert"] === $timestamp_insert) {
             $blocked = $contact["block"];
+            $files = $contact["files"];
             unset($contacts[$dni]);
         }
     }
@@ -36,6 +38,7 @@ function editContact(int $timestamp_insert, array &$contacts, string $dni = "", 
         "phone" => $sanitize_phone, 
         "email" => $sanitize_email,
         "block" => $blocked,
+        "files" => $files,
         "timestamp_insert" => $timestamp_insert
     ];
 

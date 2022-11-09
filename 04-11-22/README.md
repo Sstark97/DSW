@@ -6,7 +6,7 @@
   2. [x] Actualizar datos del usuario: se deberán actualizar todos los campos de la agenda de un usuario determinado, realizándose en el servidor la validación de los mismos.
   3. [x] Bloquear un contacto: se deberá abrir una página web en la que nos solicite el dni del usuario a bloquear. Un usuario bloqueado no se mostrará en la opción de “Mostrar todos los contactos”.
   4. [x] Mostrar todos los contactos: se le mostrará al usuario la opción de ordenación que desee (por la clave, por el nombre o por el apellido). Se deberá crear una tabla en la que la cabecera indicará el campo que se está mostrando y en cada fila se mostrará los datos de cada usuario. La fecha de inserción del contacto se mostrará con el siguiente formato: Lunes, 02 de noviembre de 2022, 11:10 am, en español, en formato de 12 horas.
-  5. [ ] Subir datos extras: el programa deberá permitir la subida de ficheros e indicar qué fichero pertenece a qué usuario, almacenando la ruta del mismo en un array. Si el fichero ocupa más de 1MB el fichero no se podrá subir al servidor. Los tipos de ficheros permitidos son pdf y odt. Realizar control de errores.
+  5. [x] Subir datos extras: el programa deberá permitir la subida de ficheros e indicar qué fichero pertenece a qué usuario, almacenando la ruta del mismo en un array. Si el fichero ocupa más de 1MB el fichero no se podrá subir al servidor. Los tipos de ficheros permitidos son pdf y odt. Realizar control de errores.
 - El pie de la página deberá tener licencia Creative Commons "Reconocimiento" con tu nombre y apellidos, curso, módulo y ciclo.
 
 ## Notas a tener en cuenta

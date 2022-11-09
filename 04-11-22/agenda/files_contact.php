@@ -31,19 +31,21 @@ function comprobeFile(array $file) {
     return $message;
 }
 
-function uploadFile(string $dni, array $file) {
+function uploadFile(string $dni, array $file, array &$contacts) {
     $message = comprobeFile($file);
 
     if(!empty($message)) {
         return $message;
     }
 
-    $user_dir = "./agenda/files/$dni";
     [ "name" => $name , "tmp_name" => $tmp_dir ] = $file;
+    $user_dir = "./agenda/files/$dni";
+    $file_path = "$user_dir/$name";
 
     if(!file_exists($user_dir) && !is_dir($user_dir)) {
         mkdir($user_dir, 0777, true);
     }
 
-    move_uploaded_file($tmp_dir, "$user_dir/$name");
+    move_uploaded_file($tmp_dir, $file_path);
+    array_push($contacts[$dni]["files"], $file_path);
 }
