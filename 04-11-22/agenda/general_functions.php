@@ -90,15 +90,24 @@ function createErrors (string $message, bool $empty = false) {
     END;
 }
 
-function modifyAction(bool $is_edit, int $time_stamp, array &$contacts, array $post_values) {
-    $data = $is_edit ? createContact(...$post_values) : editContact($time_stamp, $contacts, ...$post_values);
+function modifyAction(bool $is_edit, int $time_stamp, array &$contacts) {
+    $data = $is_edit ? createContact() : editContact($time_stamp, $contacts);
     [ $dni, $contact ] = $data; 
     $contacts[$dni] = $contact;
 
     return [ $dni, $contact ];
 }
 
-function sanitizeFields (string $dni = "", string $name = "", string $surname = "", string $birth_day = "", string $phone = "", string $email = "") {
+function sanitizeFields () {
+    [
+        "dni" => $dni, 
+        "name" => $name, 
+        "surname" => $surname, 
+        "birthday" => $birth_day, 
+        "phone" => $phone, 
+        "email" => $email
+    ] = $_POST["contact"];
+
     $dni = trim(strip_tags($dni));
     $name = trim(strip_tags($name));
     $surname = trim(strip_tags($surname));

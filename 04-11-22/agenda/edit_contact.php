@@ -9,8 +9,7 @@ function editContactForm (string $action, array $contacts) {
     return contactForm("Editar Contacto ($name)", "action[edit]", $action, $contacts, $contact = [$dni => $contact]);
 }
 
-function editContact(int $timestamp_insert, array &$contacts, string $dni = "", string $name = "", string $surname = "", string $birth_day = "", string $phone = "", string $email = "") {
-
+function editContact(int $timestamp_insert, array &$contacts) {
     [
         $sanitize_dni, 
         $sanitize_name, 
@@ -18,7 +17,7 @@ function editContact(int $timestamp_insert, array &$contacts, string $dni = "", 
         $sanitize_birth_day, 
         $sanitize_phone, 
         $sanitize_email 
-    ]= sanitizeFields($dni, $name, $surname, $birth_day, $phone, $email);
+    ]= sanitizeFields();
 
     $blocked = false;
     $files = [];

@@ -46,9 +46,8 @@
 
         <?php if(empty($message) && !$is_ok ): ?>
             <?php
-                $post_values = array_values($_POST["contact"]);
                 $time_stamp = $_POST["timestamp_insert"] ?? 0;
-                [ $dni, $contact ] = modifyAction(!isset($_POST["action"]["edit"]), $time_stamp, $contacts, $post_values);
+                [ $dni, $contact ] = modifyAction(!isset($_POST["action"]["edit"]), $time_stamp, $contacts);
             ?>
             <?= sendContactDataForm("Datos enviados", $contacts, [$dni => $contact], $action) ?>
         <?php endif; ?>

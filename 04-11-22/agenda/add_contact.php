@@ -33,8 +33,16 @@ function comprobeFields () {
     return $stop;
 }
 
-function validateAddUserForm (string $dni = "", string $name = "", string $surname = "", string $birth_day = "", string $phone = "", string $email = "") {
+function validateAddUserForm () {
     $message = "";
+    [
+        "dni" => $dni, 
+        "name" => $name,
+        "surname" => $surname, 
+        "birthday" => $birth_day, 
+        "phone" => $phone, 
+        "email" => $email
+    ] = $_POST["contact"];
 
     if(!preg_match("/\d{8}[A-Z]{1}/", $dni) || strlen($dni) !== 9) {
         $message .= "<span>El dni no cumple con el formato 12345678[A-Z] (8 números y 1 letra)</span>";
@@ -55,8 +63,7 @@ function validateAddUserForm (string $dni = "", string $name = "", string $surna
     return $message;
 }
 
-function createContact(string $dni = "", string $name = "", string $surname = "", string $birth_day = "", string $phone = "", string $email = "") {
-
+function createContact() {
     [
         $sanitize_dni, 
         $sanitize_name, 
@@ -64,9 +71,9 @@ function createContact(string $dni = "", string $name = "", string $surname = ""
         $sanitize_birth_day, 
         $sanitize_phone, 
         $sanitize_email 
-    ]= sanitizeFields($dni, $name, $surname, $birth_day, $phone, $email);
+    ]= sanitizeFields();
 
-    $birthday_date = date_create_from_format('Y-m-d',$birth_day);
+    $birthday_date = date_create_from_format('Y-m-d',$sanitize_birth_day);
     $timestamp_insert = date_timestamp_get($birthday_date);
 
     $contact = [
