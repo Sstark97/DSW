@@ -37,8 +37,8 @@
     <?php if(isset($_POST["add_form"]) || isset($_POST["action"]["edit"])): ?> 
 
         <?php $is_ok = comprobeFields($_POST["contact"])?>
-        <?php if($is_ok ) : ?>
-            <p>Hay campos de más o hay campos vacíos</p>
+        <?php if($is_ok) : ?>
+            <?= createErrors("Existen campos vacíos o campos de más", true) ?>
         <?php else : ?>
             <?php $message = validateAddUserForm(...array_values($_POST["contact"])) ?>
         <?php endif; ?>
@@ -52,7 +52,7 @@
             <?= sendContactDataForm("Datos enviados", $contacts, [$dni => $contact], $_SERVER["PHP_SELF"]) ?>
         <?php endif; ?>
         <?php if(!empty($message)): ?>
-            <?= $message ?>
+            <?= createErrors($message) ?>
         <?php endif; ?>
     <?php endif; ?>
 

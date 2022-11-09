@@ -26,6 +26,7 @@ function contactForm(string $message, string $btn_name, string $action, array $c
     $read = $is_read ? "readonly" : "";
     $is_show = !$show ? '<input type="hidden" name="not_show">' : "";
     $is_edit = $btn_name === "action[edit]" ? "<input type='hidden' name='timestamp_insert' value='$timestamp_insert'>" : "";
+    $btn_color = $btn_name === "action[edit]" ? "warning" : "primary";
 
     return <<< END
         <h1 class="text-center mt-2">$message</h1>
@@ -68,13 +69,24 @@ function contactForm(string $message, string $btn_name, string $action, array $c
             </div>
             <div class="row mt-3">
                 <div class="col">
-                    <button name="$btn_name" class="btn btn-primary" type="submit">Enviar</button>
+                    <button name="$btn_name" class="btn btn-$btn_color" type="submit">Enviar</button>
                 </div>
             </div>
             <input type="hidden" name="contacts" value='$json_contacts'>
             $is_edit
             $is_show
         </form>
+    END;
+}
+
+function createErrors (string $message, bool $empty = false) {
+    $message = $empty ? "<span>$message</span>" : $message;
+
+    return <<< END
+        <div id="errors" class="d-flex flex-column align-items-center w-50 mx-auto mt-3 fw-4">
+            <h1 class="mb-2">Hay errores 🐛</h1>
+            $message
+        </div>
     END;
 }
 

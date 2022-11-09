@@ -19,9 +19,9 @@ function createHeader($contacts) {
         <body>
             <main class="d-flex flex-column h-100 min-vw-100 min-vh-100">
                 <header>
-                    <nav class="navbar navbar-expand-lg bg-primary py-3">
+                    <nav class="navbar navbar-dark bg-dark navbar-expand-lg py-4">
                         <div class="container-fluid">
-                        <a class="navbar-brand" href="./index.php">Agenda</a>
+                        <a class="navbar-brand">Agenda</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -49,7 +49,7 @@ function createHeader($contacts) {
 
 function createFooter() {
     return <<< END
-            <footer class="bg-primary text-light w-100 text-center mt-auto footer">
+            <footer class="bg-dark text-light w-100 text-center mt-auto footer">
                 Desarrollado por Aitor Santana Cabrera 2º de DAW de la Asignatura DSW
             </footer>
         </main>

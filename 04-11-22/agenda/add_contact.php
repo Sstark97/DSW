@@ -36,19 +36,19 @@ function validateAddUserForm (string $dni = "", string $name = "", string $surna
     $message = "";
 
     if(!preg_match("/\d{8}[A-Z]{1}/", $dni) || strlen($dni) !== 9) {
-        $message .= "<p>El dni no cumple con el formato 123456789[A-Z]</p>";
+        $message .= "<span>El dni no cumple con el formato 123456789[A-Z]</span>";
     }
 
     if(!preg_match("/\d{9}/",$phone) || strlen($phone) !== 9) {
-        $message .= "<p>El Telefono no tiene 9 dígitos</p>";
+        $message .= "<span>El Telefono no tiene 9 dígitos</span>";
     }
 
     if(!preg_match("/\d{4}[-](0[1-9]|1[012])[-](0[1-9]|[12]\d|3[01])/",$birth_day)) {
-        $message .= "<p>La fecha de cumpleaños no cumple con el formato de Fecha</p>";
+        $message .= "<span>La fecha de cumpleaños no cumple con el formato de Fecha</span>";
     }
 
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $message .= "<p>El correo no cumple el formato, Ej: correo@correo.com</p>";
+        $message .= "<span>El correo no cumple el formato, Ej: correo@correo.com</span>";
     }
 
     return $message;

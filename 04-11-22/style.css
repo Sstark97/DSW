@@ -2,6 +2,20 @@ html, body {
     overflow-x: hidden;
 }
 
+nav button {
+    background: inherit;
+    border: none;
+    font-size: 1.7rem;
+}
+
+nav button:hover {
+    color: #fff;
+}
+
 .footer {
     padding: 2.2rem 2.2rem;
+}
+
+#errors span{
+    font-size: 1.2rem;
 }
