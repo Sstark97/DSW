@@ -12,8 +12,6 @@
     date_default_timezone_set("Atlantic/Canary");
 ?>
 <?= createHeader($contacts) ?>
-<div class="w-100">
-
     <?php if(showTable()): ?>
         <?= createContactsTable($contacts, $action) ?>
     <?php endif; ?>
@@ -36,7 +34,6 @@
     <?php endif; ?>
 
     <?php if(isModify()): ?> 
-
         <?php $is_ok = comprobeFields()?>
         <?php if($is_ok) : ?>
             <?= createErrors("Existen campos vacíos o campos de más", true) ?>
@@ -51,6 +48,7 @@
             ?>
             <?= sendContactDataForm("Datos enviados", $contacts, [$dni => $contact], $action) ?>
         <?php endif; ?>
+
         <?php if(!empty($message)): ?>
             <?= createErrors($message) ?>
         <?php endif; ?>
@@ -79,8 +77,5 @@
         <?php else: ?>
             <?= createContactsTable($contacts, $action) ?>
         <?php endif; ?>
-
     <?php endif; ?>
-</div>
-
 <?= createFooter() ?>
