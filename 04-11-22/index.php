@@ -17,20 +17,7 @@
     <?php endif; ?>
 
     <?php if (isset($_POST["action"])) :?>
-            <?php if (isset($_POST["action"]["add"])): ?>
-                <?= contactForm("Añadir Contacto","add_form",$action, $contacts) ?>
-            <?php endif; ?>   
-            <?php if (isset($_POST["action"]["update"])): ?>
-                <?= editContactForm($action, $contacts) ?>
-            <?php endif; ?>
-
-            <?php if (isset($_POST["action"]["block"])): ?>
-                <?= blockContactForm($action, $contacts) ?>
-            <?php endif; ?>
-
-            <?php if (isset($_POST["action"]["upload"])): ?>
-                <?= uploadForm($action ,$contacts) ?>
-            <?php endif; ?>    
+        <?= actions($action, $contacts) ?>
     <?php endif; ?>
 
     <?php if(isModify()): ?> 

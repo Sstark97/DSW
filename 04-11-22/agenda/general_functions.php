@@ -1,6 +1,8 @@
 <?php
 require_once "./agenda/add_contact.php";
 require_once "./agenda/edit_contact.php";
+require_once "./agenda/block_contact.php";
+require_once "./agenda/files_contact.php";
 
 function showTable() {
     return !isset($_POST["not_show"]) && !isset($_POST["order_action"]) && !isset($_POST["action"]) && !isset($_POST["block_action"]) && !isset($_POST["upload_action"]);
@@ -137,4 +139,19 @@ function formatTimeStamp (int $time_stamp) {
     $hour = strftime("%I:%M:%S",$time_stamp);
     
     return utf8_encode("$day de $month de $year, $hour $time");
+}
+
+function actions (string $action, array $contacts) {
+    $action = "";
+    if (isset($_POST["action"]["add"])){
+        $action .= contactForm("Añadir Contacto","add_form",$action, $contacts);
+    } else if (isset($_POST["action"]["update"])){
+        $action .= editContactForm($action, $contacts);
+    } else if (isset($_POST["action"]["block"])){
+        $action .= blockContactForm($action, $contacts);
+    } else if (isset($_POST["action"]["upload"])){
+        $action .= uploadForm($action ,$contacts);
+    }  
+
+    return $action;
 }
