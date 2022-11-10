@@ -136,5 +136,5 @@ function formatTimeStamp (int $time_stamp) {
     $year = strftime("%G",$time_stamp);
     $hour = strftime("%I:%M:%S",$time_stamp);
     
-    return "$day de $month de $year, $hour $time";
+    return utf8_encode("$day de $month de $year, $hour $time");
 }
