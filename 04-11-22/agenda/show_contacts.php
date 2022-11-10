@@ -1,8 +1,10 @@
 <?php
 require_once "general_functions.php";
 
+// Constante que define los campos que no deben aparecer en la tabla
 define("not_fields", ["block", "files"]);
 
+// Función que ordena los contactos
 function orderContacts (array &$contacts, bool $by_key = true, string $value = "name") {
     
     if($by_key) {
@@ -16,6 +18,7 @@ function orderContacts (array &$contacts, bool $by_key = true, string $value = "
 
 }
 
+// Formulario que controla el tipo de orden
 function orderForm (string $action, array $contacts) {
     $json_contacts = json_encode($contacts);
 
@@ -32,14 +35,17 @@ function orderForm (string $action, array $contacts) {
     END;
 }
 
+// Creación de la tabla de contactos
 function createContactsTable (array $contacts, string $action) {
     $tbody = "";
     $json_contacts = json_encode($contacts);
 
+    // Filtrado de los contactos que no están bloqueados
     $contacts = array_filter($contacts, function (array $contact){
         return !$contact["block"];
     });
 
+    // Si todos están bloqueados no muestra la tabla
     if(count($contacts) === 0) {
         return <<< END
             <form>
@@ -49,11 +55,12 @@ function createContactsTable (array $contacts, string $action) {
         END;
     }
 
+    // Si le llega el resultado del Formulario ordean
     if (isset($_POST["order"])) {
         orderContacts($contacts, $_POST["order"] === "dni", $_POST["order"]);
     }
 
-    $time_format = "%A, %d de %B, %h:%m:%s %a";
+    // Creación de la Tabla
     foreach ($contacts as $key => $contact) {
         $tbody .= "<tr><td>$key</td>";
         foreach ($contact as $field_key => $field) {
@@ -79,6 +86,7 @@ function createContactsTable (array $contacts, string $action) {
         $tbody .= "</tr>";
     }
 
+    // Creamos el formulario de ordenamiento
     $orderForm = orderForm($action, $contacts);
 
     return <<< END

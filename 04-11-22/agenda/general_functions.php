@@ -4,10 +4,18 @@ require_once "./agenda/edit_contact.php";
 require_once "./agenda/block_contact.php";
 require_once "./agenda/files_contact.php";
 
+// Función que nos indica si debemos mostrar la Tabla de contactos
 function showTable() {
-    return !isset($_POST["not_show"]) && !isset($_POST["order_action"]) && !isset($_POST["action"]) && !isset($_POST["block_action"]) && !isset($_POST["upload_action"]);
+    return !isset($_POST["not_show"]) && 
+        !isset($_POST["order_action"]) && !isset($_POST["action"]) && 
+        !isset($_POST["block_action"]) && !isset($_POST["upload_action"]);
 }
 
+/*
+    Formulario base que nos crea un formulario de 
+    inserción, edición o de visualización de datos
+    de un contaco
+*/
 function contactForm(string $message, string $btn_name, string $action, array $contacts, array $contact = [], bool $is_read = false, bool $show = false) {
     $json_contacts = json_encode($contacts);
     $dni = ""; 
@@ -85,6 +93,7 @@ function contactForm(string $message, string $btn_name, string $action, array $c
     END;
 }
 
+// Función que crea los errores a mostrar
 function createErrors (string $message, bool $empty = false) {
     $message = $empty ? "<span>$message</span>" : $message;
 
@@ -96,10 +105,12 @@ function createErrors (string $message, bool $empty = false) {
     END;
 }
 
+// Función que nos indica si estamos realizando una acción de modificación
 function isModify() {
     return isset($_POST["add_form"]) || isset($_POST["action"]["edit"]);
 }
 
+// Función que realiza la acción de modificación
 function modifyAction(bool $is_edit, int $time_stamp, array &$contacts) {
     $data = $is_edit ? createContact() : editContact($time_stamp, $contacts);
     [ $dni, $contact ] = $data; 
@@ -108,6 +119,7 @@ function modifyAction(bool $is_edit, int $time_stamp, array &$contacts) {
     return [ $dni, $contact ];
 }
 
+// Función que sanea los datos que nos llegan
 function sanitizeFields () {
     [
         "dni" => $dni, 
@@ -128,6 +140,10 @@ function sanitizeFields () {
     return [$dni, $name, $surname, $birth_day, $phone, $email];
 }
 
+/*
+    Función que nos devuelve el formateo 
+    de la fecha en base a un timestamp
+*/
 function formatTimeStamp (int $time_stamp) {
     $time = strtolower(strftime("%p",$time_stamp));
 
@@ -141,6 +157,7 @@ function formatTimeStamp (int $time_stamp) {
     return utf8_encode("$day de $month de $year, $hour $time");
 }
 
+// Función que nos inica la función a realizar
 function actions (string $action, array $contacts) {
     $action = "";
     if (isset($_POST["action"]["add"])){
@@ -156,6 +173,7 @@ function actions (string $action, array $contacts) {
     return $action;
 }
 
+// Función que devuelve el resultado de la modificación
 function returnModifyResult ( string $action, array $contacts) {
     $is_ok = comprobeFields();
     $message = $is_ok ? createErrors("Existen campos vacíos o campos de más", true) : validateAddUserForm();
@@ -171,6 +189,7 @@ function returnModifyResult ( string $action, array $contacts) {
     return $message;
 }
 
+// Función que nos devuelve el resultado de la subida del fichero
 function uploadResult (array $contacts, string $action) {
     $message = uploadFile($contacts);
 

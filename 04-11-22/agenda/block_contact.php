@@ -1,6 +1,7 @@
 <?php
 require_once "./agenda/general_functions.php";
 
+// Formulario de bloqueo de los contactos
 function blockContactForm (string $action, array $contacts) {
     $json_contacts = json_encode($contacts);
 
@@ -14,6 +15,7 @@ function blockContactForm (string $action, array $contacts) {
     END;
 }
 
+// Función que comprueba si el contacto existe o está bloqueado
 function comprobeBlockContact (string $block_dni, array $contacts) {
     $message = "";
     $contact = isset($contacts[$block_dni]) ? $contacts[$block_dni] : [];
@@ -27,6 +29,7 @@ function comprobeBlockContact (string $block_dni, array $contacts) {
     return $message;
 }
 
+// Función que realiza la acción de bloquear el contacto
 function blockContact (string $block_dni, array &$contacts) {
     $message = comprobeBlockContact($block_dni, $contacts);
 
@@ -43,6 +46,11 @@ function blockContact (string $block_dni, array &$contacts) {
     return [ true, "<span class='my-3'>El contacto $name($block_dni) ha sido bloqueado con éxito</span>" ];
 }
 
+/*
+    Formulario en el que se visualiza el contacto
+    a bloquear, y pregunta si estas seguro de 
+    realizar la acción
+*/ 
 function sendBlockContact (string $action, array &$contacts) {
     $block_dni = $_POST["block_dni"];
     [ $is_ok, $message ] = blockContact($block_dni, $contacts);

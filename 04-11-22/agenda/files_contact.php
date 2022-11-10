@@ -1,8 +1,10 @@
 <?php
 require_once "./agenda/general_functions.php";
 
+// Contante con los tipos de ficheros válidos
 define("file_types", ["application/pdf", "application/vnd.oasis.opendocument.text"]);
 
+// Formulario de Subida de Ficheros
 function uploadForm(string $action, array $contacts) {
     $json_contacts = json_encode($contacts);
     $dni = $_POST["contact_dni"];
@@ -19,6 +21,7 @@ function uploadForm(string $action, array $contacts) {
     END;
 }
 
+// Función que realiza las comprobaciones sobre el fichero
 function comprobeFile(array $file) {
     ["error" => $error, "type" => $type] = $file;
     $message = "";
@@ -32,12 +35,14 @@ function comprobeFile(array $file) {
     return $message;
 }
 
+// Función que sube el fichero
 function uploadFile(array &$contacts) {
     $dni = $_POST["contact_dni"];
     $file = $_FILES["file_dni"];
     
     $message = comprobeFile($file);
 
+    // Si hay mensaje de error lo devolvemos
     if(!empty($message)) {
         return createErrors($message);
     }
