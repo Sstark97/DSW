@@ -12,8 +12,8 @@
     date_default_timezone_set("Atlantic/Canary");
 ?>
 <?= createHeader($contacts) ?>
-    <!- Función para enseñar la Tabla ->
-    <?php if(showTable()): ?>
+    <!- Función para enseñar la Tabla y donde se recibe la accion de ordenar ->
+    <?php if(showTable() || isset($_POST["order_action"])): ?>
         <?= createContactsTable($contacts, $action) ?>
     <?php endif; ?>
 
@@ -32,21 +32,8 @@
         <?= sendblockContact($action, $contacts) ?>
     <?php endif; ?>
 
-    <!- Aquí controlamos las diferentes opciones de orden ->
-    <?php if(isset($_POST["order_action"])): ?>
-        <?= createContactsTable($contacts, $action) ?>
-    <?php endif; ?>
-
     <!- En esta sección controlamos la subida de ficheros ->
     <?php if(isset($_POST["upload_action"])): ?>
-        <?php 
-            $message = uploadFile($contacts);
-        ?>
-        
-        <?php if (!empty($message)) : ?>
-            <?= $message ?>
-        <?php else: ?>
-            <?= createContactsTable($contacts, $action) ?>
-        <?php endif; ?>
+        <?= uploadResult($contacts, $action) ?>
     <?php endif; ?>
 <?= createFooter() ?>

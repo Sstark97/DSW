@@ -25,9 +25,7 @@ function comprobeFile(array $file) {
 
     if($error === 2) {
         $message .= "<span>El tamaño máximo de subida es 1000 MB</span>";
-    } 
-    
-    if(!in_array($type, file_types)){
+    } else if(!in_array($type, file_types)){
         $message .= "<span>La agenta solo soporta ficheros en formato odt y pdf</span>";
     } 
 

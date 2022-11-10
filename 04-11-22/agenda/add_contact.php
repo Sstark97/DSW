@@ -1,25 +1,37 @@
 <?php
 require_once "general_functions.php";
 
+/*
+    Formulario en el que se visualiza sin poder editar 
+    los datos que se han pasado del formulario de inserción
+    o edición
+*/ 
 function sendContactDataForm (string $message, array $contacts, array $contact, string $action) {
     $json_contacts = json_encode($contacts);
-
 
     $form = contactForm($message, "send_data", $action, $contacts, $contact, true, true);
 
     return $form;
 }
 
+// Función que valida si hay campos de más o de menos
 function comprobeFields () {
     $contact = $_POST["contact"];
     $keys = ["dni","name","surname", "phone", "birthday", "email"];
-    $size_keys = count($keys);
-    $diff = count(array_diff(array_keys($contact), $keys));
-    $stop = false;
 
+    /*
+        Comprobamos si hay diferencias en lo que 
+        nos llega con lo que debería llegar
+    */
+    $diff = count(array_diff(array_keys($contact), $keys));
     if($diff !== 0) {
         return true;
     }
+
+
+    // Comprobamos si hay valores vacíos
+    $size_keys = count($keys);
+    $stop = false;
 
     for ($i = 0; $i < $size_keys; $i ++) {
         $key = $keys[$i];
@@ -33,6 +45,7 @@ function comprobeFields () {
     return $stop;
 }
 
+// Función donde se realizan las validaciones de los datos si no están vacíos
 function validateAddUserForm () {
     $message = "";
     [
@@ -63,6 +76,7 @@ function validateAddUserForm () {
     return $message;
 }
 
+// Función donde creamos el contacto
 function createContact() {
     [
         $sanitize_dni, 

@@ -170,3 +170,9 @@ function returnModifyResult ( string $action, array $contacts) {
 
     return $message;
 }
+
+function uploadResult (array $contacts, string $action) {
+    $message = uploadFile($contacts);
+
+    return !empty($message) ? $message : createContactsTable($contacts, $action);
+}
