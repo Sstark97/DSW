@@ -49,6 +49,10 @@ function createContactsTable (array $contacts, string $action) {
         END;
     }
 
+    if (isset($_POST["order"])) {
+        orderContacts($contacts, $_POST["order"] === "dni", $_POST["order"]);
+    }
+
     $time_format = "%A, %d de %B, %h:%m:%s %a";
     foreach ($contacts as $key => $contact) {
         $tbody .= "<tr><td>$key</td>";

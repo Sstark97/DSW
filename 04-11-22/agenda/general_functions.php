@@ -155,3 +155,18 @@ function actions (string $action, array $contacts) {
 
     return $action;
 }
+
+function returnModifyResult ( string $action, array $contacts) {
+    $is_ok = comprobeFields();
+    $message = $is_ok ? createErrors("Existen campos vacíos o campos de más", true) : validateAddUserForm();
+
+    if(empty($message) && !$is_ok ) {
+        $time_stamp = $_POST["timestamp_insert"] ?? 0;
+        [ $dni, $contact ] = modifyAction(!isset($_POST["action"]["edit"]), $time_stamp, $contacts);
+        $message = sendContactDataForm("Datos enviados", $contacts, [$dni => $contact], $action);
+    } else if(!empty($message) && !$is_ok) {
+        $message = createErrors($message);
+    }
+
+    return $message;
+}

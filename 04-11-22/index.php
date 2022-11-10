@@ -12,48 +12,32 @@
     date_default_timezone_set("Atlantic/Canary");
 ?>
 <?= createHeader($contacts) ?>
+    <!- Función para enseñar la Tabla ->
     <?php if(showTable()): ?>
         <?= createContactsTable($contacts, $action) ?>
     <?php endif; ?>
 
+    <!- Función que controla que mostrar según la acción ->
     <?php if (isset($_POST["action"])) :?>
         <?= actions($action, $contacts) ?>
     <?php endif; ?>
-
+    
+    <!- En está parte se controlan los efectos de añadir/actualizar contactos ->
     <?php if(isModify()): ?> 
-        <?php $is_ok = comprobeFields()?>
-        <?php if($is_ok) : ?>
-            <?= createErrors("Existen campos vacíos o campos de más", true) ?>
-        <?php else : ?>
-            <?php $message = validateAddUserForm() ?>
-        <?php endif; ?>
-
-        <?php if(empty($message) && !$is_ok ): ?>
-            <?php
-                $time_stamp = $_POST["timestamp_insert"] ?? 0;
-                [ $dni, $contact ] = modifyAction(!isset($_POST["action"]["edit"]), $time_stamp, $contacts);
-            ?>
-            <?= sendContactDataForm("Datos enviados", $contacts, [$dni => $contact], $action) ?>
-        <?php endif; ?>
-
-        <?php if(!empty($message)): ?>
-            <?= createErrors($message) ?>
-        <?php endif; ?>
+        <?= returnModifyResult($action, $contacts) ?>
     <?php endif; ?>
 
+    <!- En está parte se realiza la acción de bloquear ->
     <?php if(isset($_POST["block_action"])): ?>
         <?= sendblockContact($action, $contacts) ?>
     <?php endif; ?>
 
+    <!- Aquí controlamos las diferentes opciones de orden ->
     <?php if(isset($_POST["order_action"])): ?>
-        <?php
-            $order = $_POST["order"];
-            orderContacts($contacts, $order === "dni", $order);
-        ?>
-        
         <?= createContactsTable($contacts, $action) ?>
     <?php endif; ?>
 
+    <!- En esta sección controlamos la subida de ficheros ->
     <?php if(isset($_POST["upload_action"])): ?>
         <?php 
             $message = uploadFile($contacts);
