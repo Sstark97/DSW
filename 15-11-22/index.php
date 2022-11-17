@@ -6,6 +6,9 @@
         denominada datas con todos esos datos.
     */
     setcookie("user",!isset($_POST["submit"]) ? serialize([]) : serialize($_POST["user"]));
+    if(isset($_POST["submit"])) {
+        header("refresh: 0; url = ./index.php");
+    }
 ?>
 
 <!DOCTYPE html>
