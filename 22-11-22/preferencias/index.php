@@ -1,9 +1,8 @@
 <?php
-    if(isset($_POST["submit"])) {
+    if(isset($_COOKIE["preferences"])) {
+        header("Location: bienvenida.php");
+    } else if(isset($_POST["submit"])) {
         setcookie("preferences", serialize($_POST["preferences"]));
-    }
-
-    if(isset($_COOKIE["preferences"]) || isset($_POST["preferences"])) {
         header("Location: bienvenida.php");
     }
 ?>

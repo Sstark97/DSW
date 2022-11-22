@@ -1,10 +1,10 @@
 <?php
-    setcookie("preferences", isset($_COOKIE["preferences"]) ? $_COOKIE["preferences"] : serialize([]));
+    // setcookie("preferences", isset($_COOKIE["preferences"]) ? $_COOKIE["preferences"] : serialize([]));
 
     $preferences = isset($_COOKIE["preferences"]) ? unserialize($_COOKIE["preferences"]) : [];
-    if(count($preferences) !== 0) {
-        header("Location: index.php");
-    }
+    // if(count($preferences) !== 0) {
+    //     header("Location: index.php");
+    // }
 
     [
         "name" => $name, 
