@@ -7,7 +7,7 @@ function editContactForm (string $action, array $contacts) {
     $contact = $contacts[$dni];
     [ "name" => $name ] = $contact;
 
-    return contactForm("Editar Contacto ($name)", "action[edit]", $action, $contact = [$dni => $contact]);
+    return contactForm("Editar Contacto ($name)", "action[edit]", $action, $contact = [$dni => $contact], false, false, true);
 }
 
 // Función que edita el contacto
