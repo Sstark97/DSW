@@ -5,8 +5,8 @@ require_once "./agenda/general_functions.php";
 define("file_types", ["application/pdf", "application/vnd.oasis.opendocument.text"]);
 
 // Formulario de Subida de Ficheros
-function uploadForm(string $action, array $contacts) {
-    $json_contacts = json_encode($contacts);
+function uploadForm(string $action) {
+
     $dni = $_POST["contact_dni"];
 
     return <<< END
@@ -15,7 +15,6 @@ function uploadForm(string $action, array $contacts) {
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
         <input class="form-control" type="file" name="file_dni">
         <input type="hidden" name="contact_dni" value='$dni'>
-        <input type="hidden" name="contacts" value='$json_contacts'>
         <button name="upload_action" class="btn btn-primary ms-1">Subir</button>
     </form>
     END;
@@ -57,4 +56,6 @@ function uploadFile(array &$contacts) {
 
     move_uploaded_file($tmp_dir, $file_path);
     array_push($contacts[$dni]["files"], $file_path);
+    
+    $_SESSION["contacts"] = $contacts;
 }

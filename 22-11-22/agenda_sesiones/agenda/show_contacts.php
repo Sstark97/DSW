@@ -19,8 +19,7 @@ function orderContacts (array &$contacts, bool $by_key = true, string $value = "
 }
 
 // Formulario que controla el tipo de orden
-function orderForm (string $action, array $contacts) {
-    $json_contacts = json_encode($contacts);
+function orderForm (string $action) {
 
     return <<< END
         <form class="d-flex justify-content-end w-75 mx-auto mt-4" action="$action" method="post">
@@ -29,7 +28,6 @@ function orderForm (string $action, array $contacts) {
                 <option value="name">Nombre</option>
                 <option value="surname">Apellidos</option>
             </select>
-            <input type="hidden" name="contacts" value='$json_contacts'>
             <button name="order_action" class="btn btn-primary ms-1">Ordenar</button>
         </form>
     END;
@@ -38,7 +36,6 @@ function orderForm (string $action, array $contacts) {
 // Creación de la tabla de contactos
 function createContactsTable (array $contacts, string $action) {
     $tbody = "";
-    $json_contacts = json_encode($contacts);
 
     // Filtrado de los contactos que no están bloqueados
     $contacts = array_filter($contacts, function (array $contact){
@@ -50,7 +47,6 @@ function createContactsTable (array $contacts, string $action) {
         return <<< END
             <form>
                 <h1 class='text-center mt-2'>No hay contactos</h1>
-                <input type='hidden' name='contacts' value='$json_contacts'>
             </form>
         END;
     }
@@ -79,7 +75,6 @@ function createContactsTable (array $contacts, string $action) {
                         <i class='bx bxs-file-import'></i>
                         <input type="hidden" name="contact_dni" value=$key>
                     </button>
-                    <input type="hidden" name="contacts" value='$json_contacts'>
                 </form>
             </td>
         END;

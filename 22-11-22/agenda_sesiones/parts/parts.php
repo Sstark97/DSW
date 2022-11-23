@@ -1,7 +1,6 @@
 <?php
 
-function createHeader($contacts) {
-    $json_contacts = json_encode($contacts);
+function createHeader() {
     
     return <<< END
         <!DOCTYPE html>
@@ -37,7 +36,6 @@ function createHeader($contacts) {
                                         Bloquear Contacto
                                     </button>
                                 </div>
-                                <input type="hidden" name="contacts" value='$json_contacts'>
                                 <input type="hidden" name="not_show">
                             </form>
                         </div>

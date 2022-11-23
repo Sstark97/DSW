@@ -16,7 +16,7 @@ function showTable() {
     inserción, edición o de visualización de datos
     de un contaco
 */
-function contactForm(string $message, string $btn_name, string $action, array $contact = [], bool $is_read = false, bool $show = false) {
+function contactForm(string $message, string $btn_name, string $action, array $contact = [], bool $is_read = false, bool $show = false, bool $is_edit = false) {
     $dni = ""; 
     $name = ""; 
     $surname = ""; 
@@ -24,7 +24,7 @@ function contactForm(string $message, string $btn_name, string $action, array $c
     $phone = ""; 
     $email = "";
 
-    if(count($contact) > 0) {
+    if(count($contact) > 0 && ($is_edit || $is_read)) {
         $dni = array_keys($contact)[0];
         [
             "name" => $name, 
@@ -113,6 +113,8 @@ function modifyAction(bool $is_edit, int $time_stamp, array &$contacts) {
     $data = $is_edit ? createContact() : editContact($time_stamp, $contacts);
     [ $dni, $contact ] = $data; 
     $contacts[$dni] = $contact;
+
+    $_SESSION["contacts"] = $contacts;
 
     return [ $dni, $contact ];
 }

@@ -2,14 +2,12 @@
 require_once "./agenda/general_functions.php";
 
 // Formulario de bloqueo de los contactos
-function blockContactForm (string $action, array $contacts) {
-    $json_contacts = json_encode($contacts);
+function blockContactForm (string $action) {
 
     return <<< END
     <h1 class="text-center mt-2">Bloquear Contacto</h1>
     <form class="d-flex justify-content-end w-50 mx-auto mt-4" action="$action" method="post">
         <input class="form-control" type="text" name="block_dni" placeholder="Escribe el dni de la persona">
-        <input type="hidden" name="contacts" value='$json_contacts'>
         <button name="block_action" class="btn btn-primary ms-1">Bloquear</button>
     </form>
     END;
