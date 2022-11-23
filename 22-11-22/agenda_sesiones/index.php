@@ -16,7 +16,7 @@
 ?>
 <?= createHeader($contacts) ?>
     <!- Función para enseñar la Tabla y donde se recibe la accion de ordenar ->
-    <?php if(showTable() || isset($_POST["order_action"])): ?>
+    <?php if(showTable() || isset($_POST["order_action"]) || isset($_POST["index"])): ?>
         <?= createContactsTable($contacts, $action) ?>
     <?php endif; ?>
 

@@ -20,7 +20,14 @@ function createHeader() {
                 <header>
                     <nav class="navbar navbar-dark bg-dark navbar-expand-lg py-4">
                         <div class="container-fluid">
-                        <a class="navbar-brand">Agenda</a>
+                        <form class="navbar-nav me-auto mb-2 mb-lg-0" action="./index.php" method="post">
+                            <div class="nav-item">
+                                    <button class="navbar-brand me-3" type="submit" name="index">
+                                        Agenda
+                                    </button>
+                            </div>
+                            <input type="hidden" name="not_show">
+                        </form>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
