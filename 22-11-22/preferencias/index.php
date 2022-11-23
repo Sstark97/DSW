@@ -1,10 +1,7 @@
 <?php
-    if(isset($_COOKIE["preferences"])) {
-        header("Location: bienvenida.php");
-    } else if(isset($_POST["submit"])) {
-        setcookie("preferences", serialize($_POST["preferences"]));
-        header("Location: bienvenida.php");
-    }
+    require_once "functions.php";
+
+    controlHome();
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +15,7 @@
 </head>
 <body>
     
-    <h1 class="text-center mb-2">Preferencias</h1>
+    <h1 class="text-center my-3">Preferencias</h1>
     <form class="w-50 mx-auto" action="<?= $_SERVER["PHP_SELF"]?>" method="post">
         <div class="mb-3">
             <label class="form-label" for="preferences[name]">Nombre</label>
