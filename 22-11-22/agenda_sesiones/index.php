@@ -8,6 +8,9 @@
     require_once "./agenda/files_contact.php";
 
     session_name("diary");
+    
+    // Añadí está línea porque daba problemas de cache
+    session_cache_limiter('private_no_expire');
     session_start();
 
     $contacts = isset($_SESSION["contacts"]) ? $_SESSION["contacts"] : [];
