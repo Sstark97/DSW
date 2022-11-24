@@ -41,6 +41,8 @@ function blockContact (string $block_dni, array &$contacts) {
     [ "name" => $name ] = $contact;
     $contacts[$block_dni] = $contact;
 
+    $_SESSION["contacts"] = $contacts;
+
     return [ true, "<span class='my-3'>El contacto $name($block_dni) ha sido bloqueado con éxito</span>" ];
 }
 
