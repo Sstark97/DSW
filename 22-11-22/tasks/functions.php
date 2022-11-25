@@ -1,4 +1,5 @@
 <?php
+define("fields", ["task", "submit"]);
 
 function createTable ($action) {
     $tasks = $_SESSION["tasks"] ?? [];
@@ -39,10 +40,44 @@ function createTable ($action) {
     return $table;
 }
 
+function createError ($error) {
+    return <<< END
+    <div class="d-flex align-items-center justify-content-center w-50 mx-auto mb-1">
+        <div class="alert alert-dismissible fade show alert-danger w-75" role="alert">
+            <div>
+                <strong>Error!: </strong>$error
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    END;
+}
+
+function comprobeTask () {
+    $error = "";
+
+    if(count(array_diff(array_keys($_POST), fields)) !== 0) {
+        $error .= createError("Hay campos de más");
+    } else if(!isset($_POST["task"])) {
+        $error .= createError("No se ha podido enviar la tarea");
+    } else if(empty($_POST["task"])) {
+        $error .= createError("Las Tareas no pueden estar vacías");
+    } 
+
+    return $error;
+}
+
 function addTask () {
+    $error = comprobeTask();
+
+    if(!empty($error)) {
+        return $error;
+    }
+
     ["task" => $task] = $_POST;
+
     $tasks = $_SESSION["tasks"] ?? [];
-    $id  = count($tasks);
+    $id  = array_search(end($tasks), $tasks) + 1;
 
     $tasks[$id] = ["name" => $task];
     $_SESSION["tasks"] = $tasks;
