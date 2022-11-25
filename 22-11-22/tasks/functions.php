@@ -77,6 +77,11 @@ function addTask () {
     ["task" => $task] = $_POST;
 
     $tasks = $_SESSION["tasks"] ?? [];
+
+    /*
+        Creo el id en base al último, por si borro un elemento
+        de la mitad de la lista, no sobreescriba otro elemento
+    */
     $id  = array_search(end($tasks), $tasks) + 1;
 
     $tasks[$id] = ["name" => $task];
