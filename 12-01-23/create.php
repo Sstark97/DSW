@@ -11,10 +11,11 @@
                 "host" => $host,
                 "user" => $user,
                 "pass" => $pass,
+                "name" => $name,
                 "options" => $options
             ] = $config["db"];
         
-            $connection = new PDO("mysql:host=$host", $user, $pass, $options);
+            $connection = new PDO("mysql:host=$host;dbname=$name", $user, $pass, $options);
 
             $student = [
                 "name" => $_POST["name"],
@@ -24,7 +25,7 @@
             ];
 
             $sql_query = "INSERT INTO Students (name, surname, email, age)";
-            $sql_query = "values (:" . implode(", :", array_keys($student)) . ")";
+            $sql_query .= "values (:" . implode(", :", array_keys($student)) . ")";
 
             $sentence = $connection->prepare($sql_query);
             $sentence->execute($student);
@@ -36,6 +37,17 @@
 ?>
 
 <?php include "parts/header.php" ?>
+<?php if(isset($result)): ?>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-<?= $result['error'] ? 'danger' : 'success' ?>" role="alert">
+                    <?= $result["message"] ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
