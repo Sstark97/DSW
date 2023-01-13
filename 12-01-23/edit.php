@@ -26,25 +26,29 @@
                 "name" => $_POST["name"],
                 "surname" => $_POST["surname"],
                 "email" => $_POST["email"],
+                "age" => intval($_POST["age"])
             ];
-
+            
             $sql_query = <<< END
                 UPDATE Students
                 SET name=:name,
-                SET surname=:surname,
-                SET email=:email,
-                SET age=:age
+                surname=:surname,
+                email=:email,
+                age=:age
                 WHERE id=:id
             END;
 
-            print_r($student);
             $sentence = $connection->prepare($sql_query);
+            //by mariola
+            /*foreach($student as $key => $field) {
+                $sentence->bindParam(":".$key, $field);
+            }*/
+            //by mariola
+            $sentence->bindParam(":name", $student["name"], PDO::PARAM_STR);
+            $sentence->bindParam(":surname", $student["surname"], PDO::PARAM_STR);
+            $sentence->bindParam(":email", $student["email"], PDO::PARAM_STR);
 
-            foreach($student as $key => $field) {
-                $sentence->bindParam(":$key", $field);
-            }
-
-            $sentence->bindParam(":age", 23, PDO::PARAM_INT);
+            $sentence->bindParam(":age", $student["age"], PDO::PARAM_INT);
             $sentence->bindParam(":id", $userId, PDO::PARAM_INT);
             echo $sql_query;
 
