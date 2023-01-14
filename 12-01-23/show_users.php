@@ -1,7 +1,7 @@
 <?php
     include "functions.php";
 
-    $error = false;
+    $error = "";
     $config = include './config.php';
 
     try {
@@ -20,8 +20,8 @@
         $sentence = $connection->prepare($sql_query);
         $sentence->execute();
         $students = $sentence->fetchAll();
-    } catch (PDOException $error) {
-        $error = $error->getMessage();
+    } catch (PDOException $pdo_error) {
+        $error = $pdo_error->getMessage();
     }
 ?>
 
@@ -77,6 +77,10 @@
                                 <td>
                                     <button class="btn btn-warning">
                                         <a href="./edit.php?userId=<?= $student["id"] ?>">Actualizar</a>
+                                    </button>
+
+                                    <button class="btn btn-danger">
+                                        <a href="./delete.php?userId=<?= $student["id"] ?>">Borrar</a>
                                     </button>
                                 </td>
                             </tr>
