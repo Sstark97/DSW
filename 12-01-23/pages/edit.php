@@ -43,7 +43,6 @@
         </div>
         <hr>
         <?php if(!$student): ?>
-            <?= $student ?>
             <p class="text-center">No existe el usuario con el id <?= $_GET["userId"] ?></p>
             <div class="container text-center">
                 <div class="row">

@@ -1,6 +1,12 @@
 <?php
     require_once "functions.php";
 
+    /**
+     * Función que crea un estudiante en la BD School
+     * o devuelve un fallo en caso de haberlo
+     * 
+     * @return result: Resultado de ejecutar la consulta
+    */
     function createStudent () {
         $result = [
             "error" => false,
@@ -30,9 +36,17 @@
         return $result;
     }
 
+    /**
+     * Función que devuelve los estudiantes de la BD School
+     * o devuelve un fallo en caso de haberlo
+     * 
+     * @return result: Resultado de ejecutar la consulta
+    */
     function showStudents () {
         $result = [
             "error" => "",
+            "sentence" => "",
+            "students" => []
         ];
 
         try {
@@ -52,11 +66,18 @@
         return $result;
     }
 
+    /**
+     * Función que devuelve los datos de un estudiante 
+     * de la BD School o devuelve un fallo en caso de haberlo
+     * 
+     * @return result: Resultado de ejecutar la consulta
+    */
     function getStudent () {
         $userId = $_GET["userId"];
 
         $result = [
             "get_error_student" => "",
+            "student" => []
         ];
 
         try {
@@ -74,6 +95,12 @@
         return $result;
     }
 
+    /**
+     * Función que edita los datos de un estudiante 
+     * de la BD School o devuelve un fallo en caso de haberlo
+     * 
+     * @return result: Resultado de ejecutar la consulta
+    */
     function editStudent () {
         $userId = $_GET["userId"];
 
@@ -120,6 +147,12 @@
         return $result;
     }
 
+    /**
+     * Función que borra a un estudiante 
+     * de la BD School o devuelve un fallo en caso de haberlo
+     * 
+     * @return result: Resultado de ejecutar la consulta
+    */
     function deleteStudent () {
         $userId = $_GET["userId"];
 

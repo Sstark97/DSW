@@ -4,6 +4,17 @@
         return htmlspecialchars($html, ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8");
     }
 
+    /**
+     * Función que devuelve la conexión con la
+     * BD School en base a las configuraciones definidas
+     * en el fichero ./config/config.php
+     * 
+     * Los posibles fallos a la hora de crear la conexión
+     * están controlados en las funciones que interactúan con 
+     * la BD
+     * 
+     * @return connection: Conexión a la BD School
+    */
     function getDbConnection () {
         $config = include 'config/config.php';
         [
