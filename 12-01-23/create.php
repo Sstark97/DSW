@@ -1,21 +1,14 @@
 <?php
+    require_once "functions.php";
+
     if (isset($_POST["submit"])) {
         $result = [
             "error" => false,
             "message" => "User add success!"
         ];
-        $config = include './config.php';
 
         try {
-            [
-                "host" => $host,
-                "user" => $user,
-                "pass" => $pass,
-                "name" => $name,
-                "options" => $options
-            ] = $config["db"];
-        
-            $connection = new PDO("mysql:host=$host;dbname=$name", $user, $pass, $options);
+            $connection = getDbConnection();
 
             $student = [
                 "name" => $_POST["name"],
@@ -71,7 +64,7 @@
                 <label for="age">Edad</label>
                 <input type="text" name="age" id="age" class="form-control">
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <button type="submit" name="submit" class="btn btn-primary">Enviar</button>
                 <a class="btn btn-primary" href="index.php">Regresar al inicio</a>
             </div>

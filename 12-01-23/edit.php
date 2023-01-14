@@ -2,7 +2,6 @@
     include "functions.php";
 
     $error = false;
-    $config = include './config.php';
     $userId = $_GET["userId"];
 
     if(isset($_POST["submit"])) {
@@ -12,15 +11,7 @@
         ];
 
         try {
-            [
-                "host" => $host,
-                "user" => $user,
-                "pass" => $pass,
-                "name" => $name,
-                "options" => $options
-            ] = $config["db"];
-        
-            $connection = new PDO("mysql:host=$host;dbname=$name", $user, $pass, $options);
+            $connection = getDbConnection();
 
             $student = [
                 "name" => $_POST["name"],
@@ -56,15 +47,7 @@
     }
 
     try {
-        [
-            "host" => $host,
-            "user" => $user,
-            "pass" => $pass,
-            "name" => $name,
-            "options" => $options
-        ] = $config["db"];
-    
-        $connection = new PDO("mysql:host=$host;dbname=$name", $user, $pass, $options);
+        $connection = getDbConnection();
         $sql_query = "SELECT * FROM Students WHERE id = $userId";
 
         $sentence = $connection->prepare($sql_query);
