@@ -26,7 +26,9 @@
                 "name" => $_POST["name"],
                 "surname" => $_POST["surname"],
                 "email" => $_POST["email"],
-                "age" => intval($_POST["age"])
+                "age" => intval($_POST["age"]),
+                "age" => $_POST["age"],
+                "id" => $userId
             ];
             
             $sql_query = <<< END
@@ -39,18 +41,12 @@
             END;
 
             $sentence = $connection->prepare($sql_query);
-            //by mariola
-            /*foreach($student as $key => $field) {
-                $sentence->bindParam(":".$key, $field);
-            }*/
-            //by mariola
-            $sentence->bindParam(":name", $student["name"], PDO::PARAM_STR);
-            $sentence->bindParam(":surname", $student["surname"], PDO::PARAM_STR);
-            $sentence->bindParam(":email", $student["email"], PDO::PARAM_STR);
 
-            $sentence->bindParam(":age", $student["age"], PDO::PARAM_INT);
-            $sentence->bindParam(":id", $userId, PDO::PARAM_INT);
-            echo $sql_query;
+            foreach($student as $key => $field) {
+                $type = $key === "id" || $key === "age" ? PDO::PARAM_INT : PDO::PARAM_STR;
+
+                $sentence->bindValue(":$key", $field, $type);
+            }
 
             $sentence->execute();
         } catch (PDOException $error) {
