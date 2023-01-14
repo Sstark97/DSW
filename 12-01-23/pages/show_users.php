@@ -26,8 +26,8 @@
 <div class="container"></div>
     <div class="row">
         <div class="col-md-12">
-            <h2 class="mt-3">Lista de alumnos/as</h2>
-            <table class="table">
+            <h2 class="text-center my-3">Lista de alumnos/as</h2>
+            <table class="table table-bordered table-dark w-75 mx-auto mt-2">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -61,11 +61,11 @@
 
                                 <td>
                                     <button class="btn btn-warning">
-                                        <a href="./edit.php?userId=<?= $student["id"] ?>">Actualizar</a>
+                                        <a class="text-decoration-none text-dark" href="./edit.php?userId=<?= $student["id"] ?>"><i class='bx bx-edit-alt'></i></a>
                                     </button>
 
                                     <button class="btn btn-danger">
-                                        <a href="./delete.php?userId=<?= $student["id"] ?>">Borrar</a>
+                                        <a class="text-decoration-none text-dark" href="./delete.php?userId=<?= $student["id"] ?>"><i class='bx bx-trash-alt'></i></a>
                                     </button>
                                 </td>
                             </tr>
@@ -76,9 +76,9 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container text-center">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col align-self-center">
                 <a href="../index.php" class="btn btn-primary mt-4">Regresar al inicio</a>
             </div>
         </div>

@@ -13,10 +13,11 @@
             integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
             crossorigin="anonymous"
           />
+          <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
           <title>School</title>
         </head>
         <body>
-          <main class="d-flex flex-column h-100 min-vw-100 min-vh-100">
+          <main class="d-flex flex-column overflow-hidden">
             <header>
               <nav class="navbar navbar-dark bg-dark navbar-expand-lg py-4">
                 <div class="container-fluid">
