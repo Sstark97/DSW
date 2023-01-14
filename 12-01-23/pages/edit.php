@@ -43,7 +43,15 @@
         </div>
         <hr>
         <?php if(!$student): ?>
+            <?= $student ?>
             <p class="text-center">No existe el usuario con el id <?= $_GET["userId"] ?></p>
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col align-self-center">
+                        <a href="../index.php" class="btn btn-primary mt-4">Regresar al inicio</a>
+                    </div>
+                </div>
+            </div>
         <?php else: ?>
         <form method="post" action="<?= $_SERVER['PHP_SELF']?>?userId=<?= $student["id"] ?>">
             <div class="form-group">
@@ -62,12 +70,12 @@
                 <label for="age">Edad</label>
                 <input type="text" name="age" id="age" class="form-control" value="<?= $student["age"] ?>">
             </div>
-            <button type="submit" name="submit" class="btn btn-warning">Enviar</button>
+            <div class="form-group mt-3">
+                <button type="submit" name="submit" class="btn btn-warning">Enviar</button>
+                <a class="btn btn-primary" href="../index.php">Regresar al inicio</a>
+            </div>
         </form>
         <?php endif; ?>
-        <div class="form-group">
-            <a class="btn btn-primary" href="../index.php">Regresar al inicio</a>
-        </div>
     </div>
 </div>
 
