@@ -1,2 +1,6 @@
-<?php include "parts/header.php" ?>
-<?php include "parts/footer.php" ?>
+<?php
+    require_once "./parts/parts.php";
+?>
+
+<?= createHeader() ?>
+<?= createFooter() ?>

@@ -1,5 +1,6 @@
 <?php
-    include "functions.php";
+    include "../functions.php";
+    require_once "../parts/parts.php";
 
     $error = false;
     $userId = $_GET["userId"];
@@ -58,7 +59,7 @@
     }
 ?>
 
-<?php include "parts/header.php" ?>
+<?= createHeader() ?>
 <?php if($error): ?>
     <div class="container mt-2">
         <div class="row">
@@ -111,9 +112,9 @@
         </form>
         <?php endif; ?>
         <div class="form-group">
-            <a class="btn btn-primary" href="index.php">Regresar al inicio</a>
+            <a class="btn btn-primary" href="../index.php">Regresar al inicio</a>
         </div>
     </div>
 </div>
 
-<?php include "parts/footer.php" ?>
+<?= createFooter() ?>

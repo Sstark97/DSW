@@ -5,7 +5,7 @@
     }
 
     function getDbConnection () {
-        $config = include 'config.php';
+        $config = include 'config/config.php';
         [
             "host" => $host,
             "user" => $user,

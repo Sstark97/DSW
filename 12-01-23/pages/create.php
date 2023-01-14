@@ -1,5 +1,6 @@
 <?php
-    require_once "functions.php";
+    require_once "../functions.php";
+    require_once "../parts/parts.php";
 
     if (isset($_POST["submit"])) {
         $result = [
@@ -29,7 +30,7 @@
     }
 ?>
 
-<?php include "parts/header.php" ?>
+<?= createHeader() ?>
 <?php if(isset($result)): ?>
     <div class="container mt-3">
         <div class="row">
@@ -66,9 +67,9 @@
             </div>
             <div class="form-group mt-3">
                 <button type="submit" name="submit" class="btn btn-primary">Enviar</button>
-                <a class="btn btn-primary" href="index.php">Regresar al inicio</a>
+                <a class="btn btn-primary" href="../index.php">Regresar al inicio</a>
             </div>
         </form>
     </div>
 </div>
-<?php include "parts/footer.php" ?>
+<?= createFooter() ?>

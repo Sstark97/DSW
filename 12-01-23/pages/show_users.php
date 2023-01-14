@@ -1,5 +1,6 @@
 <?php
-    include "functions.php";
+    include "../functions.php";
+    require_once "../parts/parts.php";
 
     $error = "";
 
@@ -16,7 +17,7 @@
     }
 ?>
 
-<?php include "parts/header.php" ?>
+<?= createHeader() ?>
 <?php if($error): ?>
     <div class="container mt-2">
         <div class="row">
@@ -85,9 +86,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <a href="index.php" class="btn btn-primary mt-4">Regresar al inicio</a>
+                <a href="../index.php" class="btn btn-primary mt-4">Regresar al inicio</a>
             </div>
         </div>
     </div>
 </div>
-<?php include "parts/footer.php" ?>
+<?= createFooter() ?>
