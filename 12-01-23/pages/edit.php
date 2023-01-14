@@ -10,7 +10,7 @@
 
 <?= createHeader() ?>
     <?php if(isset($_POST["submit"])): ?>
-        <?php $result = edit(); ?>
+        <?php $result = editStudent(); ?>
     <?php endif; ?>
 
     <?php if($get_error_student): ?>
@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="alert alert-danger" role="alert">
-                        <?= $error ?>
+                        <?= $get_error_student ?>
                     </div>
                 </div>
             </div>

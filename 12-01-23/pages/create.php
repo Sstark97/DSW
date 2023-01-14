@@ -5,7 +5,7 @@
 
 <?= createHeader() ?>
     <?php if(isset($_POST["submit"])): ?>
-        <?php $result = create(); ?>
+        <?php $result = createStudent(); ?>
     <?php endif; ?>
 
     <?php if(isset($result)): ?>

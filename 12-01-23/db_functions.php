@@ -1,7 +1,7 @@
 <?php
     require_once "functions.php";
 
-    function create () {
+    function createStudent () {
         $result = [
             "error" => false,
             "message" => "User add success!"
@@ -74,7 +74,7 @@
         return $result;
     }
 
-    function edit () {
+    function editStudent () {
         $userId = $_GET["userId"];
 
         $result = [
@@ -118,5 +118,24 @@
         }
 
         return $result;
+    }
+
+    function deleteStudent () {
+        $userId = $_GET["userId"];
+
+        $error = "";
+    
+        try {
+            $connection = getDbConnection();
+            $sql_query = "DELETE FROM Students WHERE id = $userId";
+    
+            $sentence = $connection->prepare($sql_query);
+            $sentence->execute();
+            header("Location: ../index.php");
+        } catch (PDOException $pdo_error) {
+            $error = $pdo_error->getMessage();
+        }
+
+        return $error;
     }
 ?>
