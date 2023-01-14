@@ -1,20 +1,13 @@
 <?php
-    include "../functions.php";
+    require_once "../db_functions.php";
     require_once "../parts/parts.php";
 
-    $error = "";
+    [
+        "error" => $error,
+        "sentence" => $sentence,
+        "students" => $students
+    ] = showStudents();
 
-    try {
-        $connection = getDbConnection();
-
-        $sql_query = "SELECT * FROM Students";
-
-        $sentence = $connection->prepare($sql_query);
-        $sentence->execute();
-        $students = $sentence->fetchAll();
-    } catch (PDOException $pdo_error) {
-        $error = $pdo_error->getMessage();
-    }
 ?>
 
 <?= createHeader() ?>

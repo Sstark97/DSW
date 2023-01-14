@@ -30,6 +30,28 @@
         return $result;
     }
 
+    function showStudents () {
+        $result = [
+            "error" => "",
+        ];
+
+        try {
+            $connection = getDbConnection();
+    
+            $sql_query = "SELECT * FROM Students";
+    
+            $sentence = $connection->prepare($sql_query);
+            $sentence->execute();
+            $students = $sentence->fetchAll();
+            $result["sentence"] = $sentence;
+            $result["students"] = $students;
+        } catch (PDOException $pdo_error) {
+            $result["error"] = $pdo_error->getMessage();
+        }
+
+        return $result;
+    }
+
     function getStudent () {
         $userId = $_GET["userId"];
 
@@ -45,8 +67,8 @@
             $sentence->execute();
             $student = $sentence->fetch();
             $result["student"] = $student;
-        } catch (PDOException $error) {
-            $result["get_error_student"] = $error->getMessage();
+        } catch (PDOException $pdo_error) {
+            $result["get_error_student"] = $pdo_error->getMessage();
         }
 
         return $result;
