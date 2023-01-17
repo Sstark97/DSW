@@ -1,16 +1,19 @@
 <?php
 
-$config = include './config.php';
+$config = require_once 'config.php';
 
 try {
     [
         "host" => $host,
-        "user" => $user,
-        "pass" => $pass,
         "options" => $options
     ] = $config["db"];
 
-    $connection = new PDO("mysql:host=$host", $user, $pass, $options);
+    /**
+     * Uso root porque en mi casa me daba fallo al crear
+     * la base de datos, para todo lo demás uso la configuración
+     * de mi usuario
+     */
+    $connection = new PDO("mysql:host=$host", "root", "", $options);
     $sql = file_get_contents('data/bbdd.sql');
     $connection->exec($sql);
     echo "The DataBase and Student Table created success";
