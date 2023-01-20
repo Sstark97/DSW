@@ -1,5 +1,6 @@
 <?php
 require_once "general.php";
+require_once "../config/config.php";
 
 // Función que valida si hay campos de más o de menos
 function comprobeFields () {
@@ -14,7 +15,6 @@ function comprobeFields () {
     if($diff !== 0) {
         return true;
     }
-
 
     // Comprobamos si hay valores vacíos
     $size_keys = count($keys);
@@ -70,30 +70,52 @@ function validateRegisterForm () {
 
 // Función en la que se crea el usurio el Usuario
 function createUser() {
-    [
-        $sanitize_dni, 
-        $sanitize_name, 
-        $sanitize_surname, 
-        $sanitize_birth_day, 
-        $sanitize_phone, 
-        $sanitize_email 
-    ]= sanitizeFields();
+    $result = "Usuario creado con éxito!";
 
-    $birthday_date = date_create_from_format('Y-m-d',$sanitize_birth_day);
-    $timestamp_insert = date_timestamp_get($birthday_date);
+    try {
+        $connection = getDbConnection();
 
-    $user = [
+        [
+            $sanitize_dni, 
+            $sanitize_name, 
+            $sanitize_surname, 
+            $sanitize_email, 
+            $sanitize_phone, 
+            $sanitize_age, 
+            $sanitize_password
+        ] = sanitizeFields();
+
+        $user = [
+            "dni" => $sanitize_dni,
             "name" => $sanitize_name,
-            "surname" => $sanitize_surname, 
-            "birth_day" => $sanitize_birth_day, 
-            "phone" => $sanitize_phone, 
+            "surname" => $sanitize_surname,
             "email" => $sanitize_email,
-            "block" => false,
-            "files" => [],
-            "timestamp_insert" => $timestamp_insert
-    ];
+            "phone" => $sanitize_phone,
+            "age" => intval($sanitize_age),
+            "password" => $sanitize_password
+        ];
 
-    return [ $sanitize_dni, $user ];
+        $sql_query = <<< END
+            INSERT INTO User (dni, name, surname, email, phone, age, password) VALUES 
+            (:dni, :name, :surname, :email, :phone, :age, :password)
+        END;
+
+        $sentence = $connection->prepare($sql_query);
+
+        foreach($user as $key => $field) {
+            $type = $key === "age" ? PDO::PARAM_INT : PDO::PARAM_STR;
+
+            $sentence->bindValue(":$key", $field, $type);
+        }
+
+        $sentence->execute();
+        $_SESSION["userId"] = $sanitize_dni;
+        header("Location: ../index.php");
+    } catch (PDOException $error) {
+        $result = createErrors($error->getMessage());
+        
+        return $result;
+    }
 }
 
 // Función que comprueba los errores y realiza la acción de registro
@@ -102,7 +124,7 @@ function registerAction () {
     $message = $is_ok ? createErrors("Existen campos vacíos o campos de más", true) : validateRegisterForm();
 
     if(empty($message) && !$is_ok ) {
-        echo "Correcto";
+        createUser();
     } else if(!empty($message) && !$is_ok) {
         $message = createErrors($message);
     }

@@ -1,8 +1,6 @@
 <?php
   require_once "../partials/parts.php";
   require_once "../controller/register.php";
-
-  $action = $_SERVER["PHP_SELF"];
 ?>
 
 <?= createNotLoggedHeader() ?>
@@ -17,7 +15,7 @@
         <div class="card bg-dark text-white" style="border-radius: 1rem;">
           <div class="card-body p-5 text-center">
 
-            <form method="post" action="<?= $action ?>" >
+            <form method="post" action="<?= $_SERVER["PHP_SELF"] ?>" >
 
               <h2 class="fw-bold mb-2 text-uppercase">Registro</h2>
 

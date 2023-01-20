@@ -30,6 +30,7 @@ function sanitizeFields () {
     $phone = trim(strip_tags($phone));
     $age = trim(strip_tags($age));
     $password = trim(strip_tags($password));
+    $hash_password = password_hash($password, PASSWORD_BCRYPT, ["salt" => "my_secret_hash_password", "cost" => 15]);
 
-    return [$dni, $name, $surname, $email, $phone, $age, $password];
+    return [$dni, $name, $surname, $email, $phone, $age, $hash_password];
 }
