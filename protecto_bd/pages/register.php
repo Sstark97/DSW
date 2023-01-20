@@ -1,43 +1,66 @@
 <?php
-    require_once "../partials/parts.php"
+  require_once "../partials/parts.php";
+  require_once "../controller/register.php";
+
+  $action = $_SERVER["PHP_SELF"];
 ?>
 
 <?= createNotLoggedHeader() ?>
+
 <section class="vh-100 gradient-custom">
+  <?php if(isset($_POST["register_submit"])): ?>
+      <?= registerAction() ?>
+  <?php endif; ?>
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
         <div class="card bg-dark text-white" style="border-radius: 1rem;">
           <div class="card-body p-5 text-center">
 
-            <div class="mb-md-5 mt-md-4 pb-5">
+            <form method="post" action="<?= $action ?>" >
 
-              <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
-
-              <div class="form-outline form-white mb-4">
-                <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                <label class="form-label" for="typeEmailX">Email</label>
-              </div>
+              <h2 class="fw-bold mb-2 text-uppercase">Registro</h2>
 
               <div class="form-outline form-white mb-4">
-                <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                <label class="form-label" for="typePasswordX">Password</label>
+                <label class="form-label" for="user[dni]">Dni</label>
+                <input type="text" name="user[dni]" class="form-control" />
               </div>
 
-              <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
-
-              <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
-
-              <div class="d-flex justify-content-center text-center mt-4 pt-1">
-                <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
-                <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
-                <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
+              <div class="form-outline form-white mb-4">
+                <label class="form-label" for="user[name]">Nombre</label>
+                <input type="text" name="user[name]" class="form-control" />
+              </div>
+              <div class="form-outline form-white mb-4">
+                <label class="form-label" for="user[surname]">Apellidos</label>
+                <input type="text" name="user[surname]" class="form-control" />
               </div>
 
-            </div>
+              <div class="form-outline form-white mb-4">
+                <label class="form-label" for="user[email]">Email</label>
+                <input type="email" name="user[email]" id="typeEmailX" class="form-control" required/>
+              </div>
 
-            <div>
-              <p class="mb-0">Do you have an account? <a href="./login.php" class="text-white-50 fw-bold">Login</a>
+              <div class="form-outline form-white mb-4">
+                <label class="form-label" for="user[phone]">Teléfono</label>
+                <input type="text" name="user[phone]" class="form-control" required/>
+              </div>
+
+              <div class="form-outline form-white mb-4">
+                <label class="form-label" for="user[age]">Edad</label>
+                <input type="text" name="user[age]" class="form-control" />
+              </div>
+
+              <div class="form-outline form-white mb-4">
+                <label class="form-label" for="user[password]">Contraseña</label>
+                <input type="password" name="user[password]" id="typePasswordX" class="form-control" required/>
+              </div>
+
+              <button class="btn btn-outline-light btn-lg px-5" type="submit" name="register_submit">Únete!</button>
+
+            </form>
+
+            <div class="mt-3">
+              <p class="mb-0">¿Tienes una cuenta? <a href="./login.php" class="text-white-50 fw-bold">Login</a>
               </p>
             </div>
 

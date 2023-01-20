@@ -1,11 +1,9 @@
 <?php
     require_once "./partials/parts.php";
-    session_name("videogames");
     session_start();
+    session_name();
 
-    $userId = $_SESSION["userId"];
-
-    if(!isset($userId)) {
+    if(!isset($_SESSION["userId"])) {
         header("Location: ./pages/login.php");
     }
 ?>

@@ -15,14 +15,14 @@
           />
           <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
           <link rel="stylesheet" href="./styles/style.css">
-          <title>VideoGames</title>
+          <title>GameShop</title>
         </head>
         <body>
           <main class="d-flex flex-column overflow-hidden">
             <header>
               <nav class="navbar navbar-dark bg-dark navbar-expand-lg py-4">
                 <div class="container-fluid">
-                  <a class="navbar-brand">VideoGames</a>
+                  <a class="navbar-brand">GameShop</a>
                   <button
                     class="navbar-toggler"
                     type="button"
