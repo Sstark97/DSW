@@ -39,15 +39,16 @@ function loginUser () {
         $sentence->execute();
         ["dni" => $dni, "password" => $password] = $sentence->fetch();
 
-        if(!password_verify($sanitize_password, $password)) {
+        if(empty($dni)) {
+            throw new PDOException("El usuario no existe");  
+        } else if(!password_verify($sanitize_password, $password)) {
             throw new PDOException("La contraseña no es correcta");
         }
 
         $_SESSION["userId"] = $dni;
         header("Location: ../index.php");
         exit();
-    } catch (PDOException $error) { 
-        
+    } catch (PDOException $error) {
         return createErrors($error->getMessage());
     }
 }
