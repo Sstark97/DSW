@@ -1,6 +1,10 @@
 <?php
   require_once "../partials/parts.php";
   require_once "../controller/register.php";
+
+  if(isset($_SESSION["userId"])) {
+    header("Location: ../index.php");
+  }
 ?>
 
 <?= createNotLoggedHeader() ?>

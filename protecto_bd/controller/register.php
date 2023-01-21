@@ -6,6 +6,7 @@ session_name("videogames");
 session_start();
 
 define("keys", ["dni","name","surname", "email", "phone", "age", "password"]);
+define("salt", "my_secret_hash_password");
 
 // Función donde se realizan las validaciones de los datos si no están vacíos
 function validateRegisterForm () {
@@ -45,7 +46,6 @@ function validateRegisterForm () {
 
 // Función en la que se crea el usurio el Usuario
 function createUser() {
-    $result = "Usuario creado con éxito!";
 
     try {
         $connection = getDbConnection();
@@ -58,7 +58,9 @@ function createUser() {
             $sanitize_phone, 
             $sanitize_age, 
             $sanitize_password
-        ] = sanitizeFields();
+        ] = sanitizeFields($_POST["user"]);
+
+        $hash_password = password_hash($sanitize_password, PASSWORD_BCRYPT, ["salt" => salt, "cost" => 12]);
 
         $user = [
             "dni" => $sanitize_dni,
@@ -67,7 +69,7 @@ function createUser() {
             "email" => $sanitize_email,
             "phone" => $sanitize_phone,
             "age" => intval($sanitize_age),
-            "password" => $sanitize_password
+            "password" => $hash_password
         ];
 
         $sql_query = <<< END
@@ -84,13 +86,13 @@ function createUser() {
         }
 
         $sentence->execute();
+
         $_SESSION["userId"] = $sanitize_dni;
         header("Location: ../index.php");
         exit();
     } catch (PDOException $error) {
-        $result = createErrors($error->getMessage());
         
-        return $result;
+        return createErrors($error->getMessage());
     }
 }
 
