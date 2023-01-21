@@ -5,35 +5,7 @@ require_once "../config/config.php";
 session_name("videogames");
 session_start();
 
-// Función que valida si hay campos de más o de menos
-function comprobeFields () {
-    $user = $_POST["user"];
-    $keys = ["dni","name","surname", "email", "phone", "age", "password"];
-
-    /*
-        Comprobamos si hay diferencias en lo que 
-        nos llega con lo que debería llegar
-    */
-    $diff = count(array_diff(array_keys($user), $keys));
-    if($diff !== 0) {
-        return true;
-    }
-
-    // Comprobamos si hay valores vacíos
-    $size_keys = count($keys);
-    $stop = false;
-
-    for ($i = 0; $i < $size_keys; $i ++) {
-        $key = $keys[$i];
-
-        if(empty($user[$key])) {
-            $stop = true;
-            break;
-        }
-    }
-
-    return $stop;
-}
+define("keys", ["dni","name","surname", "email", "phone", "age", "password"]);
 
 // Función donde se realizan las validaciones de los datos si no están vacíos
 function validateRegisterForm () {
@@ -124,7 +96,7 @@ function createUser() {
 
 // Función que comprueba los errores y realiza la acción de registro
 function registerAction () {
-    $is_ok = comprobeFields();
+    $is_ok = comprobeFields($_POST["user"], keys);
     $message = $is_ok ? createErrors("Existen campos vacíos o campos de más", true) : validateRegisterForm();
 
     if(empty($message) && !$is_ok ) {

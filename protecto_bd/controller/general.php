@@ -11,6 +11,33 @@ function createErrors (string $message, bool $empty = false) {
     END;
 }
 
+// Función que valida si hay campos de más o de menos
+function comprobeFields (array $to_comprobe, array $keys) {
+    /*
+        Comprobamos si hay diferencias en lo que 
+        nos llega con lo que debería llegar
+    */
+    $diff = count(array_diff(array_keys($to_comprobe), $keys));
+    if($diff !== 0) {
+        return true;
+    }
+
+    // Comprobamos si hay valores vacíos
+    $size_keys = count($keys);
+    $stop = false;
+
+    for ($i = 0; $i < $size_keys; $i ++) {
+        $key = $keys[$i];
+
+        if(empty($to_comprobe[$key])) {
+            $stop = true;
+            break;
+        }
+    }
+
+    return $stop;
+}
+
 // Función que sanea los datos que nos llegan
 function sanitizeFields () {
     [

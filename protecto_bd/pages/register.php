@@ -21,7 +21,7 @@
 
               <div class="form-outline form-white mb-1">
                 <label class="form-label" for="user[dni]">Dni</label>
-                <input type="text" name="user[dni]" class="form-control" />
+                <input type="text" name="user[dni]" class="form-control" required/>
               </div>
 
               <div class="form-outline form-white mb-1">
