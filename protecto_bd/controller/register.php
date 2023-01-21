@@ -37,11 +37,30 @@ function validateRegisterForm () {
         $message .= "<p class='m-0 mb-2'>La edad no es un entero</p>";
     }
 
-    if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/",$password) || strlen($password) !== 9) {
+    if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/",$password)) {
         $message .= "<p class='m-0 mb-2'>La contraseña debe tener minimo 8 carácteres, al menos 1 mayúscula, 1 minúscula y 1 número</p>";
     }
     
     return $message;
+}
+
+function userExist(string $dni) {
+    try {
+        $connection = getDbConnection();
+
+        $sql_query = "SELECT email FROM USER WHERE dni = :dni";
+
+        $sentence = $connection->prepare($sql_query);
+        $sentence->bindValue(":dni", $dni, PDO::PARAM_STR);
+
+        $sentence->execute();
+        ["email" => $email ] = $sentence->fetch();
+
+        return !empty($email);
+    } catch (PDOException $error) {
+        
+        return createErrors($error->getMessage());
+    }
 }
 
 // Función en la que se crea el usurio el Usuario
@@ -59,6 +78,10 @@ function createUser() {
             $sanitize_age, 
             $sanitize_password
         ] = sanitizeFields($_POST["user"]);
+
+        if(userExist($sanitize_dni)) {
+            throw new PDOException("El usuario ya existe");
+        }
 
         $hash_password = password_hash($sanitize_password, PASSWORD_BCRYPT, ["salt" => salt, "cost" => 12]);
 
@@ -102,7 +125,7 @@ function registerAction () {
     $message = $is_ok ? createErrors("Existen campos vacíos o campos de más", true) : validateRegisterForm();
 
     if(empty($message) && !$is_ok ) {
-        createUser();
+        $message = createUser();
     } else if(!empty($message) && !$is_ok) {
         $message = createErrors($message);
     }
