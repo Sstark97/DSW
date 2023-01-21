@@ -16,7 +16,7 @@ try {
      * de mi usuario
      */
     $connection = new PDO("mysql:host=$host", "root", "", $options);
-    $sql = file_get_contents('../data/bbdd.sql');
+    $sql = file_get_contents('data/bbdd.sql');
     $connection->exec($sql);
     echo "The DataBase and all Table created success";
 } catch (PDOException $error) {

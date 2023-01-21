@@ -1,5 +1,5 @@
 <?php
-    require_once "../partials/parts.php"
+    require_once "../partials/parts.php";
 ?>
 
 <?= createNotLoggedHeader() ?>

@@ -2,6 +2,9 @@
 require_once "general.php";
 require_once "../config/config.php";
 
+session_name("videogames");
+session_start();
+
 // Función que valida si hay campos de más o de menos
 function comprobeFields () {
     $user = $_POST["user"];
@@ -111,6 +114,7 @@ function createUser() {
         $sentence->execute();
         $_SESSION["userId"] = $sanitize_dni;
         header("Location: ../index.php");
+        exit();
     } catch (PDOException $error) {
         $result = createErrors($error->getMessage());
         
