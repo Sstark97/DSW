@@ -7,10 +7,10 @@
     }
 ?>
 
-<?= include 'partials/header.php' ?>
+<?php include 'partials/header.php' ?>
     <?php if($_SESSION["is_admin"]): ?>
-        <?= include 'partials/adminContent.php' ?>
+        <?php include 'partials/adminContent.php' ?>
     <?php else: ?>
-        <?= include 'partials/userContent.php' ?>
+        <?php include 'partials/userContent.php' ?>
     <?php endif; ?>
-<?= include 'partials/footer.php' ?>
+<?php include 'partials/footer.php' ?>

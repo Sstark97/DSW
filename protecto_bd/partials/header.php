@@ -1,3 +1,7 @@
+<?php 
+    $path = strpos(__DIR__, "") !== false ? "../" : "";
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,10 +21,10 @@
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-cyborg-gaming.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="<?= $path ?>assets/css/fontawesome.css">
+    <link rel="stylesheet" href="<?= $path ?>assets/css/templatemo-cyborg-gaming.css">
+    <link rel="stylesheet" href="<?= $path ?>assets/css/owl.css">
+    <link rel="stylesheet" href="<?= $path ?>assets/css/animate.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
 </head>
@@ -81,3 +85,4 @@
     <main class="container">
     <div class="row">
       <div class="col-lg-12">
+        <div class="page-content">
