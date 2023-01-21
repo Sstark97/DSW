@@ -48,7 +48,7 @@ function userExist(string $dni) {
     try {
         $connection = getDbConnection();
 
-        $sql_query = "SELECT email FROM USER WHERE dni = :dni";
+        $sql_query = "SELECT email FROM User WHERE dni = :dni";
 
         $sentence = $connection->prepare($sql_query);
         $sentence->bindValue(":dni", $dni, PDO::PARAM_STR);

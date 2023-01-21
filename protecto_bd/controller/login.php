@@ -31,7 +31,7 @@ function loginUser () {
             $sanitize_password
         ] = sanitizeFields($_POST["user"]);
 
-        $sql_query = "SELECT dni, password, is_admin FROM USER WHERE email = :email";
+        $sql_query = "SELECT dni, password, is_admin FROM User WHERE email = :email";
 
         $sentence = $connection->prepare($sql_query);
         $sentence->bindValue(":email", $sanitize_email, PDO::PARAM_STR);
@@ -54,6 +54,7 @@ function loginUser () {
         }
 
         $_SESSION["userId"] = $dni;
+        $_SESSION["is_admin"] = $admin;
         header("Location: ../index.php");
         exit();
     } catch (PDOException $error) {

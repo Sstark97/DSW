@@ -34,12 +34,5 @@ CREATE TABLE WhisList(
 ALTER TABLE WhisList ADD FOREIGN KEY (dni) REFERENCES User(dni);
 ALTER TABLE WhisList ADD FOREIGN KEY (gameId) REFERENCES VideoGame(id); 
 
-CREATE TABLE PopularGames(
-    gameId INT PRIMARY KEY,
-    popular INT NOT NULL
-);
-
-ALTER TABLE PopularGames ADD FOREIGN KEY (gameId) REFERENCES VideoGame(id);
-
 INSERT INTO User (dni, name, surname, email, phone, age, password, is_admin) VALUES
 ("12345678A", "admin", "admin", "admin@admin.com", "111111111", 99, "admin1234", true);
