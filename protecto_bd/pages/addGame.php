@@ -2,7 +2,12 @@
     session_name("videogames");
     session_start();
 
-    if (isset($_SESSION["userId"]) && !$_SESSION["is_admin"]) {
+    /**
+     * Control para evitar que entren en esta página 
+     * usuarios no logeados o usuarios que no sean 
+     * admin
+     */
+    if (!isset($_SESSION["userId"]) || isset($_SESSION["userId"]) && !$_SESSION["is_admin"]) {
         header("Location: ../index.php");
     }
 ?>
