@@ -210,6 +210,12 @@ function cardGame (array $game) {
     END;
 }
 
+/**
+ * Función que crea un Card por cada videojuego
+ * en la lista de deseados
+ * 
+ * @return string Código HTML con los datos del videojuego
+ */
 function whishListItem (array $game) {
     [
         "id" => $id,

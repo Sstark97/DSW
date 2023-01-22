@@ -34,6 +34,7 @@
             </div>
             <div class="row">
             
+                <!-- Renderizamos la lista de videojuegos populares -->
                 <?php if(count($popular_games) !== 0): ?>
                     <?php foreach($popular_games as $game ): ?>
                         <?= cardGame($game) ?>
@@ -51,15 +52,14 @@
         </div>
     </div>
 </div>
-<!-- ***** Most Popular End ***** -->
 
-<!-- ***** Gaming Library Start ***** -->
 <div class="gaming-library">
     <div class="col-lg-12">
         <div class="heading-section">
             <h4><em>Tu lista de</em> deseados</h4>
         </div>
 
+        <!-- Renderizamos la lista de deseados -->
         <?php if(count($whish_list) !== 0): ?>
             <?php foreach($whish_list as $game): ?>
                 <?= whishListItem ($game) ?>
@@ -67,7 +67,7 @@
         <?php else: ?>
             <h2 class="text-center pb-5">No hay nada en la lista de Deseados</h2>
         <?php endif; ?>
-        
+
     <div class="col-lg-12">
         <div class="main-button">
             <a href="profile.html">Ver la lista completa</a>
