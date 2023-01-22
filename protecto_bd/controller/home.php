@@ -114,6 +114,40 @@ function isElementInWhishList (int $id) {
 }
 
 /**
+ * Función que comprueba si un videojuego está en la 
+ * lista de deseados de un usuario
+ * 
+ * @return string error si lo hubiera
+ */
+function getWhishList () {
+    $user_id = $_SESSION["userId"] ?? "";
+
+    if(!empty($user_id)) {
+        try {
+            $connection = getDbConnection();
+
+            $sql_query = <<< END
+                SELECT * FROM VideoGame 
+                INNER JOIN WhisList
+                ON VideoGame.id = WhisList.gameId 
+                WHERE WhisList.dni = :dni;
+            END;
+    
+            $sentence = $connection->prepare($sql_query);
+            $sentence->bindValue(":dni", $user_id, PDO::PARAM_STR);
+    
+            $sentence->execute();
+
+            $games_in_whish_list = $sentence->fetchAll(PDO::FETCH_ASSOC);
+
+            return $games_in_whish_list;
+        } catch (PDOException $error) {
+            return createErrors($error->getMessage());
+        }
+    }
+}
+
+/**
  * Función que maneja las acciones sobre la
  * lista de deseados de un usuario
  */
@@ -127,6 +161,8 @@ function whishListAction () {
     } else {
         addToTheWhishList();
     }
+
+    header("Refresh: 0");
 
 }
 
@@ -170,6 +206,41 @@ function cardGame (array $game) {
                 </li>
             </ul>
         </div>
+    </div>
+    END;
+}
+
+function whishListItem (array $game) {
+    [
+        "id" => $id,
+        "name" => $name, 
+        "genre" => $genre, 
+        "img" => $img, 
+        "price" => $price,
+        "assesment" => $assesment,
+        "release_date" => $release_date
+    ] = $game;
+
+    return <<< END
+    <div class="item">
+        <ul>
+            <li><img src="$img" alt="$name" class="templatemo-item"></li>
+            <li>
+                <h4>$name</h4><span>$genre</span>
+            </li>
+            <li>
+                <h4>Fecha de Lanzamiento</h4><span>$release_date</span>
+            </li>
+            <li>
+                <h4>Valoración</h4><span>$assesment</span>
+            </li>
+            <li>
+                <h4>Precio</h4><span>$price</span>
+            </li>
+            <li>
+                <div class="main-border-button"><a href="#">Comprar</a></div>
+            </li>
+        </ul>
     </div>
     END;
 }
