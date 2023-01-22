@@ -29,7 +29,7 @@
                     <h2 class="mt-4"><?= $title ?> Videojuego</h2>
                 </div>
                 <hr>
-                <form class="text-white" method="post" action="<?= $action ?>">
+                <form class="text-white" method="post" action="<?= $action ?>" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="game[name]">Nombre</label>
                         <input type="text" name="game[name]" class="form-control" value="<?= $game["name"] ?? "" ?>" >
@@ -41,6 +41,10 @@
                     <div class="form-group">
                         <label for="game[genre]">Género</label>
                         <input type="text" name="game[genre]" class="form-control" value="<?= $game["genre"] ?? "" ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="img">Portada</label>
+                        <input type="file" name="img" class="form-control" value="<?= $game["img"] ?? "" ?>" accept="image/png, image/jpeg">
                     </div>
                     <div class="form-group">
                         <label for="game[price]">Precio</label>

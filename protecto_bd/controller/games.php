@@ -110,18 +110,21 @@ function createGame() {
             $sanitize_release_date
         ] = sanitizeFields($_POST["game"]);
 
+        $img = str_replace("../","", uploadFile());
+
         $game = [
             "name" => $sanitize_name,
             "description" => $sanitize_description,
             "genre" => $sanitize_genre,
+            "img" => $img,
             "price" => $sanitize_price,
             "assesment" => $sanitize_assesment,
             "release_date" => $sanitize_release_date
         ];
 
         $sql_query = <<< END
-            INSERT INTO VideoGame (name, description, genre, price, assesment, release_date) VALUES 
-            (:name, :description, :genre, :price, :assesment, :release_date)
+            INSERT INTO VideoGame (name, description, genre, img, price, assesment, release_date) VALUES 
+            (:name, :description, :genre, :img, :price, :assesment, :release_date)
         END;
 
         $sentence = $connection->prepare($sql_query);
@@ -158,10 +161,13 @@ function editGame(int $id) {
             $sanitize_release_date
         ] = sanitizeFields($_POST["game"]);
 
+        $img = str_replace("../", "", uploadFile());
+
         $game = [
             "name" => $sanitize_name,
             "description" => $sanitize_description,
             "genre" => $sanitize_genre,
+            "img" => $img,
             "price" => $sanitize_price,
             "assesment" => $sanitize_assesment,
             "release_date" => $sanitize_release_date,
@@ -170,7 +176,7 @@ function editGame(int $id) {
 
         $sql_query = <<< END
             UPDATE VideoGame SET name = :name, description = :description,
-            genre = :genre, price = :price, assesment = :assesment, release_date = :release_date
+            genre = :genre, img = :img, price = :price, assesment = :assesment, release_date = :release_date
             WHERE id = :id
         END;
 

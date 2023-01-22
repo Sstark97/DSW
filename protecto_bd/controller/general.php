@@ -1,5 +1,7 @@
 <?php
 
+define("file_types", ["image/png", "image/jpeg"]);
+
 /**
  * Función que renderiza el enlace  a la página
  * donde ver todos los juegos
@@ -104,4 +106,35 @@ function sanitizeFields(array $fields)
     }
 
     return $sanitize_fields;
+}
+
+// Función que realiza las comprobaciones sobre el fichero
+function comprobeFile(array $file) {
+    ["error" => $error, "type" => $type] = $file;
+    $message = "";
+
+    if(!in_array($type, file_types)){
+        $message .= "<span>La agenta solo soporta ficheros en formato odt y pdf</span>";
+    } 
+
+    return $message;
+}
+
+// Función que sube el fichero
+function uploadFile() {
+    $file = $_FILES["img"];
+    
+    $message = comprobeFile($file);
+
+    // Si hay mensaje de error lo devolvemos
+    if(!empty($message)) {
+        throw new PDOException($message);
+    }
+
+    [ "name" => $name , "tmp_name" => $tmp_dir ] = $file;
+    $img_dir = "../assets/images/$name";
+
+    move_uploaded_file($tmp_dir, $img_dir);
+
+    return $img_dir;
 }

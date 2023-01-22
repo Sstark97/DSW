@@ -31,7 +31,7 @@ function getPopularGames()
     try {
         $connection = getDbConnection();
 
-        $sql_query = "SELECT * FROM VideoGame WHERE assesment > 4 LIMIT 8";
+        $sql_query = "SELECT * FROM VideoGame WHERE assesment > 4.5 LIMIT 8";
 
         $sentence = $connection->prepare($sql_query);
 
