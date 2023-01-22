@@ -1,6 +1,7 @@
 <?php
 
-define("file_types", ["image/png", "image/jpeg"]);
+
+define("file_types", ["image/png", "image/jpeg", ""]);
 
 /**
  * Función que renderiza el enlace  a la página
@@ -114,14 +115,14 @@ function comprobeFile(array $file) {
     $message = "";
 
     if(!in_array($type, file_types)){
-        $message .= "<span>La agenta solo soporta ficheros en formato odt y pdf</span>";
+        $message .= "<span>La agenta solo soporta ficheros en formato jpg y png</span>";
     } 
 
     return $message;
 }
 
 // Función que sube el fichero
-function uploadFile() {
+function uploadFile(string $previous_img = "") {
     $file = $_FILES["img"];
     
     $message = comprobeFile($file);
@@ -132,7 +133,20 @@ function uploadFile() {
     }
 
     [ "name" => $name , "tmp_name" => $tmp_dir ] = $file;
+
+    if(empty($name)) {
+        return $previous_img;
+    }
+
     $img_dir = "../assets/images/$name";
+
+    if(!empty($previous_img) ) {
+        $previous_img_format = "../$previous_img";
+
+        if ($previous_img_format !== $img_dir && file_exists($previous_img_format)) {
+            unlink($previous_img_format);
+        }
+    }
 
     move_uploaded_file($tmp_dir, $img_dir);
 

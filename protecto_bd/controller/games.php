@@ -90,6 +90,25 @@ function getGame(int $id)
     }
 }
 
+function getPreviousImg (int $id) {
+    try {
+        $connection = getDbConnection();
+
+        $sql_query = "SELECT img FROM VideoGame WHERE id = :id";
+
+        $sentence = $connection->prepare($sql_query);
+        $sentence->bindValue(":id", $id, PDO::PARAM_INT);
+        $sentence->execute();
+
+        ["img" => $img] = $sentence->fetch(PDO::FETCH_ASSOC);
+
+        return $img;
+        
+    } catch (PDOException $error) {
+        return createErrors($error);
+    }
+}
+
 /**
  * Función que crea un juego en la BD GameShop
  * o devuelve un fallo en caso de haberlo
@@ -161,7 +180,8 @@ function editGame(int $id) {
             $sanitize_release_date
         ] = sanitizeFields($_POST["game"]);
 
-        $img = str_replace("../", "", uploadFile());
+        $previous_img = getPreviousImg($id);
+        $img = str_replace("../", "", uploadFile($previous_img));
 
         $game = [
             "name" => $sanitize_name,
