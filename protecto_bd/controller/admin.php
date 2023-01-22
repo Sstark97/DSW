@@ -60,6 +60,7 @@ function createAdminTable () {
                     <td>Nombre</td>
                     <td>Descripción</td>
                     <td>Género</td>
+                    <td>Imagen</td>
                     <td>Precio</td>
                     <td>Valoración</td>
                     <td>Fecha de Lanzamiento</td>

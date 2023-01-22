@@ -11,6 +11,6 @@
     <?php if(isset($_SESSION["is_admin"]) && $_SESSION["is_admin"]): ?>
         <?php include 'partials/adminContent.php' ?>
     <?php else: ?>
-        <?php include 'partials/userContent.php' ?>
+        <?php include 'partials/home.php' ?>
     <?php endif; ?>
 <?php include 'partials/footer.php' ?>
