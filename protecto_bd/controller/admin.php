@@ -27,7 +27,7 @@ function createAdminTable () {
         $tbody .= <<< END
             <td>
                 <div class="text-center">
-                    <a href="./pages/editGame.php?id=$id" class="btn btn-warning">
+                    <a href="./pages/actionGame.php?id=$id" class="btn btn-warning">
                         <i class='fa fa-pencil'></i>
                     </a>
                     <a href="./pages/deleteGame.php?id=$id" class="btn btn-danger">
