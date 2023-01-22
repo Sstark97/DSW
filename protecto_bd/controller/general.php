@@ -122,7 +122,17 @@ function comprobeFile(array $file, bool $is_edit = false) {
     return $message;
 }
 
+/**
+ * Función que borra una imagen previa si la imagen
+ * pasada como segundo parámetro es distinta de la 
+ * pasada como primer parámetro
+ */
 function removePreviousImg (string $previous_img, string $img_dir) {
+    /**
+     * Le concateno ../ ya que vamos a acceder
+     * a la carpeta assets, donde se guardan todas
+     * las imágenes
+     */
     $previous_img_format = "../$previous_img";
 
     if ($previous_img_format !== $img_dir && file_exists($previous_img_format)) {

@@ -109,7 +109,16 @@ function getPreviousImg (int $id) {
     }
 }
 
+/**
+ * Función que borra la imagen de un juego
+ * según el id pasado por parámetro
+ */
 function deleteGameImg (int $id) {
+    /**
+     * Le concateno ../ ya que vamos a acceder
+     * a la carpeta assets, donde se guardan todas
+     * las imágenes
+     */
     $img = "../" . getPreviousImg($id);
     if (file_exists($img)) {
         unlink($img);
@@ -238,6 +247,7 @@ function deleteGame() {
     
             $sql_query = "DELETE FROM VideoGame WHERE id = :id";
 
+            // Borramos su imagen
             deleteGameImg($id);
     
             $sentence = $connection->prepare($sql_query);
