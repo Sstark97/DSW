@@ -58,6 +58,32 @@ function getAllGames()
 }
 
 /**
+ * Función que saca un elemento
+ * de la tabla VideoGame en forma de
+ * array asociativo
+ *
+ * @return array $games
+ */
+function getGame(int $id)
+{
+    try {
+        $connection = getDbConnection();
+
+        $sql_query = "SELECT * FROM VideoGame WHERE id = :id";
+
+        $sentence = $connection->prepare($sql_query);
+        $sentence->bindValue(":id", $id, PDO::PARAM_INT);
+
+        $sentence->execute();
+        $game = $sentence->fetch(PDO::FETCH_ASSOC);
+
+        return $game;
+    } catch (PDOException $error) {
+        return createErrors($error->getMessage());
+    }
+}
+
+/**
  * Función que crea un juego en la BD GameShop
  * o devuelve un fallo en caso de haberlo
  *
@@ -106,13 +132,67 @@ function createGame() {
     }
 }
 
+/**
+ * Función que edita los datos de un juego en la BD GameShop
+ * o devuelve un fallo en caso de haberlo
+ *
+ * @return result: Resultado de ejecutar la consulta
+ */
+function editGame(int $id) {
+
+    try {
+        $connection = getDbConnection();
+
+        [
+            $sanitize_name, 
+            $sanitize_description, 
+            $sanitize_genre, 
+            $sanitize_price, 
+            $sanitize_assesment, 
+            $sanitize_release_date
+        ] = sanitizeFields($_POST["game"]);
+
+        $game = [
+            "name" => $sanitize_name,
+            "description" => $sanitize_description,
+            "genre" => $sanitize_genre,
+            "price" => $sanitize_price,
+            "assesment" => $sanitize_assesment,
+            "release_date" => $sanitize_release_date,
+            "id" => $id
+        ];
+
+        $sql_query = <<< END
+            UPDATE VideoGame SET name = :name, description = :description,
+            genre = :genre, price = :price, assesment = :assesment, release_date = :release_date
+            WHERE id = :id
+        END;
+
+        $sentence = $connection->prepare($sql_query);
+
+        foreach($game as $key => $field) {
+            $type = $key === "id" ? PDO::PARAM_INT : PDO::PARAM_STR;
+
+            $sentence->bindValue(":$key", $field, $type);
+        }
+
+        $sentence->execute();
+        header("Location: ../index.php");
+        exit();
+
+    } catch (PDOException $error) {
+        return createErrors($error->getMessage());
+    }
+}
+
 // Función que comprueba los errores y realiza la acción de registro
 function gamesAction () {
+    $id = isset($_GET["id"]) ? $_GET["id"] : "";
     $is_ok = comprobeFields($_POST["game"], keys);
     $message = $is_ok ? createErrors("Existen campos vacíos o campos de más", true) : validateGameForm();
 
     if(empty($message) && !$is_ok ) {
-        $message = createGame();
+        $message = !empty($id) ? editGame($id) : createGame();
     } else if(!empty($message) && !$is_ok) {
         $message = createErrors($message);
     }

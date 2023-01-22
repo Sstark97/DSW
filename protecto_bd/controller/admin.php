@@ -18,19 +18,21 @@ function createAdminTable () {
 
     // Creación de la Tabla
     foreach ($games as $game) {
-        foreach ($game as $field) {
+        $id = "";
+        foreach ($game as $key => $field) {
+            $id .= $key === "id" ? $field : "";
             $tbody .= "<td>$field</td>";
         }
         
         $tbody .= <<< END
             <td>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-warning">
+                    <a href="./pages/editGame.php?id=$id" class="btn btn-warning">
                         <i class='fa fa-pencil'></i>
-                    </button>
-                    <button type="submit" class="btn btn-danger" name="action[upload]">
+                    </a>
+                    <a href="./pages/deleteGame.php?id=$id" class="btn btn-danger">
                         <i class='fa fa-trash'></i>
-                    </button>
+                    </a>
                 </div>
             </td>
         END;
