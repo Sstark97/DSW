@@ -27,7 +27,7 @@ function getPopularGames()
     }
 }
 
-function addToWhishList () {
+function addToTheWhishList () {
     $user_id = $_SESSION["userId"] ?? "";
     $game_id = $_POST["gameId"] ?? "";
 
@@ -36,6 +36,28 @@ function addToWhishList () {
             $connection = getDbConnection();
 
             $sql_query = "INSERT INTO WhisList(dni, gameId) VALUES (:dni, :gameId)";
+    
+            $sentence = $connection->prepare($sql_query);
+            $sentence->bindValue(":dni", $user_id, PDO::PARAM_STR);
+            $sentence->bindValue(":gameId", $game_id, PDO::PARAM_INT);
+    
+            $sentence->execute();
+
+        } catch (PDOException $error) {
+            return createErrors($error->getMessage());
+        }
+    }
+}
+
+function deleteToTheWhishList () {
+    $user_id = $_SESSION["userId"] ?? "";
+    $game_id = $_POST["gameId"] ?? "";
+
+    if(!empty($user_id) && !empty($game_id)) {
+        try {
+            $connection = getDbConnection();
+
+            $sql_query = "DELETE FROM WhisList WHERE dni = :dni AND gameId = :gameId";
     
             $sentence = $connection->prepare($sql_query);
             $sentence->bindValue(":dni", $user_id, PDO::PARAM_STR);
@@ -71,6 +93,18 @@ function isElementInWhishList (int $id) {
             return createErrors($error->getMessage());
         }
     }
+}
+
+function whishListAction () {
+    $game_id = $_POST["gameId"] ?? "";
+    $game_is_in_whish_list = isElementInWhishList($game_id);
+
+    if($game_is_in_whish_list) {
+        deleteToTheWhishList();
+    } else {
+        addToTheWhishList();
+    }
+
 }
 
 function cardGame (array $game) {

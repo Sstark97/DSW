@@ -5,7 +5,7 @@
 ?> 
 
 <?php if(isset($_POST["add_wish_list"])): ?>
-    <?= addToWhishList() ?>
+    <?= whishListAction() ?>
 <?php endif; ?>
 
 <!-- ***** Banner Start ***** -->
