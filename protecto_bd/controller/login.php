@@ -36,6 +36,10 @@ function loginUser () {
         $sentence->execute();
         ["dni" => $dni, "password" => $password, "is_admin" => $admin] = $sentence->fetch();
 
+        /**
+         * Si el DNI no existe lanzamos una
+         * excepción
+         */
         if(empty($dni)) {
             throw new PDOException("El usuario no existe");  
         }
@@ -52,8 +56,8 @@ function loginUser () {
 
         $_SESSION["userId"] = $dni;
         $_SESSION["is_admin"] = $admin;
-        header("Location: ../index.php");
-        exit();
+
+        redirect("../index.php");
     } catch (PDOException $error) {
         return createErrors($error->getMessage());
     }

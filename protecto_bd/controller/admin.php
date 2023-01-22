@@ -12,12 +12,15 @@ function isAdmin () {
     }
 }
 
-// Creación de la tabla de contactos
+/**
+ * Función que crea una tabla HTML con los 
+ * videojuegos que existan en la BD
+ */
 function createAdminTable () {
     $games = getAllGames();
     $tbody = "";
 
-    // Si todos están bloqueados no muestra la tabla
+    // Si no hay videojuegos
     if(count($games) === 0) {
         return <<< END
             <form>

@@ -108,8 +108,8 @@ function createUser() {
         $sentence->execute();
 
         $_SESSION["userId"] = $sanitize_dni;
-        header("Location: ../index.php");
-        exit();
+        
+        redirect("../index.php");
     } catch (PDOException $error) {
         
         return createErrors($error->getMessage());

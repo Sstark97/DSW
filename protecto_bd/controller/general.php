@@ -22,6 +22,11 @@ function isNotLogged () {
     }
 }
 
+function redirect(string $location) {
+    header("Location: $location");
+    exit();
+}
+
 // Función que crea los errores a mostrar
 function createErrors(string $message, bool $empty = false)
 {

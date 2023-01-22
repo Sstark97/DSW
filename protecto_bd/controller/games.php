@@ -131,8 +131,7 @@ function createGame() {
         }
 
         $sentence->execute();
-        header("Location: ../index.php");
-        exit();
+        redirect("../index.php");
 
     } catch (PDOException $error) {
         return createErrors($error->getMessage());
@@ -184,8 +183,7 @@ function editGame(int $id) {
         }
 
         $sentence->execute();
-        header("Location: ../index.php");
-        exit();
+        redirect("../index.php");
 
     } catch (PDOException $error) {
         return createErrors($error->getMessage());
@@ -211,8 +209,7 @@ function deleteGame() {
             $sentence->bindValue(":id", $id, PDO::PARAM_INT);
             $sentence->execute();
     
-            header("Location: ../index.php");
-            exit();
+            redirect("../index.php");
     
         } catch (PDOException $error) {
             return createErrors($error->getMessage());
@@ -223,6 +220,8 @@ function deleteGame() {
 /**
  * Función que comprueba los errores y realiza la acción
  * de agregar un nuevo juego o editarlo
+ * 
+ * @return string Resultado de la acción
  */
 function gamesAction () {
     $id = isset($_GET["id"]) ? $_GET["id"] : "";
