@@ -27,6 +27,12 @@ function getPopularGames()
     }
 }
 
+/**
+ * Función que añade un videojuego a la 
+ * lista de deseados de un usuario
+ * 
+ * @return string error si lo hubiera
+ */
 function addToTheWhishList () {
     $user_id = $_SESSION["userId"] ?? "";
     $game_id = $_POST["gameId"] ?? "";
@@ -49,6 +55,12 @@ function addToTheWhishList () {
     }
 }
 
+/**
+ * Función que elimina un videojuego de la 
+ * lista de deseados de un usuario
+ * 
+ * @return string error si lo hubiera
+ */
 function deleteToTheWhishList () {
     $user_id = $_SESSION["userId"] ?? "";
     $game_id = $_POST["gameId"] ?? "";
@@ -71,6 +83,12 @@ function deleteToTheWhishList () {
     }
 }
 
+/**
+ * Función que comprueba si un videojuego está en la 
+ * lista de deseados de un usuario
+ * 
+ * @return string error si lo hubiera
+ */
 function isElementInWhishList (int $id) {
     $user_id = $_SESSION["userId"] ?? "";
 
@@ -95,6 +113,11 @@ function isElementInWhishList (int $id) {
     }
 }
 
+/**
+ * Función que maneja las acciones sobre la
+ * lista de deseados de un usuario
+ */
+
 function whishListAction () {
     $game_id = $_POST["gameId"] ?? "";
     $game_is_in_whish_list = isElementInWhishList($game_id);
@@ -107,6 +130,12 @@ function whishListAction () {
 
 }
 
+/**
+ * Función que crea un Card por cada videojuego
+ * popular
+ * 
+ * @return string Código HTML con los datos del videojuego
+ */
 function cardGame (array $game) {
     [
         "id" => $id,
@@ -117,6 +146,12 @@ function cardGame (array $game) {
     ] = $game;
 
     $action = $_SERVER["PHP_SELF"];
+
+    /**
+     * Comprobamos si está en la lista de deseados
+     * para colocar el icono correspondiente según sea
+     * el caso
+     */
     $game_is_in_whish_list = isElementInWhishList($id);
     $icon = $game_is_in_whish_list ? "fa-solid" : "fa-regular";
 

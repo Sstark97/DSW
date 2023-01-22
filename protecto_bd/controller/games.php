@@ -90,7 +90,14 @@ function getGame(int $id)
     }
 }
 
-function getPreviousImg (int $id) {
+/**
+ * Función que devuelve la imagen actual
+ * del videojuego que corresponda con el 
+ * id pasado por parámetro
+ * 
+ * @return string resultado de la consulta
+ */
+function getCurrentImg (int $id) {
     try {
         $connection = getDbConnection();
 
@@ -119,7 +126,7 @@ function deleteGameImg (int $id) {
      * a la carpeta assets, donde se guardan todas
      * las imágenes
      */
-    $img = "../" . getPreviousImg($id);
+    $img = "../" . getCurrentImg($id);
     if (file_exists($img)) {
         unlink($img);
     }
@@ -196,7 +203,7 @@ function editGame(int $id) {
             $sanitize_release_date
         ] = sanitizeFields($_POST["game"]);
 
-        $previous_img = getPreviousImg($id);
+        $previous_img = getCurrentImg($id);
         $img = str_replace("../", "", uploadFile($previous_img, true));
 
         $game = [
