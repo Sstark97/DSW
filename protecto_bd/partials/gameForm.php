@@ -44,7 +44,7 @@
                     </div>
                     <div class="form-group">
                         <label for="img">Portada</label>
-                        <input type="file" name="img" class="form-control" value="<?= $game["img"] ?? "" ?>" accept="image/png, image/jpeg">
+                        <input type="file" name="img" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="game[price]">Precio</label>

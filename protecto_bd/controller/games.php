@@ -109,6 +109,13 @@ function getPreviousImg (int $id) {
     }
 }
 
+function deleteGameImg (int $id) {
+    $img = "../" . getPreviousImg($id);
+    if (file_exists($img)) {
+        unlink($img);
+    }
+}
+
 /**
  * Función que crea un juego en la BD GameShop
  * o devuelve un fallo en caso de haberlo
@@ -181,7 +188,7 @@ function editGame(int $id) {
         ] = sanitizeFields($_POST["game"]);
 
         $previous_img = getPreviousImg($id);
-        $img = str_replace("../", "", uploadFile($previous_img));
+        $img = str_replace("../", "", uploadFile($previous_img, true));
 
         $game = [
             "name" => $sanitize_name,
@@ -230,6 +237,8 @@ function deleteGame() {
             $connection = getDbConnection();
     
             $sql_query = "DELETE FROM VideoGame WHERE id = :id";
+
+            deleteGameImg($id);
     
             $sentence = $connection->prepare($sql_query);
             $sentence->bindValue(":id", $id, PDO::PARAM_INT);

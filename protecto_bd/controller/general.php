@@ -1,7 +1,7 @@
 <?php
 
 
-define("file_types", ["image/png", "image/jpeg", ""]);
+define("file_types", ["image/png", "image/jpeg"]);
 
 /**
  * Función que renderiza el enlace  a la página
@@ -110,22 +110,31 @@ function sanitizeFields(array $fields)
 }
 
 // Función que realiza las comprobaciones sobre el fichero
-function comprobeFile(array $file) {
+function comprobeFile(array $file, bool $is_edit = false) {
     ["error" => $error, "type" => $type] = $file;
     $message = "";
+    $comprobe_files = $is_edit ? [...file_types, ""] : file_types;
 
-    if(!in_array($type, file_types)){
-        $message .= "<span>La agenta solo soporta ficheros en formato jpg y png</span>";
+    if(!in_array($type, $comprobe_files)){
+        $message .= "<span>Solo se aceptan ficheros en formato jpg y png</span>";
     } 
 
     return $message;
 }
 
+function removePreviousImg (string $previous_img, string $img_dir) {
+    $previous_img_format = "../$previous_img";
+
+    if ($previous_img_format !== $img_dir && file_exists($previous_img_format)) {
+        unlink($previous_img_format);
+    }
+}
+
 // Función que sube el fichero
-function uploadFile(string $previous_img = "") {
+function uploadFile(string $previous_img = "", bool $is_edit = false) {
     $file = $_FILES["img"];
     
-    $message = comprobeFile($file);
+    $message = comprobeFile($file, $is_edit);
 
     // Si hay mensaje de error lo devolvemos
     if(!empty($message)) {
@@ -134,18 +143,15 @@ function uploadFile(string $previous_img = "") {
 
     [ "name" => $name , "tmp_name" => $tmp_dir ] = $file;
 
-    if(empty($name)) {
+
+    if(empty($name) && !empty($previous_img) && $is_edit) {
         return $previous_img;
     }
 
     $img_dir = "../assets/images/$name";
 
     if(!empty($previous_img) ) {
-        $previous_img_format = "../$previous_img";
-
-        if ($previous_img_format !== $img_dir && file_exists($previous_img_format)) {
-            unlink($previous_img_format);
-        }
+        removePreviousImg($previous_img, $img_dir);
     }
 
     move_uploaded_file($tmp_dir, $img_dir);
