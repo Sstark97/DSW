@@ -8,7 +8,7 @@
 ?>
 
 <?php include 'partials/header.php' ?>
-    <?php if($_SESSION["is_admin"]): ?>
+    <?php if(isset($_SESSION["is_admin"])): ?>
         <?php include 'partials/adminContent.php' ?>
     <?php else: ?>
         <?php include 'partials/userContent.php' ?>
