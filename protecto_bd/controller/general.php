@@ -1,6 +1,20 @@
 <?php
 
 /**
+ * Función que renderiza el enlace  a la página
+ * donde ver todos los juegos
+ */
+function renderNav () {
+    $is_admin = $_SESSION["is_admin"];
+    $browse = !$is_admin ? "<li><a href='browse.php'>Browse</a></li>" : "";
+
+    return <<< END
+        <li><a href="index.php" class="active">Home</a></li>
+        $browse
+    END;
+}
+
+/**
  * Función que te redirige a inicio en
  * caso de que el id del usuario se
  * encuentre en la sesión
@@ -9,6 +23,16 @@ function isLogged () {
     if (isset($_SESSION["userId"])) {
         header("Location: ../index.php");
     }
+}
+
+/**
+ * Función que destruye la sesión y te redirje
+ * al login
+ */
+function logout () {
+    session_destroy();
+
+    redirect("./pages/login.php");
 }
 
 /**

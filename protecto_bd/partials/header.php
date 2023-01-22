@@ -62,20 +62,26 @@
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Search End ***** -->
-                        <div class="search-input">
+                        <!-- <div class="search-input">
                             <form id="search" action="#">
                                 <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword"
                                     onkeypress="handle" />
                                 <i class="fa fa-search"></i>
                             </form>
-                        </div>
+                        </div> -->
                         <!-- ***** Search End ***** -->
                         <!-- ***** Menu Start ***** -->
+
+                        <?php if(isset($_GET["logout"])): ?>
+                            <?php logout() ?>
+                        <?php endif; ?>
                         <ul class="nav">
-                            <li><a href="index.html" class="active">Home</a></li>
-                            <li><a href="browse.html">Browse</a></li>
-                            <li><a href="details.html">Details</a></li>
-                            <li><a href="streams.html">Streams</a></li>
+                            <?= renderNav() ?>
+                            <li>
+                                <a href="<?= $path ?>index.php?logout"  class="d-flex align-items-center">
+                                    <span>Logout</span><i class="fa-solid fa-right-from-bracket ms-2"></i>
+                                </a>
+                            </li>
                             <li><a href="profile.html">Profile <img src="<?= $path ?>assets/images/profile-header.jpg" alt=""></a>
                             </li>
                         </ul>
