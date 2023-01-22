@@ -16,3 +16,7 @@
     rgba(37, 117, 252, 1)
   );
 }
+
+textarea {
+  resize: none;
+}

@@ -16,7 +16,7 @@ CREATE TABLE User (
 );
 
 CREATE TABLE VideoGame(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(75) NOT NULL,
     description VARCHAR(350) NOT NULL,
     genre VARCHAR(50) NOT NULL,

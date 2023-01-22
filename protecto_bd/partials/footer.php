@@ -21,11 +21,11 @@
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
 
-<script src="../assets/js/isotope.min.js"></script>
-<script src="../assets/js/owl-carousel.js"></script>
+<!-- <script src="../assets/js/isotope.min.js"></script> -->
+<!-- <script src="../assets/js/owl-carousel.js"></script>
 <script src="../assets/js/tabs.js"></script>
-<script src="../assets/js/popup.js"></script>
-<script src="../assets/js/custom.js"></script>
+<script src="../assets/js/popup.js"></script> -->
+<!-- <script src="../assets/js/custom.js"></script> -->
 </body>
 
 </html>

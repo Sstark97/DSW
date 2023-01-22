@@ -24,14 +24,14 @@ function createAdminTable () {
         
         $tbody .= <<< END
             <td>
-                <form class="text-center" action="" method="post">
-                    <button type="submit" class="btn btn-warning" name="action[update]">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-warning">
                         <i class='fa fa-pencil'></i>
                     </button>
                     <button type="submit" class="btn btn-danger" name="action[upload]">
                         <i class='fa fa-trash'></i>
                     </button>
-                </form>
+                </div>
             </td>
         END;
         $tbody .= "</tr>";
