@@ -5,7 +5,7 @@
  * donde ver todos los juegos
  */
 function renderNav () {
-    $is_admin = $_SESSION["is_admin"];
+    $is_admin = $_SESSION["is_admin"] ?? 0;
     $browse = !$is_admin ? "<li><a href='browse.php'>Browse</a></li>" : "";
 
     return <<< END

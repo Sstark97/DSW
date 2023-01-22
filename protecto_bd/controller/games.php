@@ -203,7 +203,7 @@ function deleteGame() {
         try {
             $connection = getDbConnection();
     
-            $sql_query = "DELETE FROM VideoGame  WHERE id = :id";
+            $sql_query = "DELETE FROM VideoGame WHERE id = :id";
     
             $sentence = $connection->prepare($sql_query);
             $sentence->bindValue(":id", $id, PDO::PARAM_INT);
