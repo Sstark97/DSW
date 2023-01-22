@@ -185,7 +185,38 @@ function editGame(int $id) {
     }
 }
 
-// Función que comprueba los errores y realiza la acción de registro
+/**
+ * Función que elimina un juego en la BD GameShop
+ * o devuelve un fallo en caso de haberlo
+ *
+ * @return result: Resultado de ejecutar la consulta
+ */
+function deleteGame() {
+    $id = $_GET["id"] ?? "";
+
+    if(!empty($id)) {
+        try {
+            $connection = getDbConnection();
+    
+            $sql_query = "DELETE FROM VideoGame  WHERE id = :id";
+    
+            $sentence = $connection->prepare($sql_query);
+            $sentence->bindValue(":id", $id, PDO::PARAM_INT);
+            $sentence->execute();
+    
+            header("Location: ../index.php");
+            exit();
+    
+        } catch (PDOException $error) {
+            return createErrors($error->getMessage());
+        }
+    }
+}
+
+/**
+ * Función que comprueba los errores y realiza la acción
+ * de agregar un nuevo juego o editarlo
+ */
 function gamesAction () {
     $id = isset($_GET["id"]) ? $_GET["id"] : "";
     $is_ok = comprobeFields($_POST["game"], keys);
