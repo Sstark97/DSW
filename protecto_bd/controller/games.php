@@ -1,5 +1,12 @@
 <?php
+
+/**
+ * Determinamos a que nivel dentro del árbol de 
+ * directorios nos encontramos, para definir correctamente
+ * el path para los ficheros requeridos
+ */
 $config = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../config/config.php" : "config/config.php";
+
 require_once $config;
 require_once "general.php";
 

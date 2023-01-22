@@ -1,3 +1,12 @@
+<?php 
+    /**
+     * Determinamos a que nivel dentro del árbol de 
+     * directorios nos encontramos, para definir correctamente
+     * el path para los ficheros requeridos
+     */
+    $path = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../" : "";
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,19 +26,19 @@
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="../assets/css/fontawesome.css">
-    <link rel="stylesheet" href="../assets/css/templatemo-cyborg-gaming.css">
-    <link rel="stylesheet" href="../assets/css/owl.css">
-    <link rel="stylesheet" href="../assets/css/animate.css">
+    <link rel="stylesheet" href="<?= $path ?>assets/css/fontawesome.css">
+    <link rel="stylesheet" href="<?= $path ?>assets/css/templatemo-cyborg-gaming.css">
+    <link rel="stylesheet" href="<?= $path ?>assets/css/owl.css">
+    <link rel="stylesheet" href="<?= $path ?>assets/css/animate.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="<?= $path ?>assets/css/style.css">
 
 </head>
 
 <body>
 
     <!-- ***** Preloader Start ***** -->
-    <!-- <div id="js-preloader" class="js-preloader">
+    <div id="js-preloader" class="js-preloader">
         <div class="preloader-inner">
             <span class="dot"></span>
             <div class="dots">
@@ -38,7 +47,7 @@
                 <span></span>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- ***** Preloader End ***** -->
 
     <!-- ***** Header Area Start ***** -->
@@ -48,8 +57,8 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
-                            <img src="assets/images/logo.png" alt="">
+                        <a href="<?= $path ?>index.php" class="logo">
+                            <img src="<?= $path ?>assets/images/logo.png" alt="">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Search End ***** -->
@@ -67,7 +76,7 @@
                             <li><a href="browse.html">Browse</a></li>
                             <li><a href="details.html">Details</a></li>
                             <li><a href="streams.html">Streams</a></li>
-                            <li><a href="profile.html">Profile <img src="assets/images/profile-header.jpg" alt=""></a>
+                            <li><a href="profile.html">Profile <img src="<?= $path ?>assets/images/profile-header.jpg" alt=""></a>
                             </li>
                         </ul>
                         <a class='menu-trigger'>
