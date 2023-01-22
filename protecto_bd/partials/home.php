@@ -2,7 +2,11 @@
     require_once "controller/home.php";
 
     $popular_games = getPopularGames() ?? [];
-?>  
+?> 
+
+<?php if(isset($_POST["add_wish_list"])): ?>
+    <?= addToWhishList() ?>
+<?php endif; ?>
 
 <!-- ***** Banner Start ***** -->
 <div class="main-banner">
@@ -28,16 +32,6 @@
                 <h4><em>Los más Populares</em> Ahora</h4>
             </div>
             <div class="row">
-                <!-- <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                        <img src="assets/images/popular-01.jpg" alt="">
-                        <h4>Fortnite<br><span>Sandbox</span></h4>
-                        <ul>
-                            <li><i class="fa fa-star"></i> 4.8</li>
-                            <li><i class="fa fa-download"></i> 2.3M</li>
-                        </ul>
-                    </div>
-                </div> -->
             
                 <?php if(count($popular_games) !== 0): ?>
                     <?php foreach($popular_games as $game ): ?>
@@ -46,6 +40,7 @@
                 <?php else: ?>
                     <h2 class="text-center">No hay juegos populares</h2>
                 <?php endif; ?>
+            
                 <div class="col-lg-12">
                     <div class="main-button">
                         <a href="browse.html">Descubre más</a>
