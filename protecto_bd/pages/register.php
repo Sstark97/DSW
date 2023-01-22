@@ -1,9 +1,12 @@
 <?php
-  require_once "../controller/register.php";
+    require_once "../controller/register.php";
+    require_once "../controller/general.php";
 
-  if(isset($_SESSION["userId"])) {
-    header("Location: ../index.php");
-  }
+    session_name("videogames");
+    session_start();
+
+    //Comprobamos si el usuario está logeado
+    isLogged();
 ?>
 
 <?php include "../partials/notLoggedHeader.php" ?>

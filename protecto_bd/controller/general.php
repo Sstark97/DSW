@@ -1,4 +1,27 @@
 <?php
+
+/**
+ * Función que te redirige a inicio en
+ * caso de que el id del usuario se
+ * encuentre en la sesión
+ */
+function isLogged () {
+    if (isset($_SESSION["userId"])) {
+        header("Location: ../index.php");
+    }
+}
+
+/**
+ * Función que te redirige al login en
+ * caso de que el id del usuario se
+ * no encuentre en la sesión
+ */
+function isNotLogged () {
+    if (!isset($_SESSION["userId"])) {
+        header("Location: ./pages/login.php");
+    }
+}
+
 // Función que crea los errores a mostrar
 function createErrors(string $message, bool $empty = false)
 {

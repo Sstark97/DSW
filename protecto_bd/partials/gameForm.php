@@ -1,12 +1,24 @@
 <?php
     require_once "../controller/games.php";
 
+    /**
+     * En el caso de que exista id será un formulario
+     * de edición por lo que necesitamos poner un título
+     * acorde y buscar los datos del juego en cuestión
+     * para inicializar los campos del formulario
+     */
     $id = isset($_GET["id"]) ? $_GET["id"] : "";
     $title = empty($id) ? "Añadir" : "Editar";
     $game = empty($id) ? [] : getGame($id);
+
+    /**
+     * Agregamos a la ruta de acción el query id 
+     * si es un formulario de edición 
+     */
     $action = empty($id) ? $_SERVER['PHP_SELF'] : $_SERVER['PHP_SELF'] . "?id=$id";
 ?>
 
+<!-- Formulario de Creación/Edición de VideoJuegos -->
 <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -28,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     <label for="game[price]">Precio</label>
-                    <input type="number" step=".01" name="game[price]" class="form-control" value="<?= $game["price"] ?? "4,99" ?>">
+                    <input type="number" step=".01" name="game[price]" class="form-control" value="<?= $game["price"] ?? "4.99" ?>">
                 </div>
                 <div class="form-group">
                     <label for="game[assesment]">Popularidad</label>

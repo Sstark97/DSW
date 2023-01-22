@@ -1,6 +1,16 @@
 <?php
-
 require_once "games.php";
+
+/**
+ * Control para evitar que entren en esta página 
+ * usuarios no logeados o usuarios que no sean 
+ * admin
+*/
+function isAdmin () {
+    if (!isset($_SESSION["userId"]) || isset($_SESSION["userId"]) && !$_SESSION["is_admin"]) {
+        header("Location: ../index.php");
+    }
+}
 
 // Creación de la tabla de contactos
 function createAdminTable () {

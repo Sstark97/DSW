@@ -1,14 +1,14 @@
 <?php
+    require_once "controller/general.php";
+
     session_name("videogames");
     session_start();
 
-    if (!isset($_SESSION["userId"])) {
-        header("Location: ./pages/login.php");
-    }
+    isNotLogged();
 ?>
 
 <?php include 'partials/header.php' ?>
-    <?php if(isset($_SESSION["is_admin"])): ?>
+    <?php if(isset($_SESSION["is_admin"]) && $_SESSION["is_admin"]): ?>
         <?php include 'partials/adminContent.php' ?>
     <?php else: ?>
         <?php include 'partials/userContent.php' ?>

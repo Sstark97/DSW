@@ -2,9 +2,6 @@
 require_once "general.php";
 require_once "../config/config.php";
 
-session_name("videogames");
-session_start();
-
 define("keys", ["dni","name","surname", "email", "phone", "age", "password"]);
 define("salt", "my_secret_hash_password");
 

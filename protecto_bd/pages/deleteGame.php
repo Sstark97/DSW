@@ -1,17 +1,12 @@
 <?php
     require_once "../controller/games.php";
+    require_once "../controller/admin.php";
 
     session_name("videogames");
     session_start();
 
-    /**
-     * Control para evitar que entren en esta página 
-     * usuarios no logeados o usuarios que no sean 
-     * admin
-     */
-    if (!isset($_SESSION["userId"]) || isset($_SESSION["userId"]) && !$_SESSION["is_admin"]) {
-        header("Location: ../index.php");
-    }
+    // Controlamos si el usuario es admin
+    isAdmin();
     
     $id = isset($_GET["id"]) ? $_GET["id"] : "";
     $game = !empty($id) ? getGame($id) : [];

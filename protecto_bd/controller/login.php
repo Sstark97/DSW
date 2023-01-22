@@ -2,9 +2,6 @@
 require_once "general.php";
 require_once "../config/config.php";
 
-session_name("videogames");
-session_start();
-
 define("keys", ["email", "password"]);
 
 // Función donde se realizan las validaciones de los datos si no están vacíos
