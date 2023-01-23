@@ -117,7 +117,7 @@
 <div class="gaming-library profile-library">
   <div class="col-lg-12">
     <div class="heading-section">
-      <h4><em>Your Gaming</em> Library</h4>
+    <h4><em>Tu lista de</em> deseados</h4>
     </div>
 
     <!-- Renderizamos la lista de deseados -->

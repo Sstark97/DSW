@@ -2,7 +2,7 @@
     require_once "controller/home.php";
 
     $popular_games = getPopularGames() ?? [];
-    $whish_list = getWhishList() ?? [];
+    $whish_list = getWhishList(3) ?? [];
 ?> 
 
 <?php if(isset($_POST["add_wish_list"])): ?>

@@ -126,19 +126,21 @@ function isElementInWhishList (int $id) {
  * 
  * @return string error si lo hubiera
  */
-function getWhishList () {
+function getWhishList (int $limit = 0) {
     $user_id = $_SESSION["userId"] ?? "";
 
     if(!empty($user_id)) {
         try {
             $connection = getDbConnection();
 
-            $sql_query = <<< END
+            $sql_query = "
                 SELECT * FROM VideoGame 
                 INNER JOIN WhisList
                 ON VideoGame.id = WhisList.gameId 
-                WHERE WhisList.dni = :dni;
-            END;
+                WHERE WhisList.dni = :dni
+            ";
+
+            $sql_query .= $limit !== 0 ? "LIMIT $limit" : "";
     
             $sentence = $connection->prepare($sql_query);
             $sentence->bindValue(":dni", $user_id, PDO::PARAM_STR);
