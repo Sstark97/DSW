@@ -1,6 +1,13 @@
 <?php
 
-require_once "config/config.php";
+/**
+ * Determinamos a que nivel dentro del árbol de 
+ * directorios nos encontramos, para definir correctamente
+ * el path para los ficheros requeridos
+ */
+$config = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../config/config.php" : "config/config.php";
+
+require_once $config;
 
 /**
  * Función que saca todos los elementos
@@ -227,10 +234,17 @@ function whishListItem (array $game) {
         "release_date" => $release_date
     ] = $game;
 
+    /**
+     * Determinamos a que nivel dentro del árbol de 
+     * directorios nos encontramos, para definir correctamente
+     * el path para los ficheros requeridos
+     */
+    $path = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../" : "";
+
     return <<< END
     <div class="item">
         <ul>
-            <li><img src="$img" alt="$name" class="templatemo-item"></li>
+            <li><img src="$path$img" alt="$name" class="templatemo-item"></li>
             <li>
                 <h4>$name</h4><span>$genre</span>
             </li>

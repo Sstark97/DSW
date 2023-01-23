@@ -1,5 +1,9 @@
 <?php
-      require_once "../controller/general.php";
+    require_once "../controller/general.php";
+    require_once "../controller/home.php";
+
+    session_name("videogames");
+    session_start();
     
     /**
      * Determinamos a que nivel dentro del árbol de 
@@ -7,6 +11,7 @@
      * el path para los ficheros requeridos
      */
     $path = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../" : "";
+    $whish_list = getWhishList() ?? [];
 ?>
 
 <?php include "../partials/header.php" ?>
@@ -114,66 +119,15 @@
     <div class="heading-section">
       <h4><em>Your Gaming</em> Library</h4>
     </div>
-    <div class="item">
-      <ul>
-        <li><img src="<?= $path ?>assets/images/game-01.jpg" alt="" class="templatemo-item"></li>
-        <li>
-          <h4>Dota 2</h4><span>Sandbox</span>
-        </li>
-        <li>
-          <h4>Date Added</h4><span>24/08/2036</span>
-        </li>
-        <li>
-          <h4>Hours Played</h4><span>634 H 22 Mins</span>
-        </li>
-        <li>
-          <h4>Currently</h4><span>Downloaded</span>
-        </li>
-        <li>
-          <div class="main-border-button border-no-active"><a href="#">Donwloaded</a></div>
-        </li>
-      </ul>
-    </div>
-    <div class="item">
-      <ul>
-        <li><img src="<?= $path ?>assets/images/game-02.jpg" alt="" class="templatemo-item"></li>
-        <li>
-          <h4>Fortnite</h4><span>Sandbox</span>
-        </li>
-        <li>
-          <h4>Date Added</h4><span>22/06/2036</span>
-        </li>
-        <li>
-          <h4>Hours Played</h4><span>745 H 22 Mins</span>
-        </li>
-        <li>
-          <h4>Currently</h4><span>Downloaded</span>
-        </li>
-        <li>
-          <div class="main-border-button border-no-active"><a href="#">Donwloaded</a></div>
-        </li>
-      </ul>
-    </div>
-    <div class="item last-item">
-      <ul>
-        <li><img src="<?= $path ?>assets/images/game-03.jpg" alt="" class="templatemo-item"></li>
-        <li>
-          <h4>CS-GO</h4><span>Sandbox</span>
-        </li>
-        <li>
-          <h4>Date Added</h4><span>21/04/2022</span>
-        </li>
-        <li>
-          <h4>Hours Played</h4><span>632 H 46 Mins</span>
-        </li>
-        <li>
-          <h4>Currently</h4><span>Downloaded</span>
-        </li>
-        <li>
-          <div class="main-border-button border-no-active"><a href="#">Donwloaded</a></div>
-        </li>
-      </ul>
-    </div>
+
+    <!-- Renderizamos la lista de deseados -->
+    <?php if(count($whish_list) !== 0): ?>
+        <?php foreach($whish_list as $game): ?>
+            <?= whishListItem ($game) ?>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <h2 class="text-center pb-5">No hay nada en la lista de Deseados</h2>
+    <?php endif; ?>
   </div>
 </div>
 <?php include "../partials/footer.php" ?>
