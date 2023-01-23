@@ -84,7 +84,7 @@
                                     <span>Logout</span><i class="fa-solid fa-right-from-bracket ms-2"></i>
                                 </a>
                             </li>
-                            <li><a href="profile.html">Profile <img src="<?= $path ?>assets/images/profile-header.jpg" alt=""></a>
+                            <li><a href="./pages/profile.php">Profile <img src="<?= $path ?>assets/images/profile-header.jpg" alt=""></a>
                             </li>
                         </ul>
                         <a class='menu-trigger'>
