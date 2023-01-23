@@ -1,6 +1,4 @@
 <?php
-
-
 define("file_types", ["image/png", "image/jpeg"]);
 
 /**

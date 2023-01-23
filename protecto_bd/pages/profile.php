@@ -4,13 +4,14 @@
 
     session_name("videogames");
     session_start();
-    
+
     /**
      * Determinamos a que nivel dentro del árbol de 
      * directorios nos encontramos, para definir correctamente
      * el path para los ficheros requeridos
      */
     $path = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../" : "";
+    
     $whish_list = getWhishList() ?? [];
 ?>
 
