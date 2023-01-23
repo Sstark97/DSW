@@ -1,36 +1,16 @@
 <?php
     require_once "../controller/general.php";
     require_once "../controller/profile.php";
+    require_once "../controller/home.php";
 
 
     $user_data = getUserData() ?? [];
+    $whishlist_count = count(getWhishList()) ?? 0;
 ?>
 
 <div class="main-profile ">
       <div class="row">
-        <div class="col-lg-4">
-          <img src="<?= generateUserProfileImg($user_data["email"]) ?>" alt="<?= $user_data["email"] ?? "email" ?>" style="border-radius: 23px;">
-        </div>
-        <div class="col-lg-4 align-self-center">
-          <div class="main-info header-text">
-            <h4><?= $user_data["name"] ?? "name" ?></h4>
-            <p><?= $user_data["surname"] ?? "surname" ?></p>
-            <div class="main-border-button">
-              <a href="#">Editar Perfil</a>
-            </div>
-            <div class="main-border-button">
-              <a href="#">Borrar Cuenta</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 align-self-center">
-          <ul>
-            <li>Lista de Deseados<span><?= count($whish_list) ?></span></li>
-            <li>Correo <span><?= $user_data["email"] ?? "email" ?></span></li>
-            <li>Edad <span><?= $user_data["age"] ?? "age" ?></span></li>
-            <li>Teléfono<span><?= $user_data["phone"] ?? "phone" ?></span></li>
-          </ul>
-        </div>
+        <?= profileCard($whishlist_count) ?>
       </div>
       <div class="row">
         <div class="col-lg-12">
