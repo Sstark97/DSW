@@ -83,6 +83,18 @@ function deleteUser () {
     }
 }
 
+/**
+ * Modal HTML que maneja las acciones sobre un perfil
+ * 
+ * Función que genera el bloque HTML de un Modal, con el que 
+ * manejar las acciones de edición/eliminación de un usuario
+ * dependiendo de el parámetro $is_delete 
+ * 
+ * @param string $label etiqueta del modal
+ * @param string $modal_id id que identifica el modal
+ * @param bool $is_delete determina la acción a realizar
+ * @return string Bloque HTML del Modal
+ */
 function profileModal (string $label, string $modal_id, bool $is_delete = false) {
     $modal_label = $modal_id . "Label";
     $btn_class = $is_delete ? "btn-danger" : "btn-warning";
