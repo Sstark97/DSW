@@ -78,7 +78,7 @@
                             <?php logout() ?>
                         <?php endif; ?>
                         <ul class="nav">
-                            <?= renderNav() ?>
+                            <?= renderNav($path) ?>
                             <li>
                                 <a href="<?= $path ?>index.php?logout"  class="d-flex align-items-center">
                                     <span>Logout</span><i class="fa-solid fa-right-from-bracket ms-2"></i>

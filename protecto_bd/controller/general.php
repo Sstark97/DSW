@@ -5,12 +5,13 @@ define("file_types", ["image/png", "image/jpeg"]);
  * Función que renderiza el enlace  a la página
  * donde ver todos los juegos
  */
-function renderNav () {
+function renderNav (string $path = "") {
     $is_admin = $_SESSION["is_admin"] ?? 0;
-    $browse = !$is_admin ? "<li><a href='browse.php'>Browse</a></li>" : "";
+    $browse = !$is_admin ? "<li><a href='" . $path . "browse.php'>Browse</a></li>" : "";
+    $index = "$path" . "index.php";
 
     return <<< END
-        <li><a href="index.php" class="active">Home</a></li>
+        <li><a href="$index" class="active">Home</a></li>
         $browse
     END;
 }

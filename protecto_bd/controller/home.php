@@ -124,6 +124,8 @@ function isElementInWhishList (int $id) {
  * Función que comprueba si un videojuego está en la 
  * lista de deseados de un usuario
  * 
+ * @return mixed
+ * @return array lista de deseados
  * @return string error si lo hubiera
  */
 function getWhishList (int $limit = 0) {
