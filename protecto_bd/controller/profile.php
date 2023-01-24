@@ -3,6 +3,7 @@
 require_once "general.php";
 
 define("gravatar_uri", "https://www.gravatar.com/avatar/");
+define("deleteUserContent", "<h4>¿Estás seguro de borrar tu cuenta?</h2><p>Está acción será irreversible</p>");
 
 /**
  * Genera un enlace de Gravatar
@@ -83,6 +84,63 @@ function deleteUser () {
     }
 }
 
+function updateForm () {
+    $user = getUserData();
+    $content = "";
+
+    if(is_array($user)) {
+        [
+            "dni" => $dni,
+            "name" => $name,
+            "surname" => $surname,
+            "email" => $email,
+            "phone" => $phone,
+            "age" => $age,
+            "password" => $password
+        ] = $user;
+
+        $content .= <<<END
+        <div class="form-outline form-white mb-1">
+            <label class="form-label" for="user[dni]">Dni</label>
+            <input type="text" name="user[dni]" value="$dni" class="form-control" required/>
+            </div>
+
+        <div class="form-outline form-white mb-1">
+            <label class="form-label" for="user[name]">Nombre</label>
+            <input type="text" name="user[name]" value="$name" class="form-control" />
+        </div>
+        <div class="form-outline form-white mb-1">
+            <label class="form-label" for="user[surname]">Apellidos</label>
+            <input type="text" name="user[surname]" value="$surname" class="form-control" />
+        </div>
+
+        <div class="form-outline form-white mb-1">
+            <label class="form-label" for="user[email]">Email</label>
+            <input type="email" name="user[email]" id="typeEmailX" value="$email" class="form-control" required/>
+        </div>
+
+        <div class="form-outline form-white mb-1">
+            <label class="form-label" for="user[phone]">Teléfono</label>
+            <input type="text" name="user[phone]" value="$phone" class="form-control" required/>
+        </div>
+
+        <div class="form-outline form-white mb-1">
+            <label class="form-label" for="user[age]">Edad</label>
+            <input type="text" name="user[age]" value="$age" class="form-control" />
+        </div>
+
+        <div class="form-outline form-white mb-1">
+            <label class="form-label" for="user[password]">Contraseña</label>
+            <input type="password" name="user[password]" id="typePasswordX" class="form-control" required/>
+        </div>
+        END;
+    } else {
+        $content = "<p>El usuario no existe</p>";
+    }
+
+    return $content;
+}
+
 /**
  * Modal HTML que maneja las acciones sobre un perfil
  * 
@@ -99,6 +157,7 @@ function profileModal (string $label, string $modal_id, bool $is_delete = false)
     $modal_label = $modal_id . "Label";
     $btn_class = $is_delete ? "btn-danger" : "btn-warning";
     $btn_name = $is_delete ? "deleteUser" : "updateUser";
+    $content = $is_delete ? deleteUserContent : updateForm();
 
     return <<<END
         <div class="main-border-button">
@@ -115,8 +174,7 @@ function profileModal (string $label, string $modal_id, bool $is_delete = false)
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-dark">
-                <h4>¿Estás seguro de borrar tu cuenta?</h2>
-                <p>Está acción será irreversible</p>
+                $content
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
