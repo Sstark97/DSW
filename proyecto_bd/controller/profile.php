@@ -4,7 +4,7 @@ require_once "general.php";
 
 define("gravatar_uri", "https://www.gravatar.com/avatar/");
 define("deleteUserContent", "<h4>¿Estás seguro de borrar tu cuenta?</h2><p>Está acción será irreversible</p>");
-define("keys", ["name","surname", "email", "phone", "age", "password"]);
+define("keys", ["name","surname", "email", "phone", "age"]);
 
 /**
  * Genera un enlace de Gravatar
@@ -140,7 +140,7 @@ function deleteUser () {
 
 function updateAction () {
     $fail = comprobeFields($_POST["user"], keys);
-    $message = $fail ? createErrors("Existen campos vacíos o campos de más", true) : validateUserForm();
+    $message = $fail ? createErrors("Existen campos vacíos o campos de más", true) : validateUserForm(false);
 
     if(empty($message) && !$fail ) {
         $message = updateUser();
@@ -184,33 +184,34 @@ function updateForm () {
 
         $content .= <<<END
         <div class="form-outline form-white mb-1">
-        <div class="form-outline form-white mb-1">
-            <label class="form-label" for="user[name]">Nombre</label>
-            <input type="text" name="user[name]" value="$name" class="form-control" />
-        </div>
-        <div class="form-outline form-white mb-1">
-            <label class="form-label" for="user[surname]">Apellidos</label>
-            <input type="text" name="user[surname]" value="$surname" class="form-control" />
-        </div>
+            <div class="form-outline form-white mb-1">
+                <label class="form-label" for="user[name]">Nombre</label>
+                <input type="text" name="user[name]" value="$name" class="form-control" />
+            </div>
+            <div class="form-outline form-white mb-1">
+                <label class="form-label" for="user[surname]">Apellidos</label>
+                <input type="text" name="user[surname]" value="$surname" class="form-control" />
+            </div>
 
-        <div class="form-outline form-white mb-1">
-            <label class="form-label" for="user[email]">Email</label>
-            <input type="email" name="user[email]" id="typeEmailX" value="$email" class="form-control" required/>
-        </div>
+            <div class="form-outline form-white mb-1">
+                <label class="form-label" for="user[email]">Email</label>
+                <input type="email" name="user[email]" id="typeEmailX" value="$email" class="form-control" required/>
+            </div>
 
-        <div class="form-outline form-white mb-1">
-            <label class="form-label" for="user[phone]">Teléfono</label>
-            <input type="text" name="user[phone]" value="$phone" class="form-control" required/>
-        </div>
+            <div class="form-outline form-white mb-1">
+                <label class="form-label" for="user[phone]">Teléfono</label>
+                <input type="text" name="user[phone]" value="$phone" class="form-control" required/>
+            </div>
 
-        <div class="form-outline form-white mb-1">
-            <label class="form-label" for="user[age]">Edad</label>
-            <input type="text" name="user[age]" value="$age" class="form-control" />
-        </div>
+            <div class="form-outline form-white mb-1">
+                <label class="form-label" for="user[age]">Edad</label>
+                <input type="text" name="user[age]" value="$age" class="form-control" />
+            </div>
 
-        <div class="form-outline form-white mb-1">
-            <label class="form-label" for="user[password]">Contraseña</label>
-            <input type="password" name="user[password]" id="typePasswordX" class="form-control" />
+            <div class="form-outline form-white mb-1">
+                <label class="form-label" for="user[password]">Contraseña</label>
+                <input type="password" name="user[password]" id="typePasswordX" class="form-control" />
+            </div>
         </div>
         END;
     } else {

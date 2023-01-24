@@ -20,9 +20,9 @@
 
 <?php include "../partials/header.php" ?>
 
-<!-- <?php if(isset($_POST["deleteUser"])): ?>
-  <?php deleteUser() ?>
-<?php endif; ?> -->
+<?php if(isset($_POST["deleteUser"]) || isset($_POST["updateUser"])): ?>
+  <?= profileAction() ?>
+<?php endif; ?>
 <!-- ***** Banner Start ***** -->
 <div class="row">
   <div class="col-lg-12">

@@ -97,7 +97,7 @@ function comprobeFields(array $to_comprobe, array $keys)
 }
 
 // Función donde se realizan las validaciones de los datos si no están vacíos
-function validateUserForm () {
+function validateUserForm (bool $comprobePass = true) {
     $message = "";
     [
         "dni" => $dni,
@@ -123,7 +123,7 @@ function validateUserForm () {
         $message .= "<p class='m-0 mb-2'>La edad no es un entero</p>";
     }
 
-    if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/",$password)) {
+    if($comprobePass && !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/",$password)) {
         $message .= "<p class='m-0 mb-2'>La contraseña debe tener minimo 8 carácteres, al menos 1 mayúscula, 1 minúscula y 1 número</p>";
     }
     
