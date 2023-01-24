@@ -83,6 +83,39 @@ function deleteUser () {
     }
 }
 
+function profileModal (string $label, string $modal_id, bool $is_delete = false) {
+    $modal_label = $modal_id . "Label";
+    $btn_class = $is_delete ? "btn-danger" : "btn-warning";
+    $btn_name = $is_delete ? "deleteUser" : "updateUser";
+
+    return <<<END
+        <div class="main-border-button">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#$modal_id">
+                $label
+            </button>
+        </div>
+
+        <div class="modal fade" id="$modal_id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="$modal_label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="$modal_label">$label</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-dark">
+                <h4>¿Estás seguro de borrar tu cuenta?</h2>
+                <p>Está acción será irreversible</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" name="$btn_name" class="btn $btn_class">Envíar</button>
+            </div>
+            </div>
+        </div>
+        </div>
+    END;
+}
+
 /**
  * Genera un fragmento de HTML con la información del perfil
  * 
@@ -107,6 +140,9 @@ function profileCard (int $whislist_count) {
         "phone" => $phone
     ] = $user_data;
     $gravatar_img = generateUserProfileImg($email);
+    $update_modal = profileModal("Editar Perfil", "updateUser");
+    $delete_modal = profileModal("Borrar Perfil", "deleteUser", true);
+    $action = $_SERVER["PHP_SELF"];
 
     return <<< END
     <div class="col-lg-4">
@@ -116,12 +152,10 @@ function profileCard (int $whislist_count) {
         <div class="main-info header-text">
             <h4>$name</h4>
             <p>$surname</p>
-            <div class="main-border-button">
-                <a href="./deleteUser.php">Editar Perfil</a>
-            </div>
-            <div class="main-border-button">
-                <a href="./deleteUser.php">Borrar Cuenta</a>
-            </div>
+            <form method="post" action="$action">
+                $update_modal
+                $delete_modal
+            </form>
         </div>
     </div>
     <div class="col-lg-4 align-self-center">

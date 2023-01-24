@@ -176,7 +176,7 @@ p {
   color: #e75e8d;
 }
 
-.main-border-button a {
+.main-border-button button {
   font-size: 14px;
   color: #ec6090;
   background-color: transparent;
@@ -192,7 +192,7 @@ p {
   overflow: hidden;
 }
 
-.main-border-button a:hover {
+.main-border-button button:hover {
   border-color: #fff;
   background-color: #fff;
   color: #e75e8d;

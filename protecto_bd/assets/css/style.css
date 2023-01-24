@@ -20,3 +20,7 @@
 textarea {
   resize: none;
 }
+
+.modal-content p{
+  color: #fff;
+}

@@ -1,6 +1,7 @@
 <?php
     require_once "../controller/general.php";
     require_once "../controller/home.php";
+    require_once "../controller/profile.php";
 
     session_name("videogames");
     session_start();
@@ -18,6 +19,10 @@
 ?>
 
 <?php include "../partials/header.php" ?>
+
+<?php if(isset($_POST["deleteUser"])): ?>
+  <?php deleteUser() ?>
+<?php endif; ?>
 <!-- ***** Banner Start ***** -->
 <div class="row">
   <div class="col-lg-12">
