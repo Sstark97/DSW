@@ -84,6 +84,14 @@ function deleteUser () {
     }
 }
 
+/**
+ * Formulario para actualizar los datos de un usuario
+ * 
+ * Función que devuelve el código HTML de un formulario 
+ * de actualización de los datos de un usuario.
+ * 
+ * @return string formulario con los datos del usuario | mensaje de error
+ */
 function updateForm () {
     $user = getUserData();
     $content = "";
