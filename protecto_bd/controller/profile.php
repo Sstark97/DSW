@@ -4,12 +4,31 @@ require_once "general.php";
 
 define("gravatar_uri", "https://www.gravatar.com/avatar/");
 
+/**
+ * Genera un enlace de Gravatar
+ * 
+ * Función que genera un enlace de Gravatar, concatenando el
+ * hash del $email con el enlace de gravatar
+ * @link https://www.gravatar.com/avatar/ Enlace de Gravatar
+ * 
+ * @param string $email con el que se generará el hash
+ * @return string enlace de Gravatar
+ */
 function generateUserProfileImg (string $email) {
     $hash = md5( strtolower( trim( $email ) ) );
 
     return gravatar_uri . $hash;
 }
 
+/**
+ * Devuelve los datos del usuario en sesión
+ * 
+ * Función que devuelve los datos del usuario que
+ * se encuentra en sesión.
+ * 
+ * @return mixed array con los datos del usuario | 
+ * error si fallará la consulta
+ */
 function getUserData () {
     $user_id = $_SESSION["userId"] ?? "";
 
@@ -34,6 +53,15 @@ function getUserData () {
     }
 }
 
+/**
+ * Genera un fragmento de HTML con la información del perfil
+ * 
+ * Función que genera un fragmento de código HTML con la información
+ * del usuario que se encuente en sesión
+ * 
+ * @param int $whislist_count Número de elementos en la lista de deseados
+ * @return string Contenido HTML con la información del Perfil
+ */
 function profileCard (int $whislist_count) {
     $user_data = getUserData();
 

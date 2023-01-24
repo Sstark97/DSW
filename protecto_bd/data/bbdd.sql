@@ -32,8 +32,8 @@ CREATE TABLE WhisList(
     PRIMARY KEY (dni, gameId)
 );
 
-ALTER TABLE WhisList ADD FOREIGN KEY (dni) REFERENCES User(dni);
-ALTER TABLE WhisList ADD FOREIGN KEY (gameId) REFERENCES VideoGame(id); 
+ALTER TABLE WhisList ADD FOREIGN KEY (dni) REFERENCES User(dni) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE WhisList ADD FOREIGN KEY (gameId) REFERENCES VideoGame(id) ON DELETE CASCADE; 
 
 -- Usuario Administrador
 INSERT INTO User (dni, name, surname, email, phone, age, password, is_admin) VALUES

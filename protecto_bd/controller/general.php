@@ -38,6 +38,8 @@ function logout () {
 }
 
 /**
+ * Redirecciona al login a usuarios sin logear
+ * 
  * Función que te redirige al login en
  * caso de que el id del usuario se
  * no encuentre en la sesión
