@@ -54,6 +54,36 @@ function getUserData () {
 }
 
 /**
+ * Borra la cuenta de un usuario
+ * 
+ * Función que borra la cuenta del usuario en sesión
+ * 
+ * @return mixed
+ */
+function deleteUser () {
+    $user_id = $_SESSION["userId"] ?? "";
+
+    if(!empty($user_id)) {
+        try {
+            $connection = getDbConnection();
+
+            $sql_query = "DELETE FROM User WHERE dni = :dni";
+    
+            $sentence = $connection->prepare($sql_query);
+            $sentence->bindValue(":dni", $user_id, PDO::PARAM_STR);
+    
+            $sentence->execute();
+
+            session_destroy();
+            redirect("../index.php");
+
+        } catch (PDOException $error) {
+            return createErrors($error->getMessage());
+        }
+    }
+}
+
+/**
  * Genera un fragmento de HTML con la información del perfil
  * 
  * Función que genera un fragmento de código HTML con la información
@@ -87,10 +117,10 @@ function profileCard (int $whislist_count) {
             <h4>$name</h4>
             <p>$surname</p>
             <div class="main-border-button">
-                <a href="#">Editar Perfil</a>
+                <a href="./deleteUser.php">Editar Perfil</a>
             </div>
             <div class="main-border-button">
-                <a href="#">Borrar Cuenta</a>
+                <a href="./deleteUser.php">Borrar Cuenta</a>
             </div>
         </div>
     </div>
