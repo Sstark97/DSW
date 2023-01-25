@@ -17,7 +17,7 @@
                 <h6>Bienvenido a Cyborg</h6>
                 <h4><em>Busca</em> los videojuegos más populares aquí</h4>
                 <div class="main-button">
-                    <a href="browse.html">Busca ahora</a>
+                    <a href="./pages/browse.php">Busca ahora</a>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
             
                 <div class="col-lg-12">
                     <div class="main-button">
-                        <a href="browse.html">Descubre más</a>
+                        <a href="./pages/browse.php">Descubre más</a>
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
 
     <div class="col-lg-12">
         <div class="main-button">
-            <a href="profile.html">Ver la lista completa</a>
+            <a href="./pages/profile.php">Ver la lista completa</a>
         </div>
     </div>
 </div>
