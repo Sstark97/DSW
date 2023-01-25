@@ -2,9 +2,18 @@
 require_once "general.php";
 require_once "../config/config.php";
 
+// Claves a comprobar en el Login
 define("keys", ["email", "password"]);
 
-// Función donde se realizan las validaciones de los datos si no están vacíos
+/**
+ * Validación de campos del Login
+ * 
+ * Función donde se realizan las validaciones de 
+ * los datos si no están vacíos
+ * 
+ * @global $_POST
+ * @return string posibles mensaje de error
+ */
 function validateLoginForm () {
     $message = "";
     [
@@ -18,6 +27,17 @@ function validateLoginForm () {
     return $message;
 }
 
+/**
+ * Login del usuario en la BD
+ * 
+ * Función que extrae el dni, la contraseña
+ * y si el usuario es administrador, para guardar en 
+ * la sesión dicho dni y su condición de admin
+ * 
+ * @global $_SESSION
+ * @throws PDOException
+ * @return mixed
+ */
 function loginUser () {
 
     try {
@@ -63,7 +83,13 @@ function loginUser () {
     }
 }
 
-// Función que comprueba los errores y realiza la acción de registro
+/**
+ * Gestión de las acciones del Login
+ * 
+ * Función que comprueba los errores y realiza la acción de registro
+ * 
+ * @return string posibles errores
+ */
 function loginAction () {
     $is_ok = comprobeFields($_POST["user"], keys);
     $message = $is_ok ? createErrors("Existen campos vacíos o campos de más", true) : validateLoginForm();
