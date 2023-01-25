@@ -5,6 +5,15 @@ require_once "../config/config.php";
 define("keys", ["dni","name","surname", "email", "phone", "age", "password"]);
 define("salt", "my_secret_hash_password");
 
+/**
+ * Comprueba si un usuario existe
+ * 
+ * Función que comprueba si un usuario existe en 
+ * la BD
+ *  
+ * @param string $dni del usuario
+ * @return bool|string
+ */
 function userExist(string $dni) {
     try {
         $connection = getDbConnection();
@@ -24,7 +33,17 @@ function userExist(string $dni) {
     }
 }
 
-// Función en la que se crea el usurio el Usuario
+/**
+ * Crea un usuario en la BD
+ * 
+ * Función que crea un usuario en 
+ * la BD, comprobando si el usuario existe
+ *  
+ * @global $_POST
+ * @throws PDOException si el usuario existe
+ * @param string $dni del usuario
+ * @return mixed 
+ */
 function createUser() {
 
     try {
@@ -80,7 +99,14 @@ function createUser() {
     }
 }
 
-// Función que comprueba los errores y realiza la acción de registro
+/**
+ * Gestión de Registro del usuario
+ * 
+ * Función que comprueba los errores y realiza la acción de registro
+ * 
+ * @global $_POST
+ * @return mixed
+ */
 function registerAction () {
     $is_ok = comprobeFields($_POST["user"], keys);
     $message = $is_ok ? createErrors("Existen campos vacíos o campos de más", true) : validateUserForm();
