@@ -27,9 +27,9 @@ function isAdmin () {
 function createAdminTable () {
     $games = getAllGames();
     $tbody = "";
-
+    
     // Si no hay videojuegos
-    if(count($games) === 0) {
+    if(!is_array($games) || count($games) === 0) {
         return <<< END
             <form>
                 <h1 class='text-center mt-2'>No hay videojuegos</h1>
