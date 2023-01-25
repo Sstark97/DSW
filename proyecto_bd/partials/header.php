@@ -5,6 +5,7 @@
      * el path para los ficheros requeridos
      */
     $path = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../" : "";
+    $profile_path =  strpos($_SERVER["PHP_SELF"], "pages") !== false ? "" : "./pages/";
 ?>
 
 <!DOCTYPE html>
@@ -84,7 +85,7 @@
                                     <span>Logout</span><i class="fa-solid fa-right-from-bracket ms-2"></i>
                                 </a>
                             </li>
-                            <li><a href="./pages/profile.php">Profile <img src="<?= $path ?>assets/images/profile-header.jpg" alt=""></a>
+                            <li><a href="<?= $profile_path ?>profile.php">Profile <img src="<?= $path ?>assets/images/profile-header.jpg" alt=""></a>
                             </li>
                         </ul>
                         <a class='menu-trigger'>
