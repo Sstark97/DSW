@@ -3,7 +3,6 @@
     require_once "../controller/profile.php";
     require_once "../controller/home.php";
 
-
     $user_data = getUserData() ?? [];
     $whishlist_count = count(getWhishList()) ?? 0;
 ?>

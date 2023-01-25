@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Conexión a la BD
+ * 
  * Función que devuelve los parámetros de conexión
  * a la base de datos
  * 
@@ -22,15 +24,15 @@ function getDbConfig()
 }
 
 /**
- * Función que devuelve la conexión con la
- * BD School en base a las configuraciones definidas
- * en el fichero ./config/config.php
+ * Conexión con la BD School
  *
+ * Función que devuelve la conexión a la BD en base a 
+ * las configuraciones definidas en el fichero ./config/config.php.
  * Los posibles fallos a la hora de crear la conexión
  * están controlados en las funciones que interactúan con
  * la BD
  *
- * @return connection: Conexión a la BD School
+ * @return PDO conexión a la BD School
  */
 function getDbConnection()
 {
