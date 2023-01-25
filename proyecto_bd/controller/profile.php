@@ -28,6 +28,7 @@ function generateUserProfileImg (string $email) {
  * Función que devuelve los datos del usuario que
  * se encuentra en sesión.
  * 
+ * @global $_SESSION
  * @return mixed array con los datos del usuario | 
  * error si fallará la consulta
  */
@@ -55,6 +56,16 @@ function getUserData () {
     }
 }
 
+/**
+ * Actualización de un Usuario
+ * 
+ * Función que actualiza el nombre, apellidos
+ * email, teléfono, y edad de un usuario en la
+ * BD
+ * 
+ * @global $_SESSION
+ * @return mixed
+ */
 function updateUser () {
     $user_id = $_SESSION["userId"] ?? "";
 
@@ -109,6 +120,7 @@ function updateUser () {
  * 
  * Función que borra la cuenta del usuario en sesión
  * 
+ * @global $_SESSION
  * @return mixed
  */
 function deleteUser () {
@@ -134,6 +146,16 @@ function deleteUser () {
     }
 }
 
+/**
+ * Gestión de la actualización de datos de Usuario
+ * 
+ * Función que realiza las comprobaciones sobre los datos
+ * recibidos en el formulario y realiza la acción de actualizar los
+ * datos si todo va bien
+ * 
+ * @global $_POST
+ * @return mixed
+ */
 function updateAction () {
     $fail = comprobeFields($_POST["user"], keys);
     $message = $fail ? createErrors("Existen campos vacíos o campos de más", true) : validateUserForm(true);
@@ -147,6 +169,15 @@ function updateAction () {
     return $message;
 }
 
+/**
+ * Gestión sobre las acciones del Perfil
+ * 
+ * Función que gestiona las acciones sobre el perfil
+ * de un usuario
+ * 
+ * @global $_POST
+ * @return mixed
+ */
 function profileAction () {
     if(isset($_POST["deleteUser"])) {
         deleteUser();
