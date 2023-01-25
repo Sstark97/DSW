@@ -142,6 +142,24 @@ function comprobeFields(array $to_comprobe, array $keys)
     return $stop;
 }
 
+function validateDniAndPass () {
+    $message = "";
+    [
+        "dni" => $dni,
+        "password" => $password
+    ] = $_POST["user"];
+
+    if(!preg_match("/\d{8}[A-Z]{1}/", $dni) || strlen($dni) !== 9) {
+        $message .= "<p class='m-0 mb-2'>El dni no cumple con el formato 12345678[A-Z] (8 números y 1 letra)</p>";
+    }
+
+    if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/",$password)) {
+        $message .= "<p class='m-0 mb-2'>La contraseña debe tener minimo 8 carácteres, al menos 1 mayúscula, 1 minúscula y 1 número</p>";
+    }
+
+    return $message;
+}
+
 /**
  * Valida los campos del formulario de Usuarios
  * 
@@ -152,18 +170,16 @@ function comprobeFields(array $to_comprobe, array $keys)
  * @global $_POST
  * @return string mensaje con todos los posibles errores
  */
-function validateUserForm (bool $comprobePass = true) {
+function validateUserForm (bool $is_update = false) {
     $message = "";
     [
-        "dni" => $dni,
         "email" => $email,
         "phone" => $phone,
         "age" => $age,
-        "password" => $password
     ] = $_POST["user"];
 
-    if(!preg_match("/\d{8}[A-Z]{1}/", $dni) || strlen($dni) !== 9) {
-        $message .= "<p class='m-0 mb-2'>El dni no cumple con el formato 12345678[A-Z] (8 números y 1 letra)</p>";
+    if(!$is_update) {
+        $message .= validateDniAndPass();
     }
     
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -176,10 +192,6 @@ function validateUserForm (bool $comprobePass = true) {
 
     if(!filter_var($age, FILTER_VALIDATE_INT)) {
         $message .= "<p class='m-0 mb-2'>La edad no es un entero</p>";
-    }
-
-    if($comprobePass && !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/",$password)) {
-        $message .= "<p class='m-0 mb-2'>La contraseña debe tener minimo 8 carácteres, al menos 1 mayúscula, 1 minúscula y 1 número</p>";
     }
     
     return $message;
@@ -263,6 +275,7 @@ function removePreviousImg (string $previous_img, string $img_dir) {
  * 
  * @param string $previous_img ruta a la imagen previa
  * @param bool $is_edit si estamos subiendo una nueva imagen
+ * @global $_FILES
  * @throws PDOException excepción generada si hay fallos a la hora de subir la imagen
  * @return string ruta de la imagen subida
  */

@@ -56,37 +56,33 @@ function getUserData () {
 }
 
 function updateUser () {
+    $user_id = $_SESSION["userId"] ?? "";
+
     if(!empty($user_id)) {
         try {
             $connection = getDbConnection();
 
             [
-                $sanitize_dni, 
                 $sanitize_name, 
                 $sanitize_surname, 
                 $sanitize_email, 
                 $sanitize_phone, 
-                $sanitize_age, 
-                $sanitize_password
+                $sanitize_age,
             ] = sanitizeFields($_POST["user"]);
 
-            $hash_password = password_hash($sanitize_password, PASSWORD_BCRYPT, ["salt" => salt, "cost" => 12]);
-
             $user = [
-                "dni" => $sanitize_dni,
                 "name" => $sanitize_name,
                 "surname" => $sanitize_surname,
                 "email" => $sanitize_email,
                 "phone" => $sanitize_phone,
-                "age" => intval($sanitize_age),
-                "password" => $hash_password
+                "age" => intval($sanitize_age)
             ];
 
             $sql_query = <<< END
                 UPDATE User SET name = :name,
                 surname = :surname, email = :email,
-                password = :password, phone = :phone,
-                age = :age WHERE dni = :dni
+                phone = :phone, age = :age 
+                WHERE dni = :dni
             END;
     
             $sentence = $connection->prepare($sql_query);
@@ -140,7 +136,7 @@ function deleteUser () {
 
 function updateAction () {
     $fail = comprobeFields($_POST["user"], keys);
-    $message = $fail ? createErrors("Existen campos vacíos o campos de más", true) : validateUserForm(false);
+    $message = $fail ? createErrors("Existen campos vacíos o campos de más", true) : validateUserForm(true);
 
     if(empty($message) && !$fail ) {
         $message = updateUser();
@@ -173,13 +169,11 @@ function updateForm () {
 
     if(is_array($user)) {
         [
-            "dni" => $dni,
             "name" => $name,
             "surname" => $surname,
             "email" => $email,
             "phone" => $phone,
             "age" => $age,
-            "password" => $password
         ] = $user;
 
         $content .= <<<END
@@ -206,11 +200,6 @@ function updateForm () {
             <div class="form-outline form-white mb-1">
                 <label class="form-label" for="user[age]">Edad</label>
                 <input type="text" name="user[age]" value="$age" class="form-control" />
-            </div>
-
-            <div class="form-outline form-white mb-1">
-                <label class="form-label" for="user[password]">Contraseña</label>
-                <input type="password" name="user[password]" id="typePasswordX" class="form-control" />
             </div>
         </div>
         END;
