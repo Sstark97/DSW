@@ -7,6 +7,7 @@ define("file_types", ["image/png", "image/jpeg"]);
  * Función que renderiza el enlace  a la página
  * donde ver todos los juegos
  * 
+ * @global $_SESSION
  * @param string $path representa el nivel dentro del
  * árbol de directorios
  * @return string Elementos del Navegador
@@ -29,6 +30,7 @@ function renderNav (string $path = "") {
  * caso de que el id del usuario se
  * encuentre en la sesión
  * 
+ * @global $_SESSION
  * @return void
  */
 function isLogged () {
@@ -58,6 +60,7 @@ function logout () {
  * caso de que el id del usuario se
  * no encuentre en la sesión
  * 
+ * @global $_SESSION
  * @return void
  */
 function isNotLogged () {
@@ -176,9 +179,9 @@ function validateDniAndPass () {
  * Función que valida todos los campos sensibles del usuario,
  * como son el dni, correo, teléfono, edad y contraseña
  * 
+ * @global $_POST
  * @param bool $is_update nos indica si estamos actualizando el usuario
  * para saber si debemos validar dni y contraseña
- * @global $_POST
  * @return string mensaje con todos los posibles errores
  */
 function validateUserForm (bool $is_update = false) {
@@ -283,10 +286,10 @@ function removePreviousImg (string $previous_img, string $img_dir) {
  * 
  * Funcioón que se encarga de subir una imagen, comprobando antes
  * los posibles errores a la hora de subir una imagen
- * 
+ *
+ * @global $_FILES
  * @param string $previous_img ruta a la imagen previa
  * @param bool $is_edit si estamos subiendo una nueva imagen
- * @global $_FILES
  * @throws PDOException excepción generada si hay fallos a la hora de subir la imagen
  * @return string ruta de la imagen subida
  */

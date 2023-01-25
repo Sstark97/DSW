@@ -2,9 +2,13 @@
 require_once "games.php";
 
 /**
+ * Control de administrador 
+ * 
  * Control para evitar que entren en esta página 
- * usuarios no logeados o usuarios que no sean 
- * admin
+ * usuarios no esten logeados como admin
+ * 
+ * @global $_SESSION
+ * @return void
 */
 function isAdmin () {
     if (!isset($_SESSION["userId"]) || isset($_SESSION["userId"]) && !$_SESSION["is_admin"]) {
@@ -13,8 +17,12 @@ function isAdmin () {
 }
 
 /**
+ * Fragmento HTML con la Tabla de Administración
+ * 
  * Función que crea una tabla HTML con los 
  * videojuegos que existan en la BD
+ * 
+ * @return string Frágmento HTML de la Tabla
  */
 function createAdminTable () {
     $games = getAllGames();
