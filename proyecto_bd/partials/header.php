@@ -5,7 +5,7 @@
      * el path para los ficheros requeridos
      */
     $path = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../" : "";
-    $profile_path =  strpos($_SERVER["PHP_SELF"], "pages") !== false ? "" : "./pages/";
+    $pages_path =  strpos($_SERVER["PHP_SELF"], "pages") !== false ? "" : "./pages/";
 ?>
 
 <!DOCTYPE html>
@@ -79,13 +79,13 @@
                             <?php logout() ?>
                         <?php endif; ?>
                         <ul class="nav">
-                            <?= renderNav($path) ?>
+                            <?= renderNav($pages_path) ?>
                             <li>
                                 <a href="<?= $path ?>index.php?logout"  class="d-flex align-items-center">
                                     <span>Logout</span><i class="fa-solid fa-right-from-bracket ms-2"></i>
                                 </a>
                             </li>
-                            <li><a href="<?= $profile_path ?>profile.php">Profile <img src="<?= $path ?>assets/images/profile-header.jpg" alt=""></a>
+                            <li><a href="<?= $pages_path ?>profile.php">Profile <img src="<?= $path ?>assets/images/profile-header.jpg" alt=""></a>
                             </li>
                         </ul>
                         <a class='menu-trigger'>
