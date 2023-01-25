@@ -12,11 +12,18 @@ require_once "general.php";
 
 define("keys", ["name", "description", "genre", "price", "assesment", "release_date"]);
 
-// Función donde se realizan las validaciones de los datos si no están vacíos
+/**
+ * Valida los campos del formulario de Videojuegos
+ * 
+ * Función que valida todos los campos sensibles del videojuego,
+ * como son el precio, la valoración y la fecha de lanzamiento
+ * 
+ * @global $_POST
+ * @return string mensaje con todos los posibles errores
+ */
 function validateGameForm () {
     $message = "";
     [
-        "genre" => $genre,
         "price" => $price,
         "assesment" => $assesment,
         "release_date" => $release_date
@@ -40,11 +47,15 @@ function validateGameForm () {
 }
 
 /**
+ * Extrae todos los videojugos existentes
+ * 
  * Función que saca todos los elementos
  * de la tabla VideoGame en forma de
  * array asociativo
  *
+ * @return mixed
  * @return array $games
+ * @return string posibles errores
  */
 function getAllGames()
 {
@@ -65,11 +76,16 @@ function getAllGames()
 }
 
 /**
- * Función que saca un elemento
- * de la tabla VideoGame en forma de
+ * Extra los datos de un videojuego
+ * 
+ * Función que saca un elemento, en base
+ * a su id,de la tabla VideoGame en forma de
  * array asociativo
  *
+ * @param int $id del Videojuego a buscar
+ * @return mixed
  * @return array $games
+ * @return string posibles errores
  */
 function getGame(int $id)
 {
@@ -91,10 +107,13 @@ function getGame(int $id)
 }
 
 /**
+ * Extrae la imagen de un Videojuego
+ * 
  * Función que devuelve la imagen actual
  * del videojuego que corresponda con el 
  * id pasado por parámetro
  * 
+ * @param int $id del Videojuego a buscar
  * @return string resultado de la consulta
  */
 function getCurrentImg (int $id) {
@@ -117,8 +136,13 @@ function getCurrentImg (int $id) {
 }
 
 /**
+ * Borra la imagen de un juego
+ * 
  * Función que borra la imagen de un juego
  * según el id pasado por parámetro
+ * 
+ * @param int $id del Videojuego a buscar
+ * @return void
  */
 function deleteGameImg (int $id) {
     /**
@@ -133,10 +157,14 @@ function deleteGameImg (int $id) {
 }
 
 /**
+ * Inserta un nuevo Videojuego en la BD
+ * 
  * Función que crea un juego en la BD GameShop
  * o devuelve un fallo en caso de haberlo
  *
- * @return result: Resultado de ejecutar la consulta
+ * @return mixed
+ * @return void
+ * @return string posibles errores
  */
 function createGame() {
 
@@ -184,10 +212,15 @@ function createGame() {
 }
 
 /**
+ * Edita los datos de un Videojuego en la BD
+ * 
  * Función que edita los datos de un juego en la BD GameShop
  * o devuelve un fallo en caso de haberlo
  *
- * @return result: Resultado de ejecutar la consulta
+ * @param int $id del Videojuego a editar
+ * @return mixed
+ * @return void
+ * @return string posibles errores
  */
 function editGame(int $id) {
 
@@ -240,10 +273,12 @@ function editGame(int $id) {
 }
 
 /**
+ * Elimina un Videojuego de la BD
+ * 
  * Función que elimina un juego en la BD GameShop
  * o devuelve un fallo en caso de haberlo
  *
- * @return result: Resultado de ejecutar la consulta
+ * @return mixed
  */
 function deleteGame() {
     $id = $_GET["id"] ?? "";
@@ -270,6 +305,8 @@ function deleteGame() {
 }
 
 /**
+ * Gestión de acciones sobre los Videojuegos
+ * 
  * Función que comprueba los errores y realiza la acción
  * de agregar un nuevo juego o editarlo
  * 
