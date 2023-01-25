@@ -162,6 +162,7 @@ function deleteGameImg (int $id) {
  * Función que crea un juego en la BD GameShop
  * o devuelve un fallo en caso de haberlo
  *
+ * @global $_POST
  * @return mixed
  * @return void
  * @return string posibles errores
@@ -217,6 +218,7 @@ function createGame() {
  * Función que edita los datos de un juego en la BD GameShop
  * o devuelve un fallo en caso de haberlo
  *
+ * @global $_POST
  * @param int $id del Videojuego a editar
  * @return mixed
  * @return void
@@ -278,6 +280,7 @@ function editGame(int $id) {
  * Función que elimina un juego en la BD GameShop
  * o devuelve un fallo en caso de haberlo
  *
+ * @global $_GET
  * @return mixed
  */
 function deleteGame() {
@@ -310,6 +313,8 @@ function deleteGame() {
  * Función que comprueba los errores y realiza la acción
  * de agregar un nuevo juego o editarlo
  * 
+ * @global $_GET
+ * @global $_POST
  * @return string Resultado de la acción
  */
 function gamesAction () {

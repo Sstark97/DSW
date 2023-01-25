@@ -10,11 +10,15 @@ $config = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../config/config.ph
 require_once $config;
 
 /**
+ * Extrae los videojuegos populares
+ * 
  * Función que saca todos los elementos
  * de la tabla VideoGame en forma de
  * array asociativo
  *
- * @return array $games
+ * @return mixed
+ * @return array videojuegos populartes
+ * @return string posibles errores
  */
 function getPopularGames()
 {
@@ -35,10 +39,14 @@ function getPopularGames()
 }
 
 /**
+ * Agrega un Videojuego a la lista de deseados
+ * 
  * Función que añade un videojuego a la 
  * lista de deseados de un usuario
  * 
- * @return string error si lo hubiera
+ * @global $_SESSION
+ * @global $_POST
+ * @return mixed
  */
 function addToTheWhishList () {
     $user_id = $_SESSION["userId"] ?? "";
@@ -63,10 +71,14 @@ function addToTheWhishList () {
 }
 
 /**
+ * Elimina un Videojuego de la lista de deseados
+ * 
  * Función que elimina un videojuego de la 
  * lista de deseados de un usuario
  * 
- * @return string error si lo hubiera
+ * @global $_SESSION
+ * @global $_POST
+ * @return mixed
  */
 function deleteToTheWhishList () {
     $user_id = $_SESSION["userId"] ?? "";
@@ -91,10 +103,14 @@ function deleteToTheWhishList () {
 }
 
 /**
+ * Comprueba si un Videojuego está en la lista de deseados
+ * 
  * Función que comprueba si un videojuego está en la 
  * lista de deseados de un usuario
  * 
- * @return string error si lo hubiera
+ * @global $_SESSION
+ * @param int $id 
+ * @return mixed si está o no en la lista o error si lo hubiera
  */
 function isElementInWhishList (int $id) {
     $user_id = $_SESSION["userId"] ?? "";
@@ -121,12 +137,14 @@ function isElementInWhishList (int $id) {
 }
 
 /**
- * Función que comprueba si un videojuego está en la 
- * lista de deseados de un usuario
+ * Devuelve la lista de deseados
  * 
- * @return mixed
- * @return array lista de deseados
- * @return string error si lo hubiera
+ * Función que devuelve la lista de videojuegos 
+ * deseados de un usuario
+ * 
+ * @global $_SESSION 
+ * @param int $limit limite de elementos a extraer
+ * @return mixed lista de deseados | error si lo hubiera
  */
 function getWhishList (int $limit = 0) {
     $user_id = $_SESSION["userId"] ?? "";
@@ -159,8 +177,13 @@ function getWhishList (int $limit = 0) {
 }
 
 /**
+ * Maneja las acciones sobre la lista de deseados
+ * 
  * Función que maneja las acciones sobre la
  * lista de deseados de un usuario
+ * 
+ * @global $_POST
+ * @return void
  */
 
 function whishListAction () {
@@ -178,9 +201,13 @@ function whishListAction () {
 }
 
 /**
- * Función que crea un Card por cada videojuego
- * popular
+ * Fragmento HTML con los datos de un Videojuego
  * 
+ * Función que crea un Card por cada videojuego
+ * popular con sus respectivos datos
+ * 
+ * @global $_SERVER
+ * @param array datos del videojuego
  * @return string Código HTML con los datos del videojuego
  */
 function cardGame (array $game) {
@@ -222,14 +249,16 @@ function cardGame (array $game) {
 }
 
 /**
+ * Fragmento HTML con los datos de un Videojuego deseado
+ * 
  * Función que crea un Card por cada videojuego
  * en la lista de deseados
  * 
+ * @param array datos del videojuego
  * @return string Código HTML con los datos del videojuego
  */
 function whishListItem (array $game) {
     [
-        "id" => $id,
         "name" => $name, 
         "genre" => $genre, 
         "img" => $img, 
