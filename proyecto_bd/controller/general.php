@@ -142,6 +142,16 @@ function comprobeFields(array $to_comprobe, array $keys)
     return $stop;
 }
 
+/**
+ * Valida dni y contraseña
+ * 
+ * Función que valida si el dni cumple con el formato
+ * 8 dígitos y una letra mayuscúla y si la contraseña
+ * incluye mínimo una letra mayuscúla, un número y 8 carácteres
+ * 
+ * @global $_POST
+ * @return string mensaje con todos los posibles errores
+ */
 function validateDniAndPass () {
     $message = "";
     [
@@ -166,7 +176,8 @@ function validateDniAndPass () {
  * Función que valida todos los campos sensibles del usuario,
  * como son el dni, correo, teléfono, edad y contraseña
  * 
- * @param bool $comprobePass
+ * @param bool $is_update nos indica si estamos actualizando el usuario
+ * para saber si debemos validar dni y contraseña
  * @global $_POST
  * @return string mensaje con todos los posibles errores
  */
