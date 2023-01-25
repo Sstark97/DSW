@@ -15,7 +15,8 @@ define("file_types", ["image/png", "image/jpeg"]);
 function renderNav (string $path = "") {
     $is_admin = $_SESSION["is_admin"] ?? 0;
     $browse = !$is_admin ? "<li><a href='" . $path . "browse.php'>Browse</a></li>" : "";
-    $index = "$path" . "index.php";
+    $index_path = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../" : "";
+    $index = "{$index_path}index.php";
 
     return <<< END
         <li><a href="$index" class="active">Home</a></li>

@@ -228,11 +228,18 @@ function cardGame (array $game) {
      */
     $game_is_in_whish_list = isElementInWhishList($id);
     $icon = $game_is_in_whish_list ? "fa-solid" : "fa-regular";
+    
+    /**
+     * Determinamos a que nivel dentro del árbol de 
+     * directorios nos encontramos, para definir correctamente
+     * el path para los ficheros requeridos
+     */
+    $path = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../" : "";
 
     return <<< END
     <div class="col-lg-3 col-sm-6">
         <div class="item">
-            <img src="$img" alt="$name">
+            <img src="$path$img" alt="$name">
             <h4>$name<br><span>$genre</span></h4>
             <ul>
                 <li><i class="fa fa-star"></i>$assesment</li>

@@ -1,23 +1,39 @@
 <?php
     require_once "../controller/general.php";
+    require_once "../controller/games.php";
     require_once "../controller/home.php";
-    require_once "../controller/profile.php";
 
     session_name("videogames");
     session_start();
 
     isNotLogged();
 
-    /**
-     * Determinamos a que nivel dentro del árbol de 
-     * directorios nos encontramos, para definir correctamente
-     * el path para los ficheros requeridos
-     */
-    $path = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../" : "";
-
-    $whish_list = getWhishList() ?? [];
+    $games = getAllGames() ?? [];
 ?>
 
 <?php include "../partials/header.php" ?>
-    <h1>Browse</h1>
+    <?php if(isset($_POST["add_wish_list"])): ?>
+        <?= whishListAction() ?>
+    <?php endif; ?>
+
+    <div class="most-popular browse">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading-section">
+                    <h4><em>Todos los Videojuegos</em> Ahora</h4>
+                </div>
+                <div class="row">
+                
+                    <!-- Renderizamos la lista de videojuegos populares -->
+                    <?php if(count($games) !== 0): ?>
+                        <?php foreach($games as $game ): ?>
+                            <?= cardGame($game) ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <h2 class="text-center">No hay Videojuegos</h2>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php include "../partials/footer.php" ?>
