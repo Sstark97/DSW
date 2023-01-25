@@ -2,8 +2,13 @@
 
 require_once "general.php";
 
+/** Url de Gravatar */
 define("gravatar_uri", "https://www.gravatar.com/avatar/");
+
+/** Contenido del Formulario de Eliminar Cuenta */
 define("deleteUserContent", "<h4>¿Estás seguro de borrar tu cuenta?</h2><p>Está acción será irreversible</p>");
+
+/** Claves a revisar del Formulario de Actualización del Perfil */
 define("keys", ["name","surname", "email", "phone", "age"]);
 
 /**
@@ -11,7 +16,7 @@ define("keys", ["name","surname", "email", "phone", "age"]);
  * 
  * Función que genera un enlace de Gravatar, concatenando el
  * hash del $email con el enlace de gravatar
- * @link https://www.gravatar.com/avatar/ Enlace de Gravatar
+ * @link https://es.gravatar.com/ Enlace de Gravatar
  * 
  * @param string $email con el que se generará el hash
  * @return string enlace de Gravatar

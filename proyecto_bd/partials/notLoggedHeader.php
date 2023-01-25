@@ -9,7 +9,8 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../assets/css/style.css">
-    <title>VideoGames</title>
+    <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <title>Cyborg GameShop</title>
 </head>
 
 <body>
