@@ -28,3 +28,8 @@ textarea {
 .browse {
   margin: 0;
 }
+
+.game_info p {
+  color: #fff;
+  opacity: .7;
+}

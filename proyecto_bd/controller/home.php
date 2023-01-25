@@ -235,9 +235,10 @@ function cardGame (array $game) {
      * el path para los ficheros requeridos
      */
     $path = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../" : "";
+    $game_details = "{$path}pages/game.php?gameId=$id";
 
     return <<< END
-    <div class="col-lg-3 col-sm-6">
+    <a href="$game_details" class="col-lg-3 col-sm-6">
         <div class="item">
             <img src="$path$img" alt="$name">
             <h4>$name<br><span>$genre</span></h4>
@@ -251,7 +252,7 @@ function cardGame (array $game) {
                 </li>
             </ul>
         </div>
-    </div>
+    </a>
     END;
 }
 
