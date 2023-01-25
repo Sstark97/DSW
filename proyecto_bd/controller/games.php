@@ -152,7 +152,7 @@ function createGame() {
             $sanitize_release_date
         ] = sanitizeFields($_POST["game"]);
 
-        $img = str_replace("../","", uploadFile());
+        $img = str_replace("../","", uploadImg());
 
         $game = [
             "name" => $sanitize_name,
@@ -204,7 +204,7 @@ function editGame(int $id) {
         ] = sanitizeFields($_POST["game"]);
 
         $previous_img = getCurrentImg($id);
-        $img = str_replace("../", "", uploadFile($previous_img, true));
+        $img = str_replace("../", "", uploadImg($previous_img, true));
 
         $game = [
             "name" => $sanitize_name,

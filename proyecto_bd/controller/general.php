@@ -2,8 +2,14 @@
 define("file_types", ["image/png", "image/jpeg"]);
 
 /**
+ * Renderiza los elementos del Navegador
+ * 
  * Función que renderiza el enlace  a la página
  * donde ver todos los juegos
+ * 
+ * @param string $path representa el nivel dentro del
+ * árbol de directorios
+ * @return string Elementos del Navegador
  */
 function renderNav (string $path = "") {
     $is_admin = $_SESSION["is_admin"] ?? 0;
@@ -17,9 +23,13 @@ function renderNav (string $path = "") {
 }
 
 /**
+ * Comprueba si el usuario está logeado
+ * 
  * Función que te redirige a inicio en
  * caso de que el id del usuario se
  * encuentre en la sesión
+ * 
+ * @return void
  */
 function isLogged () {
     if (isset($_SESSION["userId"])) {
@@ -28,8 +38,12 @@ function isLogged () {
 }
 
 /**
+ * Cerrar sesión
+ * 
  * Función que destruye la sesión y te redirje
  * al login
+ * 
+ *@return void
  */
 function logout () {
     session_destroy();
@@ -43,6 +57,8 @@ function logout () {
  * Función que te redirige al login en
  * caso de que el id del usuario se
  * no encuentre en la sesión
+ * 
+ * @return void
  */
 function isNotLogged () {
     if (!isset($_SESSION["userId"])) {
@@ -50,12 +66,32 @@ function isNotLogged () {
     }
 }
 
+/**
+ * Redirije a otra ruta
+ * 
+ * Función que redirige a la ruta pasada
+ * por parámetro y se asegura de que no se 
+ * ejecute nada más
+ * 
+ * @param string $location ruta a la que queremos dirigir
+ * @return never
+ */
 function redirect(string $location) {
     header("Location: $location");
     exit();
 }
 
-// Función que crea los errores a mostrar
+/**
+ * Fragmento HTML con los posibles errores
+ * 
+ * Función que genera un fragmento de código HTML
+ * que muestro los errores que le pasemops como 
+ * parámetro
+ * 
+ * @param string $message mensaje de error que queremos mostrar
+ * @param bool $empty controla si debebemos envolver el mensaje en un <span></span>
+ * @return string fragmento HTML con los errores
+ */
 function createErrors(string $message, bool $empty = false)
 {
     $message = $empty ? "<span>$message</span>" : $message;
@@ -68,7 +104,17 @@ function createErrors(string $message, bool $empty = false)
     END;
 }
 
-// Función que valida si hay campos de más o de menos
+/**
+ * Comprueba los campos de un formulario
+ * 
+ * Función que comprueba si los elementos pasados
+ * tienen las mismas claves y si existen elementos vacíos
+ * en el array a comprobar
+ * 
+ * @param array $to_comprobe campos a comprobar
+ * @param array $keys claves que queremos analizar
+ * @return bool true si hay diferencias y false en caso contrario
+ */
 function comprobeFields(array $to_comprobe, array $keys)
 {
     /*
@@ -96,7 +142,16 @@ function comprobeFields(array $to_comprobe, array $keys)
     return $stop;
 }
 
-// Función donde se realizan las validaciones de los datos si no están vacíos
+/**
+ * Valida los campos del formulario de Usuarios
+ * 
+ * Función que valida todos los campos sensibles del usuario,
+ * como son el dni, correo, teléfono, edad y contraseña
+ * 
+ * @param bool $comprobePass
+ * @global $_POST
+ * @return string mensaje con todos los posibles errores
+ */
 function validateUserForm (bool $comprobePass = true) {
     $message = "";
     [
@@ -130,7 +185,15 @@ function validateUserForm (bool $comprobePass = true) {
     return $message;
 }
 
-// Función que sanea los datos que nos llegan
+/**
+ * Sanitizado de los datos
+ * 
+ * Función que sanitiza los datos que le pasemos,
+ * evitando espacios y código HTML insertado
+ * 
+ * @param array $fields campos a sanitizar
+ * @return array campos sanitizados
+ */
 function sanitizeFields(array $fields)
 {
     $sanitize_fields = [];
@@ -144,23 +207,40 @@ function sanitizeFields(array $fields)
     return $sanitize_fields;
 }
 
-// Función que realiza las comprobaciones sobre el fichero
-function comprobeFile(array $file, bool $is_edit = false) {
-    ["error" => $error, "type" => $type] = $file;
+/**
+ * Validación de la subida de una imagen
+ * 
+ * Función que comprueba los posibles errores a 
+ * la hora de subir una imagen
+ * 
+ * @param array $img imagen a subir
+ * @param bool $is_edit si estamos editando un fichero ya subido
+ * @return string mensaje con los posibles errores
+ */
+function comprobeImgFIle(array $img, bool $is_edit = false) {
+    ["error" => $error, "type" => $type] = $img;
     $message = "";
     $comprobe_files = $is_edit ? [...file_types, ""] : file_types;
 
     if(!in_array($type, $comprobe_files)){
         $message .= "<span>Solo se aceptan ficheros en formato jpg y png</span>";
-    } 
+    } else if (!empty($error)) {
+        $message .= "<span>$error</span>";
+    }
 
     return $message;
 }
 
 /**
+ * Borra la imagen anterior 
+ * 
  * Función que borra una imagen previa si la imagen
  * pasada como segundo parámetro es distinta de la 
  * pasada como primer parámetro
+ * 
+ * @param string ruta a la imagen previa
+ * @param string directorio actual a comparar
+ * @return void
  */
 function removePreviousImg (string $previous_img, string $img_dir) {
     /**
@@ -175,11 +255,21 @@ function removePreviousImg (string $previous_img, string $img_dir) {
     }
 }
 
-// Función que sube el fichero
-function uploadFile(string $previous_img = "", bool $is_edit = false) {
+/**
+ * Subida de una imagen
+ * 
+ * Funcioón que se encarga de subir una imagen, comprobando antes
+ * los posibles errores a la hora de subir una imagen
+ * 
+ * @param string $previous_img ruta a la imagen previa
+ * @param bool $is_edit si estamos subiendo una nueva imagen
+ * @throws PDOException excepción generada si hay fallos a la hora de subir la imagen
+ * @return string ruta de la imagen subida
+ */
+function uploadImg(string $previous_img = "", bool $is_edit = false) {
     $file = $_FILES["img"];
     
-    $message = comprobeFile($file, $is_edit);
+    $message = comprobeImgFIle($file, $is_edit);
 
     // Si hay mensaje de error lo devolvemos
     if(!empty($message)) {
