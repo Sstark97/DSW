@@ -1,8 +1,18 @@
 <?php
 
+/**
+ * Espacio de Nombre para todos los controladores
+ */
 namespace Controller;
+
 use PDO;
 
+/**
+ * Maneja la Configuración de la BD
+ * 
+ * Clase que maneja la configuración de la BD,
+ * devolviendo su configuración y su instancia
+*/
 class ConfigController {
     /**
      * Conexión a la BD
