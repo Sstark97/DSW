@@ -1,19 +1,21 @@
 <?php
-  require_once "../controller/login.php";
-  require_once "../controller/general.php";
+  require_once "../vendor/autoload.php";
+
+  use Controller\AuthController;
+  use Controller\LoginController;
 
   session_name("videogames");
   session_start();
 
   //Comprobamos si el usuario está logeado
-  isLogged();
+  AuthController::isLogged();
   
 ?>
 
 <?php include "../partials/notLoggedHeader.php" ?>
 <section class="vh-100 gradient-custom">
     <?php if(isset($_POST["login_submit"])): ?>
-      <?= loginAction() ?>
+      <?= LoginController::loginAction() ?>
     <?php endif; ?>
     <div class="container pb-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
