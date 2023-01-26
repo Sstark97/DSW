@@ -1,7 +1,8 @@
 <?php
+    require_once "../vendor/autoload.php";
     require_once "../controller/general.php";
-    require_once "../controller/games.php";
-    require_once "../controller/home.php";
+
+    use Controller\GameController;
 
     session_name("videogames");
     session_start();
@@ -9,7 +10,7 @@
     isNotLogged();
 
     $game_id = isset($_GET["gameId"]) ? $_GET["gameId"] : "";
-    $game = empty($game_id) ? [] : getGame($game_id);
+    $game = empty($game_id) ? [] : GameController::getGame($game_id);
 ?>
 
 <?php include "../partials/header.php" ?>

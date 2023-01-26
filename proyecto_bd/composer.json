@@ -1,0 +1,18 @@
+{
+    "name": "cyborg/dsw",
+    "description": "Tienda Online de Videojuegos",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sstark97",
+            "email": "aitorscinfo@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Controller\\": "controller/"
+        }
+    },
+    "require": {}
+}
