@@ -1,8 +1,9 @@
 <?php
+require_once "../vendor/autoload.php";
 
-require_once "config.php";
+use Controller\ConfigController;
 
-$config = getDbConfig();
+$config = ConfigController::getDbConfig();
 
 try {
     [
