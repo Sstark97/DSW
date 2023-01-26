@@ -52,7 +52,7 @@ class GameController {
      * @return array $games
      * @return string posibles errores
      */
-    public static function getAllGames()
+    public static function getAll()
     {
         try {
             $connection = ConfigController::getDbConnection();
@@ -80,7 +80,7 @@ class GameController {
      * @return array videojuegos populartes
      * @return string posibles errores
      */
-    public static function getPopularGames()
+    public static function getPopulars ()
     {
         try {
             $connection = ConfigController::getDbConnection();
@@ -110,7 +110,7 @@ class GameController {
      * @return array $games
      * @return string posibles errores
      */
-    public static function getGame(int $id)
+    public static function get (int $id)
     {
         try {
             $connection = ConfigController::getDbConnection();
@@ -167,7 +167,7 @@ class GameController {
      * @return void
      * @return string posibles errores
      */
-    public static function createGame() {
+    public static function create () {
 
         try {
             $connection = ConfigController::getDbConnection();
@@ -224,7 +224,7 @@ class GameController {
      * @return void
      * @return string posibles errores
      */
-    public static function editGame(int $id) {
+    public static function update (int $id) {
 
         try {
             $connection = ConfigController::getDbConnection();
@@ -283,7 +283,7 @@ class GameController {
      * @global $_GET
      * @return mixed
      */
-    public static function deleteGame() {
+    public static function delete () {
         $id = $_GET["id"] ?? "";
 
         if(!empty($id)) {
@@ -324,7 +324,7 @@ class GameController {
             : self::validateGameForm();
 
         if(empty($message) && !$is_ok ) {
-            $message = !empty($id) ? self::editGame($id) : self::createGame();
+            $message = !empty($id) ? self::update ($id) : self::create ();
         } else if(!empty($message) && !$is_ok) {
             $message = GeneralController::createErrors($message);
         }
@@ -358,7 +358,7 @@ class GameController {
          * para colocar el icono correspondiente según sea
          * el caso
          */
-        $game_is_in_whish_list = WhisListController::isElementInWhishList($id);
+        $game_is_in_whish_list = WhisListController::exist($id);
         $icon = $game_is_in_whish_list ? "fa-solid" : "fa-regular";
         
         /**
@@ -397,7 +397,7 @@ class GameController {
      * @return string Frágmento HTML de la Tabla
      */
     public static function createAdminTable () {
-        $games = self::getAllGames();
+        $games = self::getAll();
         $tbody = "";
         
         // Si no hay videojuegos

@@ -16,7 +16,7 @@ class WhisListController {
      * @global $_POST
      * @return mixed
      */
-    private static function addToTheWhishList () {
+    private static function add () {
         $user_id = $_SESSION["userId"] ?? "";
         $game_id = $_POST["gameId"] ?? "";
 
@@ -48,7 +48,7 @@ class WhisListController {
      * @global $_POST
      * @return mixed
      */
-    private static function deleteToTheWhishList () {
+    private static function delete () {
         $user_id = $_SESSION["userId"] ?? "";
         $game_id = $_POST["gameId"] ?? "";
 
@@ -80,7 +80,7 @@ class WhisListController {
      * @param int $id 
      * @return mixed si está o no en la lista o error si lo hubiera
      */
-    public static function isElementInWhishList (int $id) {
+    public static function exist (int $id) {
         $user_id = $_SESSION["userId"] ?? "";
 
         if(!empty($user_id)) {
@@ -114,7 +114,7 @@ class WhisListController {
      * @param int $limit limite de elementos a extraer
      * @return mixed lista de deseados | error si lo hubiera
      */
-    public static function getWhishList (int $limit = 0) {
+    public static function get (int $limit = 0) {
         $user_id = $_SESSION["userId"] ?? "";
 
         if(!empty($user_id)) {
@@ -156,12 +156,12 @@ class WhisListController {
 
     public static function whishListAction () {
         $game_id = $_POST["gameId"] ?? "";
-        $game_is_in_whish_list = isElementInWhishList($game_id);
+        $game_is_in_whish_list = self::exist($game_id);
 
         if($game_is_in_whish_list) {
-            self::deleteToTheWhishList();
+            self::delete();
         } else {
-            self::addToTheWhishList();
+            self::add();
         }
 
         header("Refresh: 0");

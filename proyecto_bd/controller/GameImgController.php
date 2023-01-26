@@ -36,7 +36,7 @@ class GameImgController {
      * @param bool $is_edit si estamos editando un fichero ya subido
      * @return string mensaje con los posibles errores
      */
-    private static function comprobeImgFIle(array $img, bool $is_edit = false) {
+    private static function comprobeImg (array $img, bool $is_edit = false) {
         ["error" => $error, "type" => $type] = $img;
         $message = "";
         $comprobe_files = $is_edit ? [...file_types, ""] : file_types;
@@ -86,7 +86,7 @@ class GameImgController {
      * @throws PDOException excepción generada si hay fallos a la hora de subir la imagen
      * @return string ruta de la imagen subida
      */
-    public static function uploadImg(string $previous_img = "", bool $is_edit = false) {
+    public static function upload (string $previous_img = "", bool $is_edit = false) {
         $file = $_FILES["img"];
         
         $message = self::comprobeImgFIle($file, $is_edit);
