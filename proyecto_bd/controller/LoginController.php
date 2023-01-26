@@ -81,7 +81,7 @@ class LoginController {
             $_SESSION["userId"] = $dni;
             $_SESSION["is_admin"] = $admin;
 
-            AuthController::redirect("../index.php");
+            GeneralController::redirect("../index.php");
         } catch (PDOException $error) {
             return GeneralController::createErrors($error->getMessage());
         }

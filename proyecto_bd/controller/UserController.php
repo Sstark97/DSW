@@ -208,7 +208,7 @@ class UserController {
                 $sentence->bindValue(":dni", $user_id, PDO::PARAM_STR);
                 $sentence->execute();
 
-                AuthController::redirect("../pages/profile.php");
+                GeneralController::redirect("../pages/profile.php");
 
             } catch (PDOException $error) {
                 return GeneralController::createErrors($error->getMessage());
@@ -239,7 +239,7 @@ class UserController {
                 $sentence->execute();
 
                 session_destroy();
-                AuthController::redirect("../index.php");
+                GeneralController::redirect("../index.php");
 
             } catch (PDOException $error) {
                 return GeneralController::createErrors($error->getMessage());

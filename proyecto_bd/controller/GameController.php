@@ -205,7 +205,7 @@ class GameController {
             }
 
             $sentence->execute();
-            AuthController::redirect("../index.php");
+            GeneralController::redirect("../index.php");
 
         } catch (PDOException $error) {
             return GeneralController::createErrors($error->getMessage());
@@ -270,7 +270,7 @@ class GameController {
             }
 
             $sentence->execute();
-            AuthController::redirect("../index.php");
+            GeneralController::redirect("../index.php");
 
         } catch (PDOException $error) {
             return GeneralController::createErrors($error->getMessage());
@@ -301,7 +301,7 @@ class GameController {
                 $sentence->bindValue(":id", $id, PDO::PARAM_INT);
                 $sentence->execute();
         
-                AuthController::redirect("../index.php");
+                GeneralController::redirect("../index.php");
         
             } catch (PDOException $error) {
                 return GeneralController::createErrors($error->getMessage());

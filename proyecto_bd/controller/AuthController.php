@@ -1,22 +1,17 @@
 <?php
-
+/**
+ * Espacio de Nombre para todos los controladores
+ */
 namespace Controller;
-class AuthController {
-    /**
-     * Redirije a otra ruta
-     * 
-     * Función que redirige a la ruta pasada
-     * por parámetro y se asegura de que no se 
-     * ejecute nada más
-     * 
-     * @param string $location ruta a la que queremos dirigir
-     * @return never
-     */
-    public static function redirect(string $location) {
-        header("Location: $location");
-        exit();
-    }
 
+/**
+ * Maneja la autenticación
+ * 
+ * Clase que maneja las diferentes acciones de autenticación,
+ * como son el controlar si un usuario es administrador,
+ * comprobar si un usuario está o no logeado y hacer logout.
+ */
+class AuthController {
     /**
      * Control de administrador 
      * 
@@ -28,7 +23,7 @@ class AuthController {
     */
     public static function isAdmin () {
         if (!isset($_SESSION["userId"]) || isset($_SESSION["userId"]) && !$_SESSION["is_admin"]) {
-            self::redirect("../index.php");
+            GeneralController::redirect("../index.php");
         }
     }
 
@@ -44,7 +39,7 @@ class AuthController {
      */
     public static function isLogged () {
         if (isset($_SESSION["userId"])) {
-            self::redirect("../index.php");
+            GeneralController::redirect("../index.php");
         }
     }
 
@@ -59,7 +54,7 @@ class AuthController {
     public static function logout () {
         session_destroy();
 
-        self::redirect("./pages/login.php");
+        GeneralController::redirect("./pages/login.php");
     }
 
     /**
@@ -74,7 +69,7 @@ class AuthController {
      */
     public static function isNotLogged () {
         if (!isset($_SESSION["userId"])) {
-            self::redirect("./pages/login.php");
+            GeneralController::redirect("./pages/login.php");
         }
     }
 }

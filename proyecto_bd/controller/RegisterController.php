@@ -68,7 +68,7 @@ class RegisterController {
 
             $_SESSION["userId"] = $sanitize_dni;
             
-            AuthController::redirect("../index.php");
+            GeneralController::redirect("../index.php");
         } catch (PDOException $error) {
             
             return GeneralController::createErrors($error->getMessage());

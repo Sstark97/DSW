@@ -4,6 +4,21 @@ namespace Controller;
 class GeneralController {
 
     /**
+     * Redirije a otra ruta
+     * 
+     * Función que redirige a la ruta pasada
+     * por parámetro y se asegura de que no se 
+     * ejecute nada más
+     * 
+     * @param string $location ruta a la que queremos dirigir
+     * @return never
+    */
+    public static function redirect(string $location) {
+        header("Location: $location");
+        exit();
+    }
+
+    /**
      * Renderiza los elementos del Navegador
      * 
      * Función que renderiza el enlace  a la página
