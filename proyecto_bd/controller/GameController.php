@@ -1,11 +1,10 @@
 <?php
 namespace Controller;
 
-use Controller\GeneralController;
 use PDO;
 use PDOException;
 
-class GameController extends GeneralController {
+class GameController {
 
     const GAME_KEYS = ["name", "description", "genre", "price", "assesment", "release_date"];
 
@@ -18,7 +17,7 @@ class GameController extends GeneralController {
      * @global $_POST
      * @return string mensaje con todos los posibles errores
      */
-    function validateGameForm () {
+    private static function validateGameForm () {
         $message = "";
         [
             "price" => $price,
@@ -56,7 +55,7 @@ class GameController extends GeneralController {
     public static function getAllGames()
     {
         try {
-            $connection = self::getDbConnection();
+            $connection = ConfigController::getDbConnection();
             $sql_query = "SELECT * FROM VideoGame";
 
             $sentence = $connection->prepare($sql_query);
@@ -66,7 +65,36 @@ class GameController extends GeneralController {
 
             return $games;
         } catch (PDOException $error) {
-            return createErrors($error->getMessage());
+            return GeneralController::createErrors($error->getMessage());
+        }
+    }
+
+    /**
+     * Extrae los videojuegos populares
+     * 
+     * Función que saca todos los elementos
+     * de la tabla VideoGame en forma de
+     * array asociativo
+     *
+     * @return mixed
+     * @return array videojuegos populartes
+     * @return string posibles errores
+     */
+    public static function getPopularGames()
+    {
+        try {
+            $connection = ConfigController::getDbConnection();
+
+            $sql_query = "SELECT * FROM VideoGame WHERE assesment > 4.5 LIMIT 8";
+
+            $sentence = $connection->prepare($sql_query);
+
+            $sentence->execute();
+            $games = $sentence->fetchAll(PDO::FETCH_ASSOC);
+
+            return $games;
+        } catch (PDOException $error) {
+            return GeneralController::createErrors($error->getMessage());
         }
     }
 
@@ -85,7 +113,7 @@ class GameController extends GeneralController {
     public static function getGame(int $id)
     {
         try {
-            $connection = self::getDbConnection();
+            $connection = ConfigController::getDbConnection();
             $sql_query = "SELECT * FROM VideoGame WHERE id = :id";
 
             $sentence = $connection->prepare($sql_query);
@@ -96,7 +124,7 @@ class GameController extends GeneralController {
 
             return $game;
         } catch (PDOException $error) {
-            return createErrors($error->getMessage());
+            return GeneralController::createErrors($error->getMessage());
         }
     }
 
@@ -112,7 +140,7 @@ class GameController extends GeneralController {
      */
     public static function getCurrentImg (int $id) {
         try {
-            $connection = self::getDbConnection();
+            $connection = ConfigController::getDbConnection();
             $sql_query = "SELECT img FROM VideoGame WHERE id = :id";
 
             $sentence = $connection->prepare($sql_query);
@@ -124,7 +152,7 @@ class GameController extends GeneralController {
             return $img;
             
         } catch (PDOException $error) {
-            return createErrors($error);
+            return GeneralController::createErrors($error);
         }
     }
 
@@ -163,7 +191,7 @@ class GameController extends GeneralController {
     public static function createGame() {
 
         try {
-            $connection = self::getDbConnection();
+            $connection = ConfigController::getDbConnection();
 
             [
                 $sanitize_name, 
@@ -172,7 +200,7 @@ class GameController extends GeneralController {
                 $sanitize_price, 
                 $sanitize_assesment, 
                 $sanitize_release_date
-            ] = sanitizeFields($_POST["game"]);
+            ] = GeneralController::sanitizeFields($_POST["game"]);
 
             $img = str_replace("../","", uploadImg());
 
@@ -198,10 +226,10 @@ class GameController extends GeneralController {
             }
 
             $sentence->execute();
-            redirect("../index.php");
+            AuthController::redirect("../index.php");
 
         } catch (PDOException $error) {
-            return createErrors($error->getMessage());
+            return GeneralController::createErrors($error->getMessage());
         }
     }
 
@@ -220,7 +248,7 @@ class GameController extends GeneralController {
     public static function editGame(int $id) {
 
         try {
-            $connection = self::getDbConnection();
+            $connection = ConfigController::getDbConnection();
 
             [
                 $sanitize_name, 
@@ -229,9 +257,9 @@ class GameController extends GeneralController {
                 $sanitize_price, 
                 $sanitize_assesment, 
                 $sanitize_release_date
-            ] = sanitizeFields($_POST["game"]);
+            ] = GeneralController::sanitizeFields($_POST["game"]);
 
-            $previous_img = getCurrentImg($id);
+            $previous_img = self::getCurrentImg($id);
             $img = str_replace("../", "", uploadImg($previous_img, true));
 
             $game = [
@@ -260,10 +288,10 @@ class GameController extends GeneralController {
             }
 
             $sentence->execute();
-            redirect("../index.php");
+            AuthController::redirect("../index.php");
 
         } catch (PDOException $error) {
-            return createErrors($error->getMessage());
+            return GeneralController::createErrors($error->getMessage());
         }
     }
 
@@ -281,7 +309,7 @@ class GameController extends GeneralController {
 
         if(!empty($id)) {
             try {
-                $connection = self::getDbConnection();
+                $connection = ConfigController::getDbConnection();
                 $sql_query = "DELETE FROM VideoGame WHERE id = :id";
 
                 // Borramos su imagen
@@ -291,10 +319,10 @@ class GameController extends GeneralController {
                 $sentence->bindValue(":id", $id, PDO::PARAM_INT);
                 $sentence->execute();
         
-                redirect("../index.php");
+                AuthController::redirect("../index.php");
         
             } catch (PDOException $error) {
-                return createErrors($error->getMessage());
+                return GeneralController::createErrors($error->getMessage());
             }
         }
     }
@@ -311,13 +339,15 @@ class GameController extends GeneralController {
      */
     public static function gamesAction () {
         $id = isset($_GET["id"]) ? $_GET["id"] : "";
-        $is_ok = self::comprobeFields($_POST["game"], self::GAME_KEYS);
-        $message = $is_ok ? self::createErrors("Existen campos vacíos o campos de más", true) : self::validateGameForm();
+        $is_ok = GeneralController::comprobeFields($_POST["game"], self::GAME_KEYS);
+        $message = $is_ok 
+            ? GeneralController::createErrors("Existen campos vacíos o campos de más", true) 
+            : self::validateGameForm();
 
         if(empty($message) && !$is_ok ) {
             $message = !empty($id) ? self::editGame($id) : self::createGame();
         } else if(!empty($message) && !$is_ok) {
-            $message = createErrors($message);
+            $message = GeneralController::createErrors($message);
         }
 
         return $message;

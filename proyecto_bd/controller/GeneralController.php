@@ -1,8 +1,7 @@
 <?php
 namespace Controller;
-use Controller\ConfigController;
 
-class GeneralController extends ConfigController {
+class GeneralController {
     /**
      * Fragmento HTML con los posibles errores
      * 
