@@ -52,7 +52,7 @@ class UserController {
      * para saber si debemos validar dni y contraseña
      * @return string mensaje con todos los posibles errores
      */
-    private static function validateUserForm (bool $is_update = false) {
+    public static function validateUserForm (bool $is_update = false) {
         $message = "";
         [
             "email" => $email,
