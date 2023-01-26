@@ -9,7 +9,6 @@
 
   //Comprobamos si el usuario está logeado
   AuthController::isLogged();
-  
 ?>
 
 <?php include "../partials/notLoggedHeader.php" ?>

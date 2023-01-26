@@ -1,11 +1,11 @@
 <?php
-
 /**
  * Espacio de Nombre para todos los controladores
  */
 namespace Controller;
 
 use PDO;
+use Dotenv;
 
 /**
  * Maneja la Configuración de la BD
@@ -22,14 +22,16 @@ class ConfigController {
      * 
      * @return array asociativo con las opciones de conexión
      */
-    public static function getDbConfig()
-    {
+    public static function getDbConfig() {
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "\..");
+        $dotenv->safeLoad();
+        
         return [
             'db' => [
-                'host' => 'localhost',
-                'user' => 'aitor97',
-                'pass' => '12345',
-                'name' => 'GameShop',
+                'host' => $_ENV["DB_HOST"],
+                'user' => $_ENV["DB_USER"],
+                'pass' => $_ENV["DB_PASS"],
+                'name' => $_ENV["DB_NAME"],
                 'options' => [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 ],

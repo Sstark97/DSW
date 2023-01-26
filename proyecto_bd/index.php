@@ -2,6 +2,7 @@
     require_once "vendor/autoload.php";
 
     use Controller\AuthController;
+    use Controller\ConfigController;
 
     session_name("videogames");
     session_start();
