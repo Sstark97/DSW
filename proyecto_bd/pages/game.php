@@ -1,16 +1,16 @@
 <?php
     require_once "../vendor/autoload.php";
-    require_once "../controller/general.php";
 
+    use Controller\AuthController;
     use Controller\GameController;
 
     session_name("videogames");
     session_start();
 
-    isNotLogged();
+    AuthController::isNotLogged();
 
     $game_id = isset($_GET["gameId"]) ? $_GET["gameId"] : "";
-    $game = empty($game_id) ? [] : GameController::getGame($game_id);
+    $game = empty($game_id) ? [] : GameController::get($game_id);
 ?>
 
 <?php include "../partials/header.php" ?>

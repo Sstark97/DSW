@@ -1,4 +1,8 @@
-<?php 
+<?php
+
+    use Controller\GeneralController;
+    use Controller\AuthController;
+
     /**
      * Determinamos a que nivel dentro del árbol de 
      * directorios nos encontramos, para definir correctamente
@@ -76,10 +80,10 @@
                         <!-- ***** Menu Start ***** -->
 
                         <?php if(isset($_GET["logout"])): ?>
-                            <?php logout() ?>
+                            <?php AuthController::logout() ?>
                         <?php endif; ?>
                         <ul class="nav">
-                            <?= renderNav($pages_path) ?>
+                            <?= GeneralController::renderNav($pages_path) ?>
                             <li>
                                 <a href="<?= $path ?>index.php?logout"  class="d-flex align-items-center">
                                     <span>Logout</span><i class="fa-solid fa-right-from-bracket ms-2"></i>

@@ -1,19 +1,21 @@
 <?php
-    require_once "../controller/general.php";
-    require_once "../controller/games.php";
-    require_once "../controller/home.php";
+    require_once "../vendor/autoload.php";
+
+    use Controller\AuthController;
+    use Controller\GameController;
+    use Controller\WhislistController;
 
     session_name("videogames");
     session_start();
 
-    isNotLogged();
+    AuthController::isNotLogged();
 
-    $games = getAllGames() ?? [];
+    $games = GameController::getAll() ?? [];
 ?>
 
 <?php include "../partials/header.php" ?>
     <?php if(isset($_POST["add_wish_list"])): ?>
-        <?= whishListAction() ?>
+        <?= WhislistController::whishListAction() ?>
     <?php endif; ?>
 
     <div class="most-popular browse">
@@ -27,7 +29,7 @@
                     <!-- Renderizamos la lista de videojuegos populares -->
                     <?php if(count($games) !== 0): ?>
                         <?php foreach($games as $game ): ?>
-                            <?= cardGame($game) ?>
+                            <?= GameController::cardGame($game) ?>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <h2 class="text-center">No hay Videojuegos</h2>

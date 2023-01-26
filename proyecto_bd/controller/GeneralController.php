@@ -2,6 +2,29 @@
 namespace Controller;
 
 class GeneralController {
+
+    /**
+     * Renderiza los elementos del Navegador
+     * 
+     * Función que renderiza el enlace  a la página
+     * donde ver todos los juegos
+     * 
+     * @global $_SESSION
+     * @param string $path representa el nivel dentro del
+     * árbol de directorios
+     * @return string Elementos del Navegador
+     */
+    public static function renderNav (string $path = "") {
+        $is_admin = $_SESSION["is_admin"] ?? 0;
+        $browse = !$is_admin ? "<li><a href='" . $path . "browse.php'>Browse</a></li>" : "";
+        $index_path = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../" : "";
+        $index = "{$index_path}index.php";
+
+        return <<< END
+            <li><a href="$index" class="active">Home</a></li>
+            $browse
+        END;
+    }
     /**
      * Fragmento HTML con los posibles errores
      * 

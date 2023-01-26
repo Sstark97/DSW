@@ -5,6 +5,7 @@ namespace Controller;
 use PDOException;
 
 class GameImgController {
+    const FILE_TYPES = ["image/png", "image/jpeg"];
     /**
      * Borra la imagen de un juego
      * 
@@ -39,7 +40,7 @@ class GameImgController {
     private static function comprobeImg (array $img, bool $is_edit = false) {
         ["error" => $error, "type" => $type] = $img;
         $message = "";
-        $comprobe_files = $is_edit ? [...file_types, ""] : file_types;
+        $comprobe_files = $is_edit ? [...self::FILE_TYPES, ""] : self::FILE_TYPES;
 
         if(!in_array($type, $comprobe_files)){
             $message .= "<span>Solo se aceptan ficheros en formato jpg y png</span>";
