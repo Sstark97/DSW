@@ -1,6 +1,8 @@
 <?php
 require_once "games.php";
 
+// Tengo todo
+
 /**
  * Control de administrador 
  * 

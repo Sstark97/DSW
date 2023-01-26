@@ -157,27 +157,6 @@ class GameController {
     }
 
     /**
-     * Borra la imagen de un juego
-     * 
-     * Función que borra la imagen de un juego
-     * según el id pasado por parámetro
-     * 
-     * @param int $id del Videojuego a buscar
-     * @return void
-     */
-    public static function deleteGameImg (int $id) {
-        /**
-         * Le concateno ../ ya que vamos a acceder
-         * a la carpeta assets, donde se guardan todas
-         * las imágenes
-         */
-        $img = "../" . getCurrentImg($id);
-        if (file_exists($img)) {
-            unlink($img);
-        }
-    }
-
-    /**
      * Inserta un nuevo Videojuego en la BD
      * 
      * Función que crea un juego en la BD GameShop
@@ -313,7 +292,7 @@ class GameController {
                 $sql_query = "DELETE FROM VideoGame WHERE id = :id";
 
                 // Borramos su imagen
-                deleteGameImg($id);
+                GameImgController::deleteGameImg($id);
         
                 $sentence = $connection->prepare($sql_query);
                 $sentence->bindValue(":id", $id, PDO::PARAM_INT);
