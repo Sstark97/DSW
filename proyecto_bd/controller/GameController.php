@@ -333,6 +333,62 @@ class GameController {
     }
 
     /**
+     * Fragmento HTML con los datos de un Videojuego
+     * 
+     * Función que crea un Card por cada videojuego
+     * popular con sus respectivos datos
+     * 
+     * @global $_SERVER
+     * @param array datos del videojuego
+     * @return string Código HTML con los datos del videojuego
+     */
+    public static function cardGame (array $game) {
+        [
+            "id" => $id,
+            "name" => $name, 
+            "genre" => $genre, 
+            "img" => $img, 
+            "assesment" => $assesment
+        ] = $game;
+
+        $action = $_SERVER["PHP_SELF"];
+
+        /**
+         * Comprobamos si está en la lista de deseados
+         * para colocar el icono correspondiente según sea
+         * el caso
+         */
+        $game_is_in_whish_list = WhisListController::isElementInWhishList($id);
+        $icon = $game_is_in_whish_list ? "fa-solid" : "fa-regular";
+        
+        /**
+         * Determinamos a que nivel dentro del árbol de 
+         * directorios nos encontramos, para definir correctamente
+         * el path para los ficheros requeridos
+         */
+        $path = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../" : "";
+        $game_details = "{$path}pages/game.php?gameId=$id";
+
+        return <<< END
+        <a href="$game_details" class="col-lg-3 col-sm-6">
+            <div class="item">
+                <img src="$path$img" alt="$name">
+                <h4>$name<br><span>$genre</span></h4>
+                <ul>
+                    <li><i class="fa fa-star"></i>$assesment</li>
+                    <li>
+                        <form method="post" action="$action" >
+                            <button name="add_wish_list"  class="bg-transparent border border-0"><i class="$icon fa-heart"></i></button>
+                            <input type="hidden" value="$id" name="gameId" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </a>
+        END;
+    }
+
+    /**
      * Fragmento HTML con la Tabla de Administración
      * 
      * Función que crea una tabla HTML con los 
