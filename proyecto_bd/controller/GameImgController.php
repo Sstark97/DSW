@@ -45,6 +45,7 @@ class GameImgController {
         if(!in_array($type, $comprobe_files)){
             $message .= "<span>Solo se aceptan ficheros en formato jpg y png</span>";
         } else if (!empty($error)) {
+            echo "Hola";
             $message .= "<span>$error</span>";
         }
 

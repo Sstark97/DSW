@@ -181,7 +181,7 @@ class GameController {
                 $sanitize_release_date
             ] = GeneralController::sanitizeFields($_POST["game"]);
 
-            $img = str_replace("../","", uploadImg());
+            $img = str_replace("../","", GameImgController::upload());
 
             $game = [
                 "name" => $sanitize_name,
@@ -238,8 +238,11 @@ class GameController {
                 $sanitize_release_date
             ] = GeneralController::sanitizeFields($_POST["game"]);
 
-            $previous_img = self::getCurrentImg($id);
-            $img = str_replace("../", "", uploadImg($previous_img, true));
+            $img = self::getCurrentImg($id);
+
+            if(isset($_FILES["img"]) && $_FILES["img"]["error"] !== 4) {
+                $img = str_replace("../", "", GameImgController::upload($img, true));
+            }
 
             $game = [
                 "name" => $sanitize_name,

@@ -1,15 +1,17 @@
 <?php
-    require_once "../controller/games.php";
-    require_once "../controller/admin.php";
+    require_once "../vendor/autoload.php";
+
+    use Controller\AuthController;
+    use Controller\GameController;
 
     session_name("videogames");
     session_start();
 
     // Controlamos si el usuario es admin
-    isAdmin();
+    AuthController::isAdmin();
     
     $id = isset($_GET["id"]) ? $_GET["id"] : "";
-    $game = !empty($id) ? getGame($id) : [];
+    $game = !empty($id) ? GameController::get($id) : [];
     $action = empty($id) ? $_SERVER['PHP_SELF'] : $_SERVER['PHP_SELF'] . "?id=$id";
     $empty_message = !empty($id) ? "No existe el juego con el id $id" : "Es necesario un id";
 ?>
@@ -17,7 +19,7 @@
 <?php include '../partials/header.php' ?>
 
     <?php if(isset($_POST["submit"])): ?>
-        <?= deleteGame(); ?>
+        <?= GameController::delete(); ?>
     <?php endif; ?>
 
     <?php if(isset($game["name"])): ?>
