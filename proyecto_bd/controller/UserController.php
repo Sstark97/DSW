@@ -80,6 +80,34 @@ class UserController {
     }
 
     /**
+     * Comprueba si un usuario existe
+     * 
+     * Función que comprueba si un usuario existe en 
+     * la BD
+     *  
+     * @param string $dni del usuario
+     * @return bool|string
+     */
+    public static function exist (string $dni) {
+        try {
+            $connection = ConfigController::getDbConnection();
+
+            $sql_query = "SELECT email FROM User WHERE dni = :dni";
+
+            $sentence = $connection->prepare($sql_query);
+            $sentence->bindValue(":dni", $dni, PDO::PARAM_STR);
+
+            $sentence->execute();
+            ["email" => $email ] = $sentence->fetch();
+
+            return !empty($email);
+        } catch (PDOException $error) {
+            
+            return GeneralController::createErrors($error->getMessage());
+        }
+    }
+
+    /**
      * Genera un enlace de Gravatar
      * 
      * Función que genera un enlace de Gravatar, concatenando el
@@ -105,7 +133,7 @@ class UserController {
      * @return mixed array con los datos del usuario | 
      * error si fallará la consulta
      */
-    public static function getUserData () {
+    public static function get () {
         $user_id = $_SESSION["userId"] ?? "";
 
         if(!empty($user_id)) {
@@ -139,7 +167,7 @@ class UserController {
      * @global $_SESSION
      * @return mixed
      */
-    private static function updateUser () {
+    private static function update () {
         $user_id = $_SESSION["userId"] ?? "";
 
         if(!empty($user_id)) {
@@ -196,7 +224,7 @@ class UserController {
      * @global $_SESSION
      * @return mixed
      */
-    private static function deleteUser () {
+    private static function delete () {
         $user_id = $_SESSION["userId"] ?? "";
 
         if(!empty($user_id)) {
@@ -236,7 +264,7 @@ class UserController {
             : self::validateUserForm(true);
 
         if(empty($message) && !$fail ) {
-            $message = self::updateUser();
+            $message = self::update();
         } else if(!empty($message) && !$fail) {
             $message = GeneralController::createErrors($message);
         }
@@ -255,7 +283,7 @@ class UserController {
      */
     public static function profileAction () {
         if(isset($_POST["deleteUser"])) {
-            self::deleteUser();
+            self::delete();
         } else if (isset($_POST["updateUser"])) {
             return self::updateAction();
         }
@@ -270,7 +298,7 @@ class UserController {
      * @return string formulario con los datos del usuario | mensaje de error
      */
     public static function updateForm () {
-        $user = self::getUserData();
+        $user = self::get();
         $content = "";
 
         if(is_array($user)) {
@@ -371,7 +399,7 @@ class UserController {
      * @return string Contenido HTML con la información del Perfil
      */
     public static function profileCard (int $whislist_count) {
-        $user_data = self::getUserData();
+        $user_data = self::get();
 
         if(count($user_data) === 0) {
             return "<h1 class='text-center'>No hay datos de usuario</h1>";
