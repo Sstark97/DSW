@@ -20,7 +20,7 @@ class RegisterController {
      * @param string $dni del usuario
      * @return mixed 
      */
-    public static function register() {
+    private static function register() {
 
         try {
             $connection = ConfigController::getDbConnection();
@@ -35,7 +35,7 @@ class RegisterController {
                 $sanitize_password
             ] = GeneralController::sanitizeFields($_POST["user"]);
 
-            if(UserController::userExist($sanitize_dni)) {
+            if(UserController::exist($sanitize_dni)) {
                 throw new PDOException("El usuario ya existe");
             }
 

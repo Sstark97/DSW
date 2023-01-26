@@ -89,7 +89,7 @@ class GameImgController {
     public static function upload (string $previous_img = "", bool $is_edit = false) {
         $file = $_FILES["img"];
         
-        $message = self::comprobeImgFIle($file, $is_edit);
+        $message = self::comprobeImg($file, $is_edit);
 
         // Si hay mensaje de error lo devolvemos
         if(!empty($message)) {
