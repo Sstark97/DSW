@@ -1,15 +1,15 @@
 <?php
-    require_once "../controller/general.php";
-    require_once "../controller/profile.php";
-    require_once "../controller/home.php";
 
-    $user_data = getUserData() ?? [];
-    $whishlist_count = count(getWhishList()) ?? 0;
+  use Controller\UserController;
+  use Controller\WhisListController;
+
+  $user_data = UserController::get() ?? [];
+  $whishlist_count = count(WhisListController::get()) ?? 0;
 ?>
 
 <div class="main-profile ">
       <div class="row">
-        <?= profileCard($whishlist_count) ?>
+        <?= UserController::profileCard($whishlist_count) ?>
       </div>
       <div class="row">
         <div class="col-lg-12">

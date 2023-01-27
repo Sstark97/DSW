@@ -1,19 +1,21 @@
 <?php
-    require_once "../controller/register.php";
-    require_once "../controller/general.php";
+    require_once "../vendor/autoload.php";
+
+    use Controller\AuthController;
+    use Controller\RegisterController;
 
     session_name("videogames");
     session_start();
 
     //Comprobamos si el usuario está logeado
-    isLogged();
+    AuthController::isLogged();
 ?>
 
 <?php include "../partials/notLoggedHeader.php" ?>
 
   <section class="vh-100 gradient-custom">
     <?php if(isset($_POST["register_submit"])): ?>
-        <?= registerAction() ?>
+        <?= RegisterController::registerAction() ?>
     <?php endif; ?>
     <div class="container  h-75">
       <div class="row d-flex justify-content-center align-items-center h-100 pt-4">

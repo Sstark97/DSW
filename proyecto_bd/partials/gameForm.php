@@ -1,6 +1,6 @@
 <?php
-    require_once "../controller/games.php";
 
+    use Controller\GameController;
     /**
      * En el caso de que exista id será un formulario
      * de edición por lo que necesitamos poner un título
@@ -9,7 +9,7 @@
      */
     $id = isset($_GET["id"]) ? $_GET["id"] : "";
     $title = empty($id) ? "Añadir" : "Editar";
-    $game = empty($id) ? [] : getGame($id);
+    $game = empty($id) ? [] : GameController::get($id);
 
     /**
      * Agregamos a la ruta de acción el query id 

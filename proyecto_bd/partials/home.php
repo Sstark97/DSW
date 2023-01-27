@@ -1,12 +1,15 @@
 <?php
-    require_once "controller/home.php";
+    require_once "vendor/autoload.php";
 
-    $popular_games = getPopularGames() ?? [];
-    $whish_list = getWhishList(3) ?? [];
+    use Controller\GameController;
+    use Controller\WhislistController;
+
+    $popular_games = GameController::getPopulars() ?? [];
+    $whish_list = WhisListController::get(3) ?? [];
 ?> 
 
 <?php if(isset($_POST["add_wish_list"])): ?>
-    <?= whishListAction() ?>
+    <?= WhisListController::whishListAction() ?>
 <?php endif; ?>
 
 <!-- ***** Banner Start ***** -->
@@ -37,7 +40,7 @@
                 <!-- Renderizamos la lista de videojuegos populares -->
                 <?php if(count($popular_games) !== 0): ?>
                     <?php foreach($popular_games as $game ): ?>
-                        <?= cardGame($game) ?>
+                        <?= GameController::cardGame($game) ?>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <h2 class="text-center">No hay juegos populares</h2>
@@ -62,7 +65,7 @@
         <!-- Renderizamos la lista de deseados -->
         <?php if(count($whish_list) !== 0): ?>
             <?php foreach($whish_list as $game): ?>
-                <?= whishListItem ($game) ?>
+                <?= WhisListController::whishListItem ($game) ?>
             <?php endforeach; ?>
         <?php else: ?>
             <h2 class="text-center pb-5">No hay nada en la lista de Deseados</h2>

@@ -1,8 +1,12 @@
 <?php
+require "vendor/autoload.php";
 
-require_once "config.php";
+use Controller\ConfigController;
 
-$config = getDbConfig();
+$dotenv = Dotenv\Dotenv:: createImmutable(__DIR__);
+$dotenv->safeLoad();
+
+$config = ConfigController::getDbConfig();
 
 try {
     [

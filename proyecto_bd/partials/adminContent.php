@@ -1,5 +1,5 @@
 <?php
-    require_once "controller/admin.php";
+    use Controller\GameController;
 ?>
 
 <!-- Pagina Inicial del Usuario Administrador -->
@@ -7,4 +7,4 @@
 <div class="d-flex justify-content-center my-4">
     <a href="../pages/actionGame.php" class="btn btn-primary text-decoration-none text-white">Añadir videojuego</a>
 </div>
-<?= createAdminTable() ?>
+<?= GameController::createAdminTable() ?>

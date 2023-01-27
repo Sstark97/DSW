@@ -1,12 +1,14 @@
 <?php
-    require_once "../controller/general.php";
-    require_once "../controller/home.php";
-    require_once "../controller/profile.php";
+    require_once "../vendor/autoload.php";
+
+    use Controller\AuthController;
+    use Controller\WhisListController;
+    use Controller\UserController;
 
     session_name("videogames");
     session_start();
 
-    isNotLogged();
+    AuthController::isNotLogged();
 
     /**
      * Determinamos a que nivel dentro del árbol de 
@@ -15,13 +17,13 @@
      */
     $path = strpos($_SERVER["PHP_SELF"], "pages") !== false ? "../" : "";
 
-    $whish_list = getWhishList() ?? [];
+    $whish_list = WhisListController::get() ?? [];
 ?>
 
 <?php include "../partials/header.php" ?>
 
 <?php if(isset($_POST["deleteUser"]) || isset($_POST["updateUser"])): ?>
-  <?= profileAction() ?>
+  <?= UserController::profileAction() ?>
 <?php endif; ?>
 <!-- ***** Banner Start ***** -->
 <div class="row">
@@ -42,7 +44,7 @@
     <!-- Renderizamos la lista de deseados -->
     <?php if(count($whish_list) !== 0): ?>
         <?php foreach($whish_list as $game): ?>
-            <?= whishListItem ($game) ?>
+            <?= WhisListController::whishListItem ($game) ?>
         <?php endforeach; ?>
     <?php else: ?>
         <h2 class="text-center pb-5">No hay nada en la lista de Deseados</h2>

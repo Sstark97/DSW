@@ -1,10 +1,13 @@
 <?php
-    require_once "controller/general.php";
+    require_once "vendor/autoload.php";
+
+    use Controller\AuthController;
+    use Controller\ConfigController;
 
     session_name("videogames");
     session_start();
 
-    isNotLogged();
+    AuthController::isNotLogged();
 ?>
 
 <?php include 'partials/header.php' ?>
