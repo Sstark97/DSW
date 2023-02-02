@@ -1,7 +1,17 @@
 <?php
-    $name = $_REQUEST["name"];
-    $surname = $_REQUEST["surname"];
-    $phone = $_REQUEST["phone"];
+    require_once "functions.php";
+    
+    $result = getCustomers();
+    $customers = $result["customers"];
+    $error = $result["error"];
 
-    echo json_encode("Hola tus datos son:\nNombre: $name \nApellidos: $surname \nTeléfono: $phone");
+    foreach($customers as $customer){
+        [
+            "name" => $name, 
+            "surname" => $surname, 
+            "phone" => $phone
+        ] = $customer;
+
+        echo "<p>$name $surname $phone</p>";
+    }
 ?>
